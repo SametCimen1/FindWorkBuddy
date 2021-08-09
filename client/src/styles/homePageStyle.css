@@ -1,7 +1,10 @@
-.homeMain{
+html{
+    scroll-behavior: smooth;
+}
+.homeMain, .tryOutToday{
    
     background-position:center;
-    /* background-attachment: fixed; */
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size:cover;
     background-color: black; 
@@ -20,6 +23,7 @@
 .homeMainContainer{
     padding:10rem 1rem;
    width:100%;
+   
     color:white;
     font-family: 'Atkinson Hyperlegible', sans-serif;
     font-family: 'Lato', sans-serif;
@@ -28,21 +32,22 @@
     
 }
 .homeMainTextContainer{
-    width: 300px;
+    width: 80%;
+  
 }
 
 
 .move{
-    animation:  leftToRight 0.7s ease forwards ;
+    opacity: 0;
+    animation:  leftToRight 0.7s  ease forwards ;
+    animation-delay: 0.2s;
 }
 .findBuddy{
-    font-size: 3rem;
+    width: 100%;
+  
+    font-size: 2rem;
 }
-@media (max-width:400px) {
-    .findBuddy{
-        font-size: 2rem;
-    }
-}
+
 @media (min-width:1000px) {
     .homeMainTextContainer{
         width: 600px;
@@ -55,13 +60,22 @@
     margin:1rem 0;
     font-family: 'Atkinson Hyperlegible', sans-serif;
     font-family: 'Lato', sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding:20px 10px;
+}
+@media (max-width:350px) {
+    .findBuddy{
+        font-size: 1.2rem;
+    }
+    .signUp{
+        font-size: 1rem;
+    }
 }
 .getStarted{
     background-color: #3a6afe;
     border:0;
     margin-right:1rem;
+    margin-bottom:1rem;
     padding:15px 20px;
     border-radius: 30px;
     color: white;
@@ -111,19 +125,7 @@
 
 }
 
-@keyframes test {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-    
-}
-.inView{
-    opacity: 0;
-    animation: test 1s  0.3s ease-out forwards;
-}
+
 
 
 @keyframes stick {
@@ -157,4 +159,136 @@
        border-radius: 10px;
     }
     
+}homeMainContainer
+.tryOutToday{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.whatWeOfferPopUp{
+    
+    width: 250px;
+    background-color: white;
+    margin-left: 10%;
+    padding:20px;
+    border-radius: 0 0 10px 10px;
+}
+.whatWeOfferPopUpText{
+    font-weight: 500;
+}
+.tryOutTodayContainer{
+    width: 50%;
+}
+.tryOutTodayText{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:1.5rem;
+    padding:10px;
+    color:white;
+    margin-top: 10rem;
+}
+@media screen and (min-width:500px) {
+    .tryOutTodayText{
+
+        font-size:3rem;
+   
+    }
+}
+
+.tryOutTodayrBtn{
+    margin:3rem 0;
+    border:0;
+    color:white;
+    padding:20px;
+    background-color: #3768ff;
+    border-radius: 30px;
+}
+
+@media screen and (max-width:870px) {
+    .tryOutTodayContainer{
+     width: 80%;
+    }
+    
+}
+
+@keyframes topToBtm {
+    0%{
+        opacity: 0;
+        margin-top: -1rem;
+    }
+    100%{
+        opacity: 1;
+        margin-top: 0rem;
+    }
+}
+.topToBottom{
+  animation: topToBtm 1s linear forwards;
+}
+
+.simple{
+    width: 100%;
+    padding:100px 0;
+    background-color: black;
+
+}
+.simpleContainer{
+ text-align: center;
+}
+
+.simpleText{
+   color: #3868fe;
+   font-size:2rem;
+}
+@media screen and  (max-width:500px) {
+    
+.simpleText{
+    font-size:1rem;
+ }
+}
+footer{
+    color: white;
+    padding:100px 0;
+    background-color: #242935;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.developed,.menu,.follow{
+    width: 30%;
+}
+.developedText{
+    font-weight: 400;
+    text-align: center;
+
+}
+
+.menuText{
+    text-align: center;
+    color: white;
+    font-weight: 900;
+}
+.menuList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.followMenu{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+
+@media screen and (max-width:580px){
+    .followMenu{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      
+    }
+}
+.icon{
+    width: 50px;
+    margin:5px;
 }

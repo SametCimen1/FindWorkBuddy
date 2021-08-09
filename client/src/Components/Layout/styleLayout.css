@@ -40,8 +40,6 @@
   color: white;
   text-decoration: none;
 }
-
-
 @keyframes changeLinkColor {
   0%{
     color:white;
