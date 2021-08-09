@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     background-color: #53516d;
-    flex-direction: column;
+    flex-direction: row;
   }
   .logo,.links{
     width: 100%;
@@ -15,14 +15,7 @@
     height: 10vh;
     background-color: #ff0800;
   }
-  @media screen and (min-width:500px) {
-    .navbar{
-      flex-direction: row;
-    }
-    .logo,.links{
-      width: 50%;
-    }
-  }
+
   .links{
     display: flex;
     justify-content: space-around;
@@ -32,7 +25,7 @@
   background-color: #112255;
   color:white;  
   border-radius: 40px;
-  width:70%
+  width:60%
   }
   ul{
     margin:0;
@@ -60,4 +53,57 @@
 .link:hover{
   animation: changeLinkColor 0.5s ease forwards;
 }
+.btnContainer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* background-color: #ff0800; */
+  width:40%;
+  max-width:300px;
+  min-width:100px;
+}
+.signup, .signin{
+  padding:10px 20px;
+  color: white;
+  border-radius: 20px;
+  border:0;
+  cursor: pointer;
+}
+.signin{
+  background-color: transparent;
+  border: 1px solid #3a6cfd;
+}
+.signin:hover{
+  border: 0;
+  background-color: white;
+  color:black
+}
+.signup{
+  background-color: #3a6cfd;
+}
 
+.signup:hover{
+  background-color: white;
+  color:black
+}
+
+@media screen and (max-width:1000px) {
+  .links{
+    flex-direction: column;
+  }
+  .navbar{
+    flex-direction: column;
+  }
+  .logo,.links{
+    width: 90%;
+   
+  }
+  .firstLinks{
+    width: 90%;
+    margin:1rem 0;
+  }
+  .btnContainer{
+    width: 60%;
+    margin:1rem 0;
+  }
+}

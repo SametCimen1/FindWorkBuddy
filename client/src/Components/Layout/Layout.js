@@ -20,7 +20,7 @@ export default function layout({children}) {
                   </ul>    
                 </div>
 
-                <div>
+                <div className = "btnContainer">
                     <button className = "signup">Sign up</button>
                     <button className = "signin">Sign in</button>
                 </div>
