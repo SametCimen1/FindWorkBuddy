@@ -1,17 +1,18 @@
 import { Link} from 'react-router-dom';
+import './styleLayout.css';
 export default function layout({children}) {
 
     return(
     <div>
      <header >
-        <nav class = "navbar">{/* flex */} 
-          <div class = "logo">{/* logo and text 50% */} 
+        <nav className = "navbar">{/* flex */} 
+          <div className = "logo">{/* logo and text 50% */} 
               
           </div>
          
-            <div class = "links"> {/* logo and text 50% */} 
-                <div class = "firstLinks">
-                  <ul class = "ulList">
+            <div className = "links"> {/* logo and text 50% */} 
+                <div className = "firstLinks">
+                  <ul className = "ulList">
                       <li><Link to ="/collobarete">Collobarete</Link></li>
                       <li><Link to ="/groups">Groups</Link></li>
                       <li><Link to ="/about">About</Link></li>

@@ -1,5 +1,5 @@
 import {Helmet} from 'react-helmet'
-import './App.css';
+
 import {Switch, Route} from 'react-router-dom';
 import Layout from './Components/Layout/Layout';
 import Home from './Components/Home'
@@ -16,7 +16,6 @@ function App() {
        <Route exact path ="/about" component = {About}/>
        <Route exact path ="/contact" component = {Contact}/>
        <Route exact path ="/groups" component = {Groups}/>
-  
      </Switch>
     </Layout>
   );
