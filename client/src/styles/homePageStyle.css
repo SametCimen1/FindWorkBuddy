@@ -2,13 +2,13 @@ html{
     scroll-behavior: smooth;
 }
 .homeMain, .tryOutToday{
-   
     background-position:center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size:cover;
     background-color: black; 
 }
+
 
 @keyframes leftToRight {
     0%   {
@@ -166,7 +166,7 @@ html{
     justify-content: center;
 }
 .whatWeOfferPopUp{
-    
+
     width: 250px;
     background-color: white;
     margin-left: 10%;
@@ -175,6 +175,7 @@ html{
 }
 .whatWeOfferPopUpText{
     font-weight: 500;
+   
 }
 .tryOutTodayContainer{
     width: 50%;
