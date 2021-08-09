@@ -21,8 +21,8 @@ export default function layout({children}) {
                 </div>
 
                 <div>
-                    <button>Sign up</button>
-                    <button>Sign in</button>
+                    <button className = "signup">Sign up</button>
+                    <button className = "signin">Sign in</button>
                 </div>
             </div>
          
