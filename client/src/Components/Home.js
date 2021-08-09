@@ -7,10 +7,14 @@ export default function layout() {
       <Helmet>
         <title>Home</title>
       </Helmet>
-     <main class = "homeMain" style = {{backgroundImage:"url(/home.jpg)"}}>
-       <div>
-        <h1> Find a buddy to collobarete on your project</h1>
-        
+     <main className = "homeMain" style = {{backgroundImage:"url(/home.jpg)"}}>
+       <div className = "homeMainContainer">
+          <div className = " move homeMainTextContainer">
+             <h1 className = " findBuddy"> Find a buddy to collobarete on your project!</h1>
+             <p className = "signUp">Sign up for free!</p>
+             <button className = "getStarted">Get Started</button>
+             <button className = "whatWeOffer">See What we offer</button>
+          </div>
        </div>
      </main>
    </div>

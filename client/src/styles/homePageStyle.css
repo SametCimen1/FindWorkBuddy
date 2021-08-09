@@ -1,7 +1,93 @@
 .homeMain{
-    height: 60vh;
-    background-position: center;
+   
+    background-position:center;
+    /* background-attachment: fixed; */
     background-repeat: no-repeat;
     background-size:cover;
     background-color: black; 
+}
+
+@keyframes leftToRight {
+    0%   {
+        margin-left:0%;
+        opacity: 0;
+    }
+    100%  {
+        margin-left:10%;
+        opacity: 1;
+    }
+}
+.homeMainContainer{
+    padding:10rem 1rem;
+   width:100%;
+    color:white;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-family: 'Lato', sans-serif;
+    text-align: left;
+    
+}
+@media screen and (min-width:500px) {
+    .homeMainContainer{
+        padding:5rem 1rem;
+    }
+}
+.homeMainTextContainer{
+ width: 300px;
+
+}
+.move{
+    animation:  leftToRight 0.7s ease forwards ;
+}
+.findBuddy{
+    font-size: 3rem;
+}
+@media (max-width:400px) {
+    .findBuddy{
+        font-size: 2rem;
+    }
+}
+@media (min-width:1000px) {
+    .homeMainTextContainer{
+        width: 500px;
+        
+       }
+    .findBuddy{
+        font-size: 4rem;
+    }
+}
+.signUp{
+    margin:1rem 0;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-size: 2rem;
+    padding:20px 10px;
+}
+.getStarted{
+    background-color: #3a6afe;
+    border:0;
+    margin-right:1rem;
+    padding:15px 20px;
+    border-radius: 30px;
+    color: white;
+}
+.whatWeOffer{
+    background-color: #494b56;
+    border:0;
+    margin-right:1rem;
+    padding:15px 20px;
+    border-radius: 30px;
+    color: white;
+}
+
+@keyframes changeBackgroundColor {
+    0%{
+
+    }
+    100%{
+        background-color: white;
+        color:black;
+    }
+}
+.whatWeOffer:hover, .getStarted:hover{
+  animation:changeBackgroundColor 0.5s ease-in-out forwards;
 }

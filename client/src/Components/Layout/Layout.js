@@ -13,10 +13,10 @@ export default function layout({children}) {
             <div className = "links"> {/* logo and text 50% */} 
                 <div className = "firstLinks">
                   <ul className = "ulList">
-                      <li><Link to ="/collobarete">Collobarete</Link></li>
-                      <li><Link to ="/groups">Groups</Link></li>
-                      <li><Link to ="/about">About</Link></li>
-                      <li><Link to ="/contact">Contact</Link></li>
+                      <li><Link className = "link" to ="/collobarete">Collobarete</Link></li>
+                      <li><Link  className = "link"to ="/groups">Groups</Link></li>
+                      <li><Link className = "link" to ="/about">About</Link></li>
+                      <li><Link className = "link" to ="/contact">Contact</Link></li>
                   </ul>    
                 </div>
 

@@ -43,3 +43,21 @@
     padding:10px;
   }
   
+.link{
+  color: white;
+  text-decoration: none;
+}
+
+
+@keyframes changeLinkColor {
+  0%{
+    color:white;
+  }
+  100%{
+    color: #4662a9;
+  }
+}
+.link:hover{
+  animation: changeLinkColor 0.5s ease forwards;
+}
+
