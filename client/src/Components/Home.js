@@ -2,10 +2,12 @@ import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet'
 import '../styles/homePageStyle.css'
 import { InView } from 'react-intersection-observer'
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 
 
 export default function Home() {
+
+
     const [isInView, setIsInView] = useState([{name:"first", t:false}, {name:"second", t:false}, {name:"third", t:false}, {name:"fourth", t:false}, {name:"fifth", t:false}, {name:"sixth", t:false}, {name:"seventh", t:false}])
     console.log(isInView)
     const offer = useRef(null);
@@ -18,7 +20,14 @@ export default function Home() {
       else{
       }
     }
-    
+    const fetchData = async() =>{
+      const data = await fetch("http://localhost:5000")
+      const response = await data.json();
+      console.log(response)
+    }
+    useEffect(()=>{
+      fetchData();
+    },[])
   return(
     <div>
       <Helmet>

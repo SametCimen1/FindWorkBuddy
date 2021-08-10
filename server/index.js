@@ -1,23 +1,16 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const {auth} = require('express-openid-connect');
 
-// app.use(
-//     auth({
-//         authRequired: false,
-//         auth0Logout: true,
-//         secret: process.env.SECRET,
-//         baseURL: process.env.BASEURL,
-//         clientID: process.env.CLIENTID,
-//         issuerBaseURL: process.env.ISSERBASEURL
-//     })
-// )
-
+app.use((req, res, next) => {
+    res.header({"Access-Control-Allow-Origin": "*"});
+    next();
+  }) 
 app.get('/', (req,res) =>{
-//    res.send(req.oidc.isAuthenticated() ? "logged in" : "logged out")
-console.log(process.env.SECRET)
+    res.json("hi")
 })
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
