@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
+const bcrypt = require('bcrypt');
+const pool = require('./Pool');
 require('dotenv').config();
 app.use(express.urlencoded({extended: false}))
 
@@ -29,9 +31,14 @@ app.get('/', (req,res) =>{
     res.send("hi")
 })
 
-app.post('/signup', (req,res) =>{
-    console.log(req.body) 
-    res.json("hello")
+app.post('/signup', async(req,res) =>{
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    console.log(await pool.query("SELECT * FROM users"));
+
+  } catch (error) {
+      console.log(error.message)
+  }
      
 })
 app.post('/signin', (req,res) =>{

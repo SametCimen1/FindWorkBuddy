@@ -15,7 +15,7 @@ export default function Signup(){
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify("name")
+        body: JSON.stringify({name:name, password:password, email:email})
       })
       const response = await data.json();
       console.log(response)
