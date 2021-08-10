@@ -9,7 +9,9 @@
   "author": "Samet Cimen",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-openid-connect": "^2.5.0",
     "nodemon": "^2.0.12"
   }
 }

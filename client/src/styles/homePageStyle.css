@@ -204,6 +204,12 @@ html{
     border-radius: 30px;
 }
 
+.tryOutTodayrBtn:hover{
+    color:#3768ff;
+    background-color: white;
+  
+}
+
 @media screen and (max-width:870px) {
     .tryOutTodayContainer{
      width: 80%;

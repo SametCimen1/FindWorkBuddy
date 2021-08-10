@@ -82,7 +82,7 @@ export default function Home() {
           {({ ref, inView }) => ( 
          <div className = {isInView.some(element => element.name === 'third' && element.t===true) ? "tryOutTodayContainer move" : "tryOutTodayContainer"}>
            <h1 ref = {ref}  className = "tryOutTodayText">Collobarating on project just got much easier. My Work Buddy is a simple website to collaborate with random people and work together swiftly!</h1>
-           <button className = "tryOutTodayrBtn ">Try Out Today</button>
+           <Link to = "/signup"><button className = "tryOutTodayrBtn ">Try Out Today</button></Link>
          </div>
             )}
           </InView>
@@ -133,9 +133,9 @@ export default function Home() {
         <div className = "follow">
           <p className = "menuText">Follow us on</p>
           <ul className = "followMenu">
-            <img className = "icon" src = "/twitter.svg" />
-            <img className = "icon" src = "/facebook.svg" />
-            <img className = "icon" src = "/instagram.svg" />
+            <a href = "https://twitter.com/findworkbuddy"><img className = "icon" src = "/twitter.svg" /></a>
+            <a href = "https://twitter.com/findworkbuddy"><img className = "icon" src = "/facebook.svg" /></a>
+            <a href = "https://www.instagram.com/findworkbuddy/"><img className = "icon" src = "/instagram.svg" /></a>
           </ul>
         </div>
       </footer>
