@@ -5,15 +5,19 @@
     width:100%;
     display: flex;
     align-items: center;
-    background-color: #53516d;
+    background-color: #48416b;
     flex-direction: row;
   }
   .logo,.links{
     width: 100%;
   }
   .logo{
-    height: 10vh;
-    background-color: #ff0800;
+    min-width: 100px;
+  }
+  @media screen and (max-width:300px) {
+    .logo{
+      display: none;
+    }
   }
 
   .links{

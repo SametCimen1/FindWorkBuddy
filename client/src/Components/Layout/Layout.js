@@ -7,7 +7,7 @@ export default function layout({children}) {
      <header >
         <nav className = "navbar">{/* flex */} 
           <div className = "logo">{/* logo and text 50% */} 
-              
+              <img src= "/logo.png"></img>
           </div>
          
             <div className = "links"> {/* logo and text 50% */} 
