@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import {useEffect, useState} from 'react'
+
 export default function Signup(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,16 +32,29 @@ export default function Signup(){
 
   }
     return (
-        <form onSubmit = {(e) => login(e)}>
-        <div className = "formContainer">
-            <label>email</label>
-            <input type = "text" value = {email} onChange = {(e)=> setEmail(e.target.value)} />
+      <div className = "container">
+      <div className ="formAndTextContainer">
+        <div className = "signUpText">
+        <h2>Sign up <span>findworkbuddy is totally free!</span></h2>
         </div>
-        <div className = "formContainer">
-            <label>password</label>
-            <input type = "password" value = {password} onChange = {(e)=> setPassword(e.target.value)}/>
+        <div className  = "formContainer">
+          <form onSubmit = {(e) => login(e)}>
+          <div className = "form">
+            
+            <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value)}/>
+        </div> 
+            <div className = "form">
+              
+                <input type = "password" className = "input"  placeholder = "Password" required  value = {password} onChange = {(e)=> setPassword(e.target.value)}/>
+            </div>
+            <button className = "btn" type = "submit">Log in</button>
+          </form>
+         </div>
+      
         </div>
-        <button type = "submit">Sign up!</button>
-      </form>
+        <div className = "imgContainer">
+            <img src  ="/signin.png" className = "img"></img>
+         </div>
+    </div>
     )
   }

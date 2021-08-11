@@ -6,7 +6,7 @@ export default function GetUser(){
     let { id } = useParams();
     const num = parseInt(id);
     const history = useHistory();
-   
+    const [user, setUser] = useState();
 
 
     const getUser = async() =>{
@@ -30,7 +30,10 @@ export default function GetUser(){
             }
             else{
             const response = await data.json();  
-            console.log(response)
+                const row = response.row;
+                    const get1 = row.split('(');
+                   const get2 = get1[1].split(',');
+              setUser(get2);
             }     
 
         } catch (error) {
@@ -51,7 +54,17 @@ export default function GetUser(){
     
     },[])
 
+
+    if(user){
+
+        console.log(user)
+        return (
+            <h1>{user[0]}</h1>
+          )
+    }
+    else{
     return (
-      <h1>Heldddlo</h1>
+      <h1>Loading</h1>
     )
+    }
 }
