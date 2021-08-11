@@ -25,12 +25,24 @@ export default function Home() {
    }, [user])
 
  
+    const getView = () =>{
+      if(user === true){
+        return  <UserExist />
+      }
+      else{
+        return  <DoesntExist />
+      }
+    }
     useEffect(()=>{
       checkIfUserExist();
     },[])
-  return(
-    <div>
-      { user !== 'undefined' &&  user ? <UserExist /> : <DoesntExist/>}
-    </div>
-)
+  if(user === true){
+    return (  <UserExist /> )
+  }
+  if(user === false){
+    return (   <DoesntExist /> )
+  }
+  else{
+    return ( "" )
+  }
 }
