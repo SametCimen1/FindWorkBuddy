@@ -2,13 +2,14 @@ import {Helmet} from 'react-helmet'
 
 import {Switch, Route} from 'react-router-dom';
 import Layout from './Components/Layout/Layout';
-import Home from './Components/Home'
-import Collobarete from './Components/Collobarete'
-import Contact from './Components/Contact'
-import Groups from './Components/Groups'
-import About from './Components/About'
-import Signin from './Components/Signin'
-import Signup from './Components/Signup'
+import Home from './Components/Home';
+import Collobarete from './Components/Collobarete';
+import Contact from './Components/Contact';
+import Groups from './Components/Groups';
+import About from './Components/About';
+import Signin from './Components/Signin';
+import Signup from './Components/Signup';
+import Logout from './Components/Logout';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
        <Route exact path ="/groups" component = {Groups}/>
        <Route exact path ="/signup" component = {Signup}/>
        <Route exact path ="/signin" component = {Signin}/>
+       <Route exact path = "/logout" component = {Logout} />
      </Switch>
     </Layout>
   );

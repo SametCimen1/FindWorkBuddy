@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import {Helmet} from 'react-helmet'
 import '../styles/signupStyle.css'
 import {useState} from 'react';
@@ -6,19 +7,27 @@ export default function Signup(){
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-  
+    const history = useHistory();
 
     const submitForm = async(e) =>{
      e.preventDefault();
-      const data = await fetch("http://localhost:5000/signup", {
+      const data = await fetch("http://localhost:5000/api/user/signup", {
         method:"POST",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({name:name, password:password, email:email})
       })
-      const response = await data.json();
-      console.log(response)
+      if(data.status === 404){
+        const res = await data.json();
+        alert(res)
+      }
+      else if(data.status === 200){
+         history.push("/signin");
+       }
+       else{
+         alert("someting went wrong")
+       }
     }
     return (
       <form onSubmit = {(e) => submitForm(e)}>

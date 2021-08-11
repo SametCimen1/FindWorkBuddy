@@ -88,6 +88,19 @@
   background-color: white;
   color:black
 }
+.logout{
+  padding:10px 20px;
+  color: white;
+  background-color: red;
+  border-radius: 20px;
+  border:0;
+  cursor: pointer;
+}
+.logout:hover{
+  border: 0;
+  background-color: white;
+  color:red
+}
 
 @media screen and (max-width:1000px) {
   .links{
