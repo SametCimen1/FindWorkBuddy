@@ -1,13 +1,17 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-module.exports = function(req,res,next){
+module.exports = async function(req,res,next){
+
   const {token} = req.cookies;
+  console.log(token)
   if(!token){
-    return res.status(401).json('access denied')
+    return res.status(401).send('access denied')
   }
   try {
+       
          const verified = jwt.verify(token, process.env.TOKENSECRET);
-         req.user = verified;
+          req.user = verified;
          next();
   
      } catch (error) {

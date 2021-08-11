@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 import UserExist from './HomeViews/UserExist';
 import DoesntExist from './HomeViews/DoesntExist'
 
+
 export default function Home() {
 
     const [user, setUser] = useState(undefined);
@@ -20,10 +21,8 @@ export default function Home() {
         })
       .then(res => res.json()).then(res => setUser(res));
     }
-   useEffect(()=>{
-   console.log(user)
-   }, [user])
-
+    
+  
  
     const getView = () =>{
       if(user === true){

@@ -6,11 +6,13 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 const signupSchema = Joi.object({
-    name: Joi.string().min(6).required(),
+    firstName: Joi.string().min(2).required(),
+    lastName: Joi.string().min(2).required(),
+    name: Joi.string().min(2).required(),
     email: Joi.string().min(6).required().email(),
     password: Joi.string().min(6).required(),
+    img: Joi.string(),
 })
-
 
 
 const signinSchema = Joi.object({
@@ -35,13 +37,16 @@ router.post('/signup', async(req,res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
+    const lowerName = req.body.name.toLowerCase();
 
-    const addUser = await pool.query('INSERT INTO users(name, email,password) VALUES($1, $2, $3)', [req.body.name, req.body.email, hashPassword]);
+    const addUser = await pool.query('INSERT INTO users(name, firstname,lastname, email, password, friends, role, image) VALUES($1, $2, $3, $4,$5, $6, $7, $8)', [lowerName, req.body.firstName, req.body.lastName,req.body.email, hashPassword, [], 'user', req.body.img]);
     try {
         res.send(addUser)
     } catch (error) {
-        res.status(400).send(error)
-    }
+    res.status(400).send(error)
+    
+}
+ 
 })
 
 router.post('/logout', (req,res) =>{
@@ -49,6 +54,8 @@ router.post('/logout', (req,res) =>{
 })
 
 router.post('/signin', async(req,res) =>{
+    
+    
     const {error} = signinSchema.validate(req.body)
     if(error){
         return res.status(404).send(error.details[0].message)
@@ -66,11 +73,15 @@ router.post('/signin', async(req,res) =>{
         return res.status(400).send("Invalid Password");
     }
 
+
     //create jwt token
-    
-    const token =   jwt.sign({_id: user.id}, process.env.TOKENSECRET, {expiresIn: 60*60});
-    res.cookie('token', token, { httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); //2hours
-    res.header('auth-token', token).send(token);      
+
+ 
+    const token = jwt.sign({_id: user.id}, process.env.TOKENSECRET, {expiresIn: 60*60});
+
+    res.cookie('token', token, { secure: process.env.NODE_ENV !== "development",
+    httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); //2hours
+    res.header('auth-token', token).send("token set")      
 
 })
 
