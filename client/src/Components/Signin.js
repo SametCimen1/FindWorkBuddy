@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import {useEffect, useState} from 'react'
 
+
 export default function Signup(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +32,10 @@ export default function Signup(){
     }
 
   }
+
+  const loginWithGoogle = async() =>{
+    axios.get('http://localhost:5000/google')
+  }
     return (
       <div className = "container">
       <div className ="formAndTextContainer">
@@ -49,8 +54,10 @@ export default function Signup(){
             </div>
             <button className = "btn" type = "submit">Log in</button>
           </form>
+           <h3>or sign in with</h3>
+           <img className = "googlebtn" src = "/googlebtn.png" onClick = {loginWithGoogle} alt = " of a google button"></img>
          </div>
-      
+          
         </div>
         <div className = "imgContainer">
             <img src  ="/signin.png" className = "img"></img>

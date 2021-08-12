@@ -4,7 +4,9 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
-router.use(cookieParser());
+const passport = require('passport');
+
+
 const signupSchema = Joi.object({
     firstName: Joi.string().min(2).required(),
     lastName: Joi.string().min(2).required(),
@@ -20,6 +22,7 @@ const signinSchema = Joi.object({
     password: Joi.string().min(6).required(),
 })
 
+router.use(cookieParser());
 router.post('/signup', async(req,res) => {
 
     //validate
@@ -84,6 +87,15 @@ router.post('/signin', async(req,res) =>{
     res.header('auth-token', token).send("token set")      
 
 })
+
+router.get('/google', passport.authenticate('google', {scope:['profile']}))
+
+router.get('/auth/callback', passport.authenticate('google', {failureRedirect:'/'}), (req,res) =>{
+    console.log('Successfull')
+    res.send('SUCCESSFULL')
+    res.redirect('/')
+})
+
 
 
 
