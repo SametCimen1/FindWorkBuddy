@@ -5,7 +5,7 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     friends integer ARRAY,
     role varchar(6),
-    image varchar(255) UNIQUE
+    image varchar(255)
 );
 
 INSERT INTO users (name, email)
