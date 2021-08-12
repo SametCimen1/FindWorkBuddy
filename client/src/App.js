@@ -1,5 +1,4 @@
 import {Helmet} from 'react-helmet'
-import User from './Components/user/index';
 import {Switch, Route} from 'react-router-dom';
 import Layout from './Components/Layout/Layout';
 import Home from './Components/Home';
@@ -13,7 +12,7 @@ import Logout from './Components/Logout';
 import Admin from './Components/Admin';
 import NotAuth from './Components/401';
 import NotFound from './Components/404'
-
+import Profile from './Components/Profile';
 
 function App() {
   return (
@@ -29,8 +28,9 @@ function App() {
        <Route exact path ="/signup" component = {Signup}/>
        <Route exact path ="/signin" component = {Signin}/>
        <Route exact path = "/logout" component = {Logout} />
+       <Route exact path = "/profile" component = {Profile} />
        <Route exact path = "/401" component = {NotAuth} />
-       <Route  path = "/user" component = {User}/>
+
        <Route component = {NotFound} />
      </Switch>
     </Layout>

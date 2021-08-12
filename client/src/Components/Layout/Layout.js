@@ -39,6 +39,7 @@ export default function Layout({children}) {
                   <ul className = "ulList">
                       { user &&  <li><Link className = "link" to ="/collobarete">Collobarete</Link></li> }
                       { user &&  <li><Link  className = "link"to ="/groups">Groups</Link></li> }
+                      { user &&  <li><Link  className = "link"to ="/profile">Profile</Link></li> }
                       <li><Link className = "link" to ="/about">About</Link></li>
                       <li><Link className = "link" to ="/contact">Contact</Link></li>
                   </ul>    
