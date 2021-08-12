@@ -20,7 +20,7 @@ export default function UserExist(){
           <Helmet>
             <title>Home</title>
           </Helmet>
-         <main >
+         <main>
            <section className = "homeMain" style = {{backgroundImage:"url(/home.jpg)"}}>
            <div className = "homeMainContainer">
               <div className = " move homeMainTextContainer">

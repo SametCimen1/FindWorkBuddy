@@ -6,7 +6,9 @@ export default function GetUser(){
     let { id } = useParams();
     const num = parseInt(id);
     const history = useHistory();
-    const [user, setUser] = useState();
+    const [img, setImg] = useState('');
+    const [name,setName] = useState('');
+
 
 
     const getUser = async() =>{
@@ -32,8 +34,17 @@ export default function GetUser(){
             const response = await data.json();  
                 const row = response.row;
                     const get1 = row.split('(');
-                   const get2 = get1[1].split(',');
-              setUser(get2);
+                    const get2 = get1[1].split(',');
+                    const name = get2[0];
+                    const seperateLast = get2[get2.length-1];
+                    console.log(seperateLast)
+                    let img =  ""
+                    for(let i =0; i < seperateLast.length-1; i++){
+                        img += seperateLast[i];
+                    }
+            
+                    setImg(img);
+                    setName(name);
             }     
 
         } catch (error) {
@@ -55,11 +66,14 @@ export default function GetUser(){
     },[])
 
 
-    if(user){
+    if(name){
 
-        console.log(user)
+        console.log(name)
         return (
-            <h1>{user[0]}</h1>
+            <div>
+                <h1>{name}</h1>
+                <img src = {img}></img>
+            </div>
           )
     }
     else{

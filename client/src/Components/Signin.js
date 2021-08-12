@@ -34,11 +34,57 @@ export default function Signup(){
   }
 
 
-  const onSuccess = (res) => {
-    console.log('Login Success: currentUser:', res.profileObj);
-    alert(
-      `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
-    );
+  const onSuccess = async(res) => {
+    const password = await prompt('Choose password');
+    const email = res.profileObj.email;
+    const name = res.profileObj.givenName;
+    const img = res.profileObj.imageUrl;
+
+      const data = await fetch('http://localhost:5000/api/user/checkemail', {
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email:email})
+    });
+    const response = await data.json();
+    
+    if(!response){ //doesnt exist
+      const data = await fetch('http://localhost:5000/api/user/signup', {
+        method:"POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email:email,name:name,img:img,password:password})
+      });
+      console.log(data)
+      const signin = await fetch('http://localhost:5000/api/user/signin', {
+        method:"POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        credentials: 'include',
+        body: JSON.stringify({email:email,password:password})
+      })
+      console.log(signin)
+      history.push('/')
+    }
+    else{ //exist
+      const data = await fetch('http://localhost:5000/api/user/signin', {
+        method:"POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        credentials: 'include',
+        body: JSON.stringify({email:email,password:password})
+      })
+      history.push('/')
+    };
+
+    
+
     // refreshTokenSetup(res);
   };
 
@@ -76,7 +122,7 @@ export default function Signup(){
               onFailure={onFailure}
               cookiePolicy={'single_host_origin'}
               style={{ marginTop: '100px' }}
-              isSignedIn={true}
+              isSignedIn={false}
             />
     
          </div>

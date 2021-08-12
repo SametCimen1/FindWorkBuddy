@@ -4,6 +4,7 @@ import '../styles/signupStyle.css'
 import {useState} from 'react';
 import axios from 'axios';
 import '../styles/signupStyle.css';
+import { GoogleLogin } from 'react-google-login';
 
 export default function Signup(){
     const [name, setName] = useState('');
@@ -13,7 +14,7 @@ export default function Signup(){
     const [img, setImg] = useState('');
     const [email, setEmail] = useState('');
     const history = useHistory();
-
+    const clientId = '322239845218-556vfpmq4didjpc3s97gtt17f28b390a.apps.googleusercontent.com'
     const submitForm = async(e) =>{
      e.preventDefault();
       const data = await fetch("http://localhost:5000/api/user/signup", {
@@ -34,6 +35,63 @@ export default function Signup(){
          alert("someting went wrong")
        }
     }
+
+    const onSuccess = async(res) => {
+      const password = await prompt('Choose password');
+      const email = res.profileObj.email;
+      const name = res.profileObj.givenName;
+      const img = res.profileObj.imageUrl;
+
+        const data = await fetch('http://localhost:5000/api/user/checkemail', {
+        method:"POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email:email})
+      });
+      const response = await data.json();
+      
+      if(!response){ //doesnt exist
+        const data = await fetch('http://localhost:5000/api/user/signup', {
+          method:"POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({email:email,name:name,img:img,password:password})
+        });
+        console.log(data)
+        const signin = await fetch('http://localhost:5000/api/user/signin', {
+          method:"POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          credentials: 'include',
+          body: JSON.stringify({email:email,password:password})
+        })
+        history.push('/')
+      }
+      else{ //exist
+        const data = await fetch('http://localhost:5000/api/user/signin', {
+          method:"POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          credentials: 'include',
+          body: JSON.stringify({email:email,password:password})
+        })
+        history.push('/')
+      };
+    }
+  
+    const onFailure = (res) => {
+
+      alert(
+        `Failed to login.Please try again`
+      );
+    };
+
     return (
       <div className = "container">
         <div className ="formAndTextContainer">
@@ -59,6 +117,15 @@ export default function Signup(){
               </div>
               <button className = "btn" type = "submit">Sign up!</button>
             </form>
+               <GoogleLogin
+              clientId={clientId}
+              buttonText="Login"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={'single_host_origin'}
+              style={{ marginTop: '100px' }}
+              isSignedIn={false}
+            />
               <div className = "haveAccountContainer">
               <p className = "haveAccount" onClick = {()=> history.push('/signin')}>Already have an account? <span>Log In</span></p>
               </div>

@@ -7,8 +7,6 @@ const cookieParser = require('cookie-parser')
 
 
 const signupSchema = Joi.object({
-    firstName: Joi.string().min(2).required(),
-    lastName: Joi.string().min(2).required(),
     name: Joi.string().min(2).required(),
     email: Joi.string().min(6).required().email(),
     password: Joi.string().min(6).required(),
@@ -22,9 +20,11 @@ const signinSchema = Joi.object({
 })
 
 router.use(cookieParser());
+
 router.post('/signup', async(req,res) => {
 
     //validate
+  
     const {error} = signupSchema.validate(req.body);
     if(error){
        return res.status(404).json(error.details[0].message)
@@ -34,14 +34,14 @@ router.post('/signup', async(req,res) => {
     const emailExist = await pool.query('SELECT * FROM users WHERE email = $1', [req.body.email]);
     if(emailExist.rowCount > 0){
         console.log(emailExist)
-        return res.status(404).send("email alreadyyyyyy exist");
+        return res.status(409).send("email alreadyyyyyy exist");
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
     const lowerName = req.body.name.toLowerCase();
 
-    const addUser = await pool.query('INSERT INTO users(name, firstname,lastname, email, password, friends, role, image) VALUES($1, $2, $3, $4,$5, $6, $7, $8)', [lowerName, req.body.firstName, req.body.lastName,req.body.email, hashPassword, [], 'user', req.body.img]);
+    const addUser = await pool.query('INSERT INTO users(name, email, password, friends, role, image) VALUES($1,$2,$3, $4, $5, $6)', [lowerName, req.body.email, hashPassword, [], 'user', req.body.img]);
     try {
         res.send(addUser)
     } catch (error) {
@@ -84,7 +84,17 @@ router.post('/signin', async(req,res) =>{
     res.cookie('token', token, { secure: process.env.NODE_ENV !== "development",
     httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); //2hours
     res.header('auth-token', token).send("token set")      
+})
 
+router.post('/checkemail', async(req,res) =>{
+    const email = req.body.email;
+    const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    if(user.rowCount > 0){
+        res.json(true) // exist
+    }
+    else{
+        res.json(false) //doesnt exist
+    }
 })
 
 
