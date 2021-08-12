@@ -5,13 +5,9 @@ const bcrypt = require('bcrypt');
 const pool = require('./Pool');
 const checkAuth = require('./routes/verifyToken');
 const cookieParser = require('cookie-parser')
-const session = require('express-session');
 const cors = require('cors');
 //routes
 const authRoute = require('./routes/auth');
-const passport = require('passport');
-const cookieSession = require('cookie-session');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 
 const corsOptions ={
@@ -33,14 +29,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 }) 
-app.use(cookieSession({
-  name: 'tuto-session',
-  keys: ['key1', 'key2']
-}))
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 
 app.use('/api/user', authRoute);
@@ -102,39 +90,6 @@ app.post('/getuser',checkAuth, async(req,res) =>{
 
 })
 
-
-passport.use(new GoogleStrategy({
-  clientID:process.env.GOOGLE_CLIENT_ID,
-  clientSecret:process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL:"http://localhost:3000/"
-}, async(accessToken, refreshToken, profile, done) =>{
-console.log(profile);
-}
-))
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  done(null, user);
-});
-//google
-app.get('/failed', (req, res) => res.send('You Failed to log in!'))
-
-// In this route you can see that if the user is logged in u can acess his info in: req.user
-app.get('/good', (req, res) => res.send(`Welcome mr !`))
-
-// Auth Routes
-app.get('/google', passport.authenticate('google', { scope: ['profile'] }));
-// app.get('/google',(req,res)=>{
-//   console.log(process.env.GOOGLE_CLIENT_SECRET)
-// });
-app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.send('/good');
-  }
-);
 
 
 const PORT = process.env.PORT || 5000;

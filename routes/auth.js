@@ -4,7 +4,6 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
-const passport = require('passport');
 
 
 const signupSchema = Joi.object({
@@ -86,14 +85,6 @@ router.post('/signin', async(req,res) =>{
     httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); //2hours
     res.header('auth-token', token).send("token set")      
 
-})
-
-router.get('/google', passport.authenticate('google', {scope:['profile']}))
-
-router.get('/auth/callback', passport.authenticate('google', {failureRedirect:'/'}), (req,res) =>{
-    console.log('Successfull')
-    res.send('SUCCESSFULL')
-    res.redirect('/')
 })
 
 
