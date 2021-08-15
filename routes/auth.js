@@ -41,7 +41,7 @@ router.post('/signup', async(req,res) => {
     const hashPassword = await bcrypt.hash(req.body.password, salt);
     const lowerName = req.body.name.toLowerCase();
 
-    const addUser = await pool.query('INSERT INTO users(name, email, password, friends, role, image) VALUES($1,$2,$3, $4, $5, $6)', [lowerName, req.body.email, hashPassword, [], 'user', req.body.img]);
+    const addUser = await pool.query('INSERT INTO users(name, email, password, friends, friendreq, friendnum, ispublic,groupid, role, image) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10)', [lowerName, req.body.email, hashPassword, [], [], 0, true, [], 'user', req.body.img]);
     try {
         res.send(addUser)
     } catch (error) {

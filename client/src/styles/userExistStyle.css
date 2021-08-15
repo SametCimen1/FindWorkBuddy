@@ -1,0 +1,100 @@
+.userExistContainer{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+}
+.userExistImageContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding:50px 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@media screen and (min-width:600px){
+    .userExistImageContainer{
+        padding:200px 0;
+    }
+}
+.userExistStart{
+    border-radius: 20px;
+    padding:10px;
+}
+
+.INwhat{
+    width:80%;
+    border: 1px solid black;
+}
+
+.INheader{
+    width: 30%;
+    border: 1px solid black;
+    border-radius: 10px;
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+}
+.INkey{
+    width: 30%;
+    border: 1px solid black;
+}
+.INimg{
+    width: 30%;
+    border: 1px solid black;
+    border-left: 0;
+
+}
+
+.post{
+    margin-top: 1rem;
+    padding:10px 10px;
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+}
+.search, .INCONTAINER{
+    margin-top: 1rem;
+    padding:10px 10px;
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.INCONTAINER{
+ margin-top: 0;
+}
+.sort{
+    width: 30%;
+    border: 1px solid black;
+    border-radius: 10px;
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+    
+}
+.subject{
+    width:40%;
+    border: 0;
+    border: 1px solid black;
+    border-left: 0;
+
+}
+.searchBtn{
+    width: 30%;
+    border: 0;
+    border: 1px solid black;
+    background-color: #0022FF;
+    color: white;
+    padding:10px;
+}
+
+.searchBtn:hover{
+    background-color: #00b7ff;
+  cursor: pointer;
+}
