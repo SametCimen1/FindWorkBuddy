@@ -16,13 +16,20 @@ export default function Signup(){
     const history = useHistory();
     const clientId = '322239845218-556vfpmq4didjpc3s97gtt17f28b390a.apps.googleusercontent.com'
     const submitForm = async(e) =>{
+      let newImg = '';
+      if(img === ''){
+          newImg = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
+      }
+      else{
+        newImg = img;
+      }
      e.preventDefault();
       const data = await fetch("http://localhost:5000/api/user/signup", {
         method:"POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name:name, password:password, email:email, firstName:firstName, lastName:lastName, img:img})
+        body: JSON.stringify({name:name, password:password, email:email, firstName:firstName, lastName:lastName, img:newImg})
       })
       if(data.status === 404){
         const res = await data.json();
@@ -112,7 +119,7 @@ export default function Signup(){
                   <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value)}/>
               </div>
               <div className = "imgForm">
-                  <input type = "text"required className = "imgInput"  placeholder = "img url"   value = {img} onChange = {(e)=> setImg(e.target.value)}/>
+                  <input type = "text" className = "imgInput"  placeholder = "img url"   value = {img} onChange = {(e)=> setImg(e.target.value)}/>
                   <input type = "file" className = "imgInput"  />
               </div>
               <button className = "btn" type = "submit">Sign up!</button>

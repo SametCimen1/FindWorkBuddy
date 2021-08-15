@@ -72,15 +72,15 @@ app.post('/getuser',checkAuth, async(req,res) =>{
   console.log("getuser");
   try {
     if(typeof id !== undefined){
-    const user = await pool.query("SELECT (name, image) FROM users WHERE id = $1", [id]);
+    const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
     console.log("USER")
     console.log(user)
     if(user.rows.length === 0){
       res.status(404).send("cant find user")
     }
     else{
-      const informations = user.rows[0];
-      console.log(informations)  
+      const row = user.rows[0];
+      const informations = {name:row.name, emial:row.email, friendnum:row.friendnum, role:row.role, image:row.image};
       res.json(informations);
     }
   }
@@ -99,7 +99,10 @@ app.post('/newpost', checkAuth, async(req,res) =>{
     if(typeof id !== undefined){
     const imageUser = await pool.query("SELECT image FROM users  WHERE id = $1", [id])
     const image = imageUser.rows[0].image;
-     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keywords, likes, reply) VALUES($1,$2,$3,$4,$5,$6,$7)",[id, image, req.body.header, req.body.paragraph, req.body.keywords, 0,[]]);
+    const words = req.body.keywords;
+    const keywords = words.split(' ')
+    console.log(keywords)
+     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keywords, likes, reply) VALUES($1,$2,$3,$4,$5,$6,$7)",[id, image, req.body.header, req.body.paragraph, [keywords], 0,[]]);
     if(user){
       res.json(true)
     }
@@ -117,6 +120,11 @@ app.post('/newpost', checkAuth, async(req,res) =>{
         const posts =await pool.query("SELECT * FROM posts LIMIT 50"); //SAVE the last id and fetch from there on click next
         res.json(posts.rows);
 
+    }
+    else if(subject !== ''){
+      const posts =await pool.query(`SELECT * FROM posts WHERE ${subject}=ANY(keywords)`); //SAVE the last id and fetch from there on click next
+      // res.json(posts.rows);
+      console.log(posts)
     }
     else if(sort === ''){
       //dont sort

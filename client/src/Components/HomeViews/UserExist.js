@@ -84,9 +84,9 @@ export default function UserExist(){
             <div>
               {posts.map(post => (
                   <div>
-                      <img  src  = {post.image}/>
+                      <img  src  = {post.image} className = "userImage"/>
                       <h2>{post.header}</h2>
-                      <h2>{post.keywords}</h2>
+                      <h2>{post.paragraph}</h2>
                       <h2>{post.likes}</h2>
                   </div>
               ))}

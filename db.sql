@@ -39,4 +39,4 @@ DROP TABLE users;
 DROP TABLE groups;
 DROP TABLE posts;
 
-DELETE FROM users WHERE email = 'cimensamet338@gmail.com';
+DELETE FROM posts WHERE id = 1;

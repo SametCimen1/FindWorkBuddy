@@ -13,6 +13,7 @@ import Admin from './Components/Admin';
 import NotAuth from './Components/401';
 import NotFound from './Components/404'
 import Profile from './Components/Profile';
+import userId from './Components/userId'
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
        <Route exact path ="/signin" component = {Signin}/>
        <Route exact path = "/logout" component = {Logout} />
        <Route exact path = "/profile" component = {Profile} />
+       <Route exact path = "/user/:id" component = {userId} />
        <Route exact path = "/401" component = {NotAuth} />
+       
 
        <Route component = {NotFound} />
      </Switch>

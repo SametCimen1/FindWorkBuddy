@@ -25,10 +25,10 @@ router.post('/signup', async(req,res) => {
 
     //validate
   
-    const {error} = signupSchema.validate(req.body);
-    if(error){
-       return res.status(404).json(error.details[0].message)
-    }
+    // const {error} = signupSchema.validate(req.body);
+    // if(error){
+    //    return res.status(404).json(error.details[0].message)
+    // }
 
     //check if user exist
     const emailExist = await pool.query('SELECT * FROM users WHERE email = $1', [req.body.email]);
