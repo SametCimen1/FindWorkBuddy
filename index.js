@@ -90,6 +90,46 @@ app.post('/getuser',checkAuth, async(req,res) =>{
 
 })
 
+app.post('/newpost', checkAuth, async(req,res) =>{
+  const {_id} = req.user; 
+  const id = _id; 
+  console.log(id)
+  console.log("getuser");
+
+    if(typeof id !== undefined){
+    const imageUser = await pool.query("SELECT image FROM users  WHERE id = $1", [id])
+    const image = imageUser.rows[0].image;
+     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keywords, likes, reply) VALUES($1,$2,$3,$4,$5,$6,$7)",[id, image, req.body.header, req.body.paragraph, req.body.keywords, 0,[]]);
+    if(user){
+      res.json(true)
+    }
+    else{
+      res.json(false);
+    }
+    
+    }
+  })
+
+  app.post('/getposts', async(req,res) =>{
+    const subject = req.body.subject;
+    const sort = req.body.sort;
+    if(subject === ''){
+        const posts =await pool.query("SELECT * FROM posts LIMIT 50"); //SAVE the last id and fetch from there on click next
+        res.json(posts.rows);
+
+    }
+    else if(sort === ''){
+      //dont sort
+    }
+    else if(sort === 'date'){
+      //sort by date
+    }
+    else if(sort === 'populer'){
+      //sort by likes
+    }
+  })
+
+
 
 
 const PORT = process.env.PORT || 5000;
