@@ -100,9 +100,10 @@ app.post('/newpost', checkAuth, async(req,res) =>{
     const imageUser = await pool.query("SELECT image FROM users  WHERE id = $1", [id])
     const image = imageUser.rows[0].image;
     const words = req.body.keywords;
-    const keywords = words.split(' ')
-    console.log(keywords)
-     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keywords, likes, reply) VALUES($1,$2,$3,$4,$5,$6,$7)",[id, image, req.body.header, req.body.paragraph, [keywords], 0,[]]);
+    const addWord = words.trim();
+
+    console.log(words)
+     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keyword, likes, reply) VALUES($1,$2,$3,$4,$5,$6,$7)",[id, image, req.body.header, req.body.paragraph, addWord, 0,[]]);
     if(user){
       res.json(true)
     }
@@ -122,9 +123,14 @@ app.post('/newpost', checkAuth, async(req,res) =>{
 
     }
     else if(subject !== ''){
-      const posts =await pool.query(`SELECT * FROM posts WHERE ${subject}=ANY(keywords)`); //SAVE the last id and fetch from there on click next
-      // res.json(posts.rows);
-      console.log(posts)
+      console.log(subject)
+
+      const modSubject =  "'"+subject+"'";
+      console.log(`${modSubject}`)
+      const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject}`); //SAVE the last id and fetch from there on click next
+      res.json(posts.rows);
+ 
+      
     }
     else if(sort === ''){
       //dont sort
