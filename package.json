@@ -19,9 +19,9 @@
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
-    "materialize-css": "^1.0.0-rc.2",
     "nodemon": "^2.0.12",
     "npm": "^7.20.5",
+    "npm-check": "^5.9.2",
     "pg": "^8.7.1"
   }
 }
