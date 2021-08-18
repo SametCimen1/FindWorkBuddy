@@ -4,7 +4,34 @@ import {useEffect, useState} from 'react'
 import { GoogleLogin } from 'react-google-login';
 
 export default function Signup(){
+
+  const [doesExist, setDoesExist] = useState(null);
+
+
   const [email, setEmail] = useState('');
+  const userExist = async() =>{
+    const data = await fetch("http://localhost:5000/userexist",{
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      credentials: 'include',
+    })
+    const response = await data.json();
+    if(response){
+      setDoesExist(true)
+      alert("Already Logged In")
+      history.push("/");
+    }
+    else{
+      setDoesExist(false)
+    }
+  } 
+  useEffect(()=>{
+    userExist();
+  })
+
   const [password, setPassword] = useState('');
   const history = useHistory();
 
@@ -68,7 +95,8 @@ export default function Signup(){
         body: JSON.stringify({email:email,password:password})
       })
       console.log(signin)
-      history.push('/')
+      history.push("/");
+      history.go(0);
     }
     else{ //exist
       const data = await fetch('http://localhost:5000/api/user/signin', {
@@ -80,7 +108,8 @@ export default function Signup(){
         credentials: 'include',
         body: JSON.stringify({email:email,password:password})
       })
-      history.push('/')
+      history.push("/")
+      history.go(0);
     };
 
     
@@ -90,12 +119,9 @@ export default function Signup(){
 
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
-    alert(
-      `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
-    );
   };
-  
-  const clientId = '322239845218-556vfpmq4didjpc3s97gtt17f28b390a.apps.googleusercontent.com'
+  if(doesExist){
+   const clientId = '322239845218-556vfpmq4didjpc3s97gtt17f28b390a.apps.googleusercontent.com'
     return (
       <div className = "container">
       <div className ="formAndTextContainer">
@@ -133,4 +159,10 @@ export default function Signup(){
          </div>
     </div>
     )
+  }
+  else{
+    return (<div>
+       <h1>Already logged in</h1>
+    </div>)
+  }
   }

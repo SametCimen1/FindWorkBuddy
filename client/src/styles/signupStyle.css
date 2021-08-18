@@ -67,9 +67,14 @@
     border: 0;
     background-color: #28C5C1;
     color:white;
+    cursor: pointer;
 }
 .imgContainer{
     display: none;
+}
+.btn:hover{
+    background-color: #284dc5;
+    color:white;
 }
 
 .img{

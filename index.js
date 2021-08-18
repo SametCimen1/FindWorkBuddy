@@ -118,32 +118,46 @@ app.post('/newpost', checkAuth, async(req,res) =>{
     const subject = req.body.subject;
     const sort = req.body.sort;
     if(subject === ''){
-        const posts =await pool.query("SELECT * FROM posts LIMIT 50"); //SAVE the last id and fetch from there on click next
-        res.json(posts.rows);
-
+        if(sort === ''){
+          console.log("BOTH EMPTY")
+          const posts =await pool.query("SELECT * FROM posts ORDER BY id ASC  LIMIT 50"); //SAVE the last id and fetch from there on click next
+          res.json(posts.rows);
+        }
+        else if(sort === 'date'){
+          console.log("subject empty date")
+          const posts =await pool.query(`SELECT * FROM posts  ORDER BY id DESC`); //SAVE the last id and fetch from there on click next
+          res.json(posts.rows);
+        }
+        else if(sort === 'populer'){
+          console.log("subject empty populer")
+          const posts =await pool.query(`SELECT * FROM posts  ORDER BY likes DESC`); //SAVE the last id and fetch from there on click next
+          res.json(posts.rows);
+        }
     }
     else if(subject !== ''){
-      console.log(subject)
-
+   
       const modSubject =  "'"+subject+"'";
-      console.log(`${modSubject}`)
-      const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject}`); //SAVE the last id and fetch from there on click next
+      if(sort === ''){
+        console.log("subject not sort empty")
+        const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject}`); //SAVE the last id and fetch from there on click next
       res.json(posts.rows);
- 
-      
-    }
-    else if(sort === ''){
-      //dont sort
-    }
-    else if(sort === 'date'){
-      //sort by date
-    }
-    else if(sort === 'populer'){
-      //sort by likes
+      }
+      else if(sort === 'date'){
+        console.log("subject not sort date")
+        const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject} ORDER BY id`); //SAVE the last id and fetch from there on click next
+        res.json(posts.rows);
+      }
+      else if(sort === 'populer'){
+        
+        //sort by likes
+      }
     }
   })
 
-
+app.post('/likepost', async(req,res) =>{
+   const data = await pool.query('UPDATE posts SET likes = likes + 1 WHERE id = $1', [req.body.id]);
+   res.json('updated')
+})
 
 
 const PORT = process.env.PORT || 5000;

@@ -1,12 +1,33 @@
 import { useHistory } from "react-router-dom";
 import {Helmet} from 'react-helmet'
 import '../styles/signupStyle.css'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 import '../styles/signupStyle.css';
 import { GoogleLogin } from 'react-google-login';
 
 export default function Signup(){
+
+
+
+  const userExist = async() =>{
+    const data = await fetch("http://localhost:5000/userexist",{
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      credentials: 'include',
+    })
+    const response = await data.json();
+    if(response){
+      alert("Already Logged In")
+      history.push("/");
+    }
+  } 
+  useEffect(()=>{
+    userExist();
+  })
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
