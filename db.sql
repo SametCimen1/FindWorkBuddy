@@ -39,4 +39,8 @@ DROP TABLE users;
 DROP TABLE groups;
 DROP TABLE posts;
 
+ALTER TABLE posts
+ADD likedby integer[];
+
+
 DELETE FROM posts WHERE id = 1;

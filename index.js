@@ -66,6 +66,10 @@ app.get('/sample', checkAuth, async(req,res,next) =>{
   console.log(data)
 })
 
+
+
+
+
 app.post('/getuser',checkAuth, async(req,res) =>{
   const {id} = req.body;  
   console.log(id)
@@ -154,11 +158,26 @@ app.post('/newpost', checkAuth, async(req,res) =>{
     }
   })
 
-app.post('/likepost', async(req,res) =>{
-   const data = await pool.query('UPDATE posts SET likes = likes + 1 WHERE id = $1', [req.body.id]);
+app.post('/likepost', checkAuth,async(req,res) =>{
+  //  const data = await pool.query('UPDATE posts SET likes = likes + 1 WHERE id = $1', [req.body.id]);
+  //  res.json('updated')
+  const userId = req.user._id;
+  const postId = req.body.id;
+  const data = await pool.query('UPDATE posts SET likedby = array_append(likedby, $1) WHERE id = $2', [userId, postId]);
    res.json('updated')
 })
 
+app.post('/didlike', checkAuth, async(req,res) =>{
+  const userId = req.user._id;
+  const postId = req.body.id
+  const didLike = await pool.query('SELECT * FROM posts WHERE  id = $1 AND  $2 = ANY (likedby) ', [postId, userId])
+  if(didLike.rowCount > 0){
+    res.json(true)
+  }
+  else{
+    res.json(false);
+  }
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{

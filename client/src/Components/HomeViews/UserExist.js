@@ -61,7 +61,35 @@ export default function UserExist(){
               body:JSON.stringify({id:id})
         });
         getPosts();
+       
     }
+
+    const isLiked = async(id) =>{
+        const data = await fetch('http://localhost:5000/didlike',{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+              credentials: 'include', // Don't forget to specify this if you need cookies
+              body:JSON.stringify({id:id})
+        });
+        const response = await data.json();
+        return response;
+    }
+
+    const returnPost = async(post) =>{
+    //   const res = await isLiked(post.id);
+    
+      return(  <div>  
+            <img  src  = {post.image} className = "userImage"/>
+            <h2>{post.header}</h2>
+            <h2>{post.paragraph}</h2>
+            <h2>{post.likes}</h2>
+            {/* <button onClick = {res ? ()=> likePost(post.id): ()=> alert("already liked it")}>Like</button> */}
+       </div>)
+    }
+
     return(
         <div className =  "userExistContainer">
             <div className = "userExistImageContainer" style = {{backgroundImage:'url(/userExist.jpg)'}}>
@@ -93,16 +121,19 @@ export default function UserExist(){
 
             </div>
             
-            <div>
-              {posts.map(post => (
-                  <div>
-                      <img  src  = {post.image} className = "userImage"/>
-                      <h2>{post.header}</h2>
-                      <h2>{post.paragraph}</h2>
-                      <h2>{post.likes}</h2>
-                      <button onClick = {()=> likePost(post.id)}>Like</button>
-                  </div>
-              ))}
+            <div> 
+                {console.log(posts)}
+                {posts.map(post => {
+                    
+                    const get = async () =>{
+                       const data = await returnPost(post);
+                       console.log(data);
+                    }
+                    get();
+                    
+ 
+                })}  
+
             </div>
         </div>
     
