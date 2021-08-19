@@ -117,11 +117,13 @@ export default function Signup(){
     // refreshTokenSetup(res);
   };
 
+
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
   };
-  if(doesExist){
-   const clientId = '322239845218-556vfpmq4didjpc3s97gtt17f28b390a.apps.googleusercontent.com'
+  if(!doesExist){
+    const secret = process.env.REACT_APP_SECRET;
+  
     return (
       <div className = "container">
       <div className ="formAndTextContainer">
@@ -142,7 +144,7 @@ export default function Signup(){
           </form>
            <h3>or sign in with</h3>
                 <GoogleLogin
-              clientId={clientId}
+              clientId={secret}
               buttonText="Login"
               onSuccess={onSuccess}
               onFailure={onFailure}

@@ -35,7 +35,7 @@ export default function Signup(){
     const [img, setImg] = useState('');
     const [email, setEmail] = useState('');
     const history = useHistory();
-    const clientId = '322239845218-556vfpmq4didjpc3s97gtt17f28b390a.apps.googleusercontent.com'
+    const clientId =  process.env.REACT_APP_SECRET;
     const submitForm = async(e) =>{
       let newImg = '';
       if(img === ''){
