@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import '../styles/postStyle.css';
 export default function Post({post}){
      
-
+     
     useEffect(()=>{
        setMyPost(post)
        isLiked()     
@@ -13,7 +13,7 @@ export default function Post({post}){
 
 
 
- 
+    const [like, setLike] = useState(false);
 
    
     const [myPost, setMyPost] = useState(null);
@@ -50,6 +50,22 @@ export default function Post({post}){
     }
 
     const likePost = async() =>{
+        if(like){// liked now unlike it 
+            console.log('unliking')
+            const data = await fetch('http://localhost:5000/unlikepost',{
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  redirect: 'follow',
+                  credentials: 'include', // Don't forget to specify this if you need cookies
+                  body:JSON.stringify({id:post.id})
+            });
+            const response = await data.json();
+            setMyPost(response)
+        }
+        else{
+            console.log('liking')
             const data = await fetch('http://localhost:5000/likepost',{
                 method:"POST",
                 headers: {
@@ -61,6 +77,8 @@ export default function Post({post}){
             });
             const response = await data.json();
             setMyPost(response)
+        }
+        setLike(prev => !prev)
     }
     
     if(myPost !== null){
@@ -88,9 +106,18 @@ export default function Post({post}){
          <p>{time} min ago</p>
          <h1 className = "userHeader"  onClick={()=>console.log('clicked to the header')}>{myPost.header}</h1>
          <h2 className = "userParagraph">{myPost.paragraph}</h2>
-         <h2>{myPost.likes}</h2>
-         <button onClick = {likePost}>Like</button>
 
+         {/* <button onClick = {likePost}>Like</button> */}
+         <div className = "postInfo">
+            <div className = "viewComment">
+                <p>0 views</p>
+                <p>0 Comments</p>
+            </div>
+            <div className = "heartContainer">
+                <p>{myPost.likes}</p>
+               <div className={like? 'heart heartactive': 'heart' } onClick = {likePost}></div>
+            </div>
+         </div>
         </div>
     )}
     else{

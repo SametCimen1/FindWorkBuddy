@@ -45,3 +45,53 @@
     display: none;
 
 }
+.postInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.viewComment{
+    display: flex;
+    width: 55%;
+    justify-content: space-between;
+}
+@media screen and (max-width:380px) {
+    .viewComment{
+        flex-direction: column;
+    }
+}
+.heartContainer{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   padding:0px 20px;
+}
+.heartContainer p{
+
+    margin-right: -10px;
+}
+.heart {
+    margin-left: -10px;
+
+    width: 100px;
+    height: 100px;
+    background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    cursor: pointer;
+  }
+  /* .heart:hover {
+    background-position: -2800px 0;
+     transition: background 1s steps(28); 
+  } */
+  .heartactive{
+    background-position: -2800px 0;
+    transition: background 1s steps(28); 
+  }
+  @keyframes fave-heart {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -2800px 0;
+    }
+  }

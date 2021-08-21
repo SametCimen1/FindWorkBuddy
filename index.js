@@ -185,6 +185,18 @@ app.post('/likepost', checkAuth,async(req,res) =>{
    res.json(post)
 })
 
+app.post('/unlikepost', checkAuth,async(req,res) =>{
+  //  const data = await pool.query('UPDATE posts SET likes = likes + 1 WHERE id = $1', [req.body.id]);
+  //  res.json('updated')
+  const userId = req.user._id;
+  const postId = req.body.id;
+  const data = await pool.query('UPDATE posts SET likes = likes - 1 WHERE id = $1', [ postId]);
+  const removeElem = await pool.query('UPDATE posts SET likedby =  array_remove(likedby, $1)  WHERE id = $2', [userId, postId])
+ const post = await getSinglePost(postId);
+   res.json(post)
+})
+
+
 app.post('/didlike', checkAuth, async(req,res) =>{
   const userId = req.user._id;
   const postId = req.body.id
