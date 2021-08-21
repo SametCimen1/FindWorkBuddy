@@ -17,7 +17,7 @@ export default function UserExist(){
 
 
     const submitPost = async() =>{
-     const data  = await fetch('http://localhost:5000/newpost', {
+     const data  = await fetch('http://localhost:5000/post/newpost', {
         method:"POST",
         headers: {
           'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export default function UserExist(){
     }
 
     const getPosts = async() =>{
-        const data = await fetch('http://localhost:5000/getposts', {
+        const data = await fetch('http://localhost:5000/post/getposts', {
             method:"POST",
             headers: {
                 'Content-Type': 'application/json'

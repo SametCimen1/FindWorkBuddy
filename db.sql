@@ -14,9 +14,15 @@ CREATE TABLE posts(
     paragraph varchar(1000) NOT NULL,
     keyword varchar(100) NOT NULL,
     likes integer,
-    reply text[],
+    commentby integer[],
     likedby integer[],
     uploadtime timestamp
+);
+
+CREATE TABLE comment(
+    id SERIAL PRIMARY KEY,
+    text varchar(500),
+    userid integer
 );
 
 CREATE TABLE users(

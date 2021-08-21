@@ -46,7 +46,7 @@ export default function Post({post}){
     
     const [didLike, setDidLike] = useState(null);
     const isLiked = async() =>{
-        const data = await fetch('http://localhost:5000/didlike',{
+        const data = await fetch('http://localhost:5000/post/didlike',{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ export default function Post({post}){
     const likePost = async() =>{
         if(like){// liked now unlike it 
             console.log('unliking')
-            const data = await fetch('http://localhost:5000/unlikepost',{
+            const data = await fetch('http://localhost:5000/post/unlikepost',{
                 method:"POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ export default function Post({post}){
         }
         else{
             console.log('liking')
-            const data = await fetch('http://localhost:5000/likepost',{
+            const data = await fetch('http://localhost:5000/post/likepost',{
                 method:"POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -110,17 +110,19 @@ console.log(popup)
                         </div>
                         
                     </div>
-                    <div className = "dots">
+                    {/* <div className = "dots">
                       <div className="dropdown"  onClick = {()=> setPopup(prev => !prev)}>
                             <div className = "dot"></div>
                             <div className = "dot"></div>
                             <div className = "dot"></div>
                       </div>
                     <div className = {popup ? "pupopvisible" :"popupinvisible"}>
-                      <h1>Edit post</h1>
-                      <h1>share post</h1>
+                      <div className = "popupContainer">
+                        <h1>Edit post</h1>
+                        <h1>share post</h1>
+                      </div>
                     </div>
-                </div>
+                    </div> */}
          </div>
          <div className = "texts"> 
             <h1 className = "userHeader "  onClick={longPost}>{myPost.header}</h1>

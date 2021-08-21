@@ -65,19 +65,21 @@
    
 }
 
-.dot:hover{
- 
-
-}
+/* .dots{
+    position: relative;
+} */
 .pupopvisible{
     display: block;
-    position:absolute;
+    position: absolute;
     background-color: white;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.452),-2px -2px 3px rgba(0, 0, 0, 0.452),-2px 2px 3px rgba(0, 0, 0, 0.452),2px -2px 3px rgba(0, 0, 0, 0.452);
+
+}
+@media screen and (max-width:754px) {
+ 
 }
 .popupinvisible{
     display: none;
-
 }
 .postInfo{
     display: flex;
