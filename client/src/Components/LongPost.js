@@ -50,8 +50,16 @@ export default function LongPost(){
                 setTimeUnit("minutes")
             }
     }
-    const [didLike, setDidLike] = useState(null);
+
+    useEffect(()=>{
+       isLiked();
+    },[post])
+    useEffect(()=>{
+        console.log("like")
+        console.log(like)
+     },[like])
     const isLiked = async() =>{
+    if(post !== null){
         const data = await fetch('http://localhost:5000/post/didlike',{
             method:"POST",
             headers: {
@@ -60,9 +68,13 @@ export default function LongPost(){
               redirect: 'follow',
               credentials: 'include', // Don't forget to specify this if you need cookies
               body:JSON.stringify({id:post.id})
-        });
-        const response = await data.json();
-        setDidLike(response);
+            });
+            const response = await data.json();
+            console.log("ISLIKED"); 
+            console.log(response);   
+            setLike(response);
+        }
+  
     }
   
     const likePost = async() =>{
@@ -143,10 +155,13 @@ export default function LongPost(){
           body:JSON.stringify({id:commentId})
      })
      const response = await data.json();
-     console.log("RESPONSE")
-     console.log(response)
-      setComments(oldArray  => [...oldArray, response]);
-     
+     const isInList = comments.some(function(elem) {
+        return elem.id === response.id
+      })
+      if(isInList === false){
+        setComments(oldArray  => [...oldArray, response]);
+      }
+      console.log(isInList)
    };
 
    

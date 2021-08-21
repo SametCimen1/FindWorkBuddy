@@ -118,7 +118,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     const userId = req.user._id;
     const postId = req.body.id
     const didLike = await pool.query('SELECT * FROM posts WHERE  id = $1 AND  $2 = ANY (likedby) ', [postId, userId])
-    if(didLike.rowCount > 0){
+ if(didLike.rowCount > 0){
       res.json(true)
     }
     else{
