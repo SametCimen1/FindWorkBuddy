@@ -54,10 +54,7 @@ export default function LongPost(){
     useEffect(()=>{
        isLiked();
     },[post])
-    useEffect(()=>{
-        console.log("like")
-        console.log(like)
-     },[like])
+
     const isLiked = async() =>{
     if(post !== null){
         const data = await fetch('http://localhost:5000/post/didlike',{
@@ -69,9 +66,7 @@ export default function LongPost(){
               credentials: 'include', // Don't forget to specify this if you need cookies
               body:JSON.stringify({id:post.id})
             });
-            const response = await data.json();
-            console.log("ISLIKED"); 
-            console.log(response);   
+            const response = await data.json();  
             setLike(response);
         }
   
@@ -119,6 +114,7 @@ export default function LongPost(){
               credentials: 'include', // Don't forget to specify this if you need cookies
               body:JSON.stringify({postId:post.id, comment:comment})
         })
+        getPost();
         
     
     }
@@ -155,8 +151,12 @@ export default function LongPost(){
           body:JSON.stringify({id:commentId})
      })
      const response = await data.json();
+    
      const isInList = comments.some(function(elem) {
-        return elem.id === response.id
+        console.log("DSADS")
+        console.log(response)
+        console.log(elem)
+        return (elem.id === response.id || (elem.text === response.text && elem.id === response.id))
       })
       if(isInList === false){
         setComments(oldArray  => [...oldArray, response]);
@@ -215,13 +215,18 @@ export default function LongPost(){
                   {/* {comments.map(elem => elem)} */}
                   {/* {console.log("comments")} */}
                  {comments.map(elem => {
-                     return (
-                         <div>
-                             <img src = {elem.userimg}/>
-                            <h1>{elem.name}</h1>
-                            <h1>{elem.text}</h1>
+                   if(typeof elem.userimg !== 'undefined') { return (
+                         <div className = "commentContainer">
+                            <div className = "commentNameContainer"> 
+                               <img src =  {elem.userimg} className = "commentImage"/>
+                               <p className = "userName m">{elem.username}</p>
+                            </div>
+                            <p className = "userParagraph">{elem.text}</p>
                          </div>
-                     )
+                     )}
+                     else{
+
+                     }
                  })}
                  </div>
              </div>

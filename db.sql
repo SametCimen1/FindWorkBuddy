@@ -16,6 +16,7 @@ CREATE TABLE posts(
     likes integer,
     commentby integer[],
     likedby integer[],
+    username varchar(200) NOT NULL,
     uploadtime timestamp
 );
 

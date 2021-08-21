@@ -44,7 +44,6 @@ export default function Post({post}){
     }
 
     
-    const [didLike, setDidLike] = useState(null);
     const isLiked = async() =>{
         const data = await fetch('http://localhost:5000/post/didlike',{
             method:"POST",
@@ -56,7 +55,7 @@ export default function Post({post}){
               body:JSON.stringify({id:post.id})
         });
         const response = await data.json();
-        setDidLike(response);
+        setLike(response);
     }
   
     const likePost = async() =>{
@@ -94,10 +93,6 @@ export default function Post({post}){
         history.push(`/post/${post.id}`);
     }
 
-    const [popup, setPopup] = useState(false);
-    useEffect(()=>{
-console.log(popup)
-    },popup)
     if(myPost !== null){
     return(
         <div className = "post">
@@ -105,8 +100,9 @@ console.log(popup)
                    <div className = "imgAndNameContainer">
                         <img src = {myPost.image} className = "userImage"/>
                         <div className = "nameContainer">
-                            <p className = "userName">Samet</p>
+                            <p className = "userName">{myPost.username}</p>
                             <p>{time} {timeUnit} ago</p>
+                        {console.log(myPost)}
                         </div>
                         
                     </div>
@@ -136,7 +132,7 @@ console.log(popup)
             </div>
             <div className = "heartContainer">
                 <p>{myPost.likes}</p>
-               <div className={like? 'heart heartactive': 'heart' } onClick = {likePost}></div>
+               <div className={like ? 'heart heartactive': 'heart' } onClick = {likePost}></div>
             </div>
          </div>
         </div>

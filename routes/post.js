@@ -11,8 +11,9 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     console.log("getuser");
   
       if(typeof id !== undefined){
-      const imageUser = await pool.query("SELECT image FROM users  WHERE id = $1", [id])
+      const imageUser = await pool.query("SELECT image, name FROM users  WHERE id = $1", [id])
       const image = imageUser.rows[0].image;
+      const username = imageUser.rows[0].name;
       const words = req.body.keywords;
       const addWord = words.trim();
      
@@ -26,7 +27,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
       const hour = dateObj.getHours();
       const currentTime = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
   
-       const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keyword, likes, commentby, uploadtime) VALUES($1,$2,$3,$4,$5,$6,$7, $8)",[id, image, req.body.header, req.body.paragraph, addWord, 0,[], currentTime]);
+       const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keyword, likes, commentby, uploadtime, username) VALUES($1,$2,$3,$4,$5,$6,$7, $8, $9)",[id, image, req.body.header, req.body.paragraph, addWord, 0,[], currentTime,username]);
       if(user){
         res.json(true)
       }
@@ -97,9 +98,16 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     //  res.json('updated')
     const userId = req.user._id;
     const postId = req.body.id;
-    const data = await pool.query('UPDATE posts SET likes = likes + 1, likedby = array_append(likedby, $1) WHERE id = $2', [userId, postId]);
-   const post = await getSinglePost(postId);
-     res.json(post)
+    const didLike = await pool.query('SELECT * FROM posts WHERE  id = $1 AND  $2 = ANY (likedby) ', [postId, userId]);
+    if(didLike.rowCount > 0){
+        res.json("already liked")
+      }
+      else{
+        const data = await pool.query('UPDATE posts SET likes = likes + 1, likedby = array_append(likedby, $1) WHERE id = $2', [userId, postId]);
+        const post = await getSinglePost(postId);
+        res.json(post)
+      } 
+ 
   })
   
   router.post('/unlikepost', checkAuth,async(req,res) =>{
@@ -132,15 +140,14 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     const userData = await pool.query("SELECT * FROM users WHERE id = $1", [userId]);
     const user = await userData.rows[0];
     const newComment = await pool.query('INSERT INTO comment(text, userid, userImg, userName) VALUES($1, $2, $3, $4) RETURNING *', [req.body.comment, userId, user.image,user.name]);
-    // if(didLike.rowCount > 0){
-    //   res.json(true)
-    // }
-    // else{
-    //   res.json(false);
-    // }
     const commentId = newComment.rows[0].id;
     const comment = await pool.query('UPDATE posts SET commentby = array_append(commentby, $1)', [commentId]);
-    console.log(comment)
+        if(comment.rowCount > 0){
+      res.json(true)
+    }
+    else{
+      res.json(false);
+    }
   })
   router.post('/getcomment', checkAuth, async(req,res) =>{
     const commentId = req.body.id;
