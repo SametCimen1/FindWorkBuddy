@@ -105,9 +105,18 @@ app.post('/newpost', checkAuth, async(req,res) =>{
     const image = imageUser.rows[0].image;
     const words = req.body.keywords;
     const addWord = words.trim();
+   
+    const dateObj = new Date();
 
-    console.log(words)
-     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keyword, likes, reply) VALUES($1,$2,$3,$4,$5,$6,$7)",[id, image, req.body.header, req.body.paragraph, addWord, 0,[]]);
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+    const seconds = dateObj.getSeconds();
+    const minutes = dateObj.getMinutes();
+    const hour = dateObj.getHours();
+    const currentTime = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
+
+     const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keyword, likes, reply, uploadtime) VALUES($1,$2,$3,$4,$5,$6,$7, $8)",[id, image, req.body.header, req.body.paragraph, addWord, 0,[], currentTime]);
     if(user){
       res.json(true)
     }
@@ -117,7 +126,15 @@ app.post('/newpost', checkAuth, async(req,res) =>{
     
     }
   })
-
+  
+  const getSinglePost = async(id) =>{
+    const post = await pool.query(`SELECT * FROM posts WHERE id = $1`, [id]);
+    return post.rows[0];
+  }
+  app.post('/getpost', async(req,res) =>{
+   console.log("getpost called")
+  })
+  
   app.post('/getposts', async(req,res) =>{
     const subject = req.body.subject;
     const sort = req.body.sort;
@@ -163,8 +180,9 @@ app.post('/likepost', checkAuth,async(req,res) =>{
   //  res.json('updated')
   const userId = req.user._id;
   const postId = req.body.id;
-  const data = await pool.query('UPDATE posts SET likedby = array_append(likedby, $1) WHERE id = $2', [userId, postId]);
-   res.json('updated')
+  const data = await pool.query('UPDATE posts SET likes = likes + 1, likedby = array_append(likedby, $1) WHERE id = $2', [userId, postId]);
+ const post = await getSinglePost(postId);
+   res.json(post)
 })
 
 app.post('/didlike', checkAuth, async(req,res) =>{

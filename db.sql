@@ -14,7 +14,8 @@ CREATE TABLE posts(
     paragraph varchar(255) NOT NULL,
     keyword varchar(100) NOT NULL,
     likes integer,
-    reply text[]
+    reply text[],
+    uploadtime timestamp
 );
 
 CREATE TABLE users(

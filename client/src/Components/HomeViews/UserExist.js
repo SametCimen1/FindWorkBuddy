@@ -1,6 +1,6 @@
 import '../../styles/userExistStyle.css'
 import {useState, useEffect} from 'react'
-
+import ShortPost from '../ShortPost';
 export default function UserExist(){
     const [INwhat, setINwhat] = useState('');
     const [INheader, setINheader] = useState('');
@@ -50,45 +50,9 @@ export default function UserExist(){
         console.log(response);
         setPosts(response)
     }
-    const likePost = async(id) =>{
-        const data = await fetch('http://localhost:5000/likepost',{
-            method:"POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-              redirect: 'follow',
-              credentials: 'include', // Don't forget to specify this if you need cookies
-              body:JSON.stringify({id:id})
-        });
-        getPosts();
-       
-    }
 
-    const isLiked = async(id) =>{
-        const data = await fetch('http://localhost:5000/didlike',{
-            method:"POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-              redirect: 'follow',
-              credentials: 'include', // Don't forget to specify this if you need cookies
-              body:JSON.stringify({id:id})
-        });
-        const response = await data.json();
-        return response;
-    }
 
-    const returnPost = async(post) =>{
-    //   const res = await isLiked(post.id);
-    
-      return(  <div>  
-            <img  src  = {post.image} className = "userImage"/>
-            <h2>{post.header}</h2>
-            <h2>{post.paragraph}</h2>
-            <h2>{post.likes}</h2>
-            {/* <button onClick = {res ? ()=> likePost(post.id): ()=> alert("already liked it")}>Like</button> */}
-       </div>)
-    }
+
 
     return(
         <div className =  "userExistContainer">
@@ -98,7 +62,7 @@ export default function UserExist(){
             
             
             <h2>Find people, post what you are looking for</h2>
-            <div className = "post">
+            <div className = "searchPost">
             <input type = "text" className = "INwhat" value = {INwhat} onChange = {(e)=> setINwhat(e.target.value)}  placeholder = "What do you want to study"/>
                 <div className = "INCONTAINER">
                     <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Header"/>
@@ -121,20 +85,10 @@ export default function UserExist(){
 
             </div>
             
-            <div> 
-                {console.log(posts)}
-                {posts.map(post => {
-                    
-                    const get = async () =>{
-                       const data = await returnPost(post);
-                       console.log(data);
-                    }
-                    get();
-                    
- 
-                })}  
-
-            </div>
+                <div className = "posts">
+                 {posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)}  
+                </div>
+            
         </div>
     
     )
