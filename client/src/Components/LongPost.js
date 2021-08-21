@@ -28,6 +28,8 @@ export default function LongPost(){
             body: JSON.stringify({id:id})
           });
         const response = await data.json();
+        console.log("SDADASDSA")
+        console.log(response)
         setPost(response);
     }
     const [time, setTime] = useState(0);
@@ -117,16 +119,20 @@ export default function LongPost(){
         }
     },[post])
     
+    let promises;
     const getComments = async() =>{
         if(post !== null){
         post.commentby.forEach((id) => {
             getComment(id);
         })
+     
         }
     }
 
+   
+
    const[comments, setComments] = useState([{}]);
-   const getComment = async(commentId) =>{       
+   const getComment = async (commentId) =>{       
      const data = await fetch('http://localhost:5000/post/getcomment', {
         method:"POST",
         headers: {
@@ -137,10 +143,13 @@ export default function LongPost(){
           body:JSON.stringify({id:commentId})
      })
      const response = await data.json();
-     setComments(oldArray  => [...oldArray, response]);
+     console.log("RESPONSE")
+     console.log(response)
+      setComments(oldArray  => [...oldArray, response]);
+     
    };
 
-
+   
     if(post !== null){
         return(
             <div className = "LongPost">
@@ -188,9 +197,17 @@ export default function LongPost(){
                  <input type = "text" value = {comment} onChange = {(e)=> setComment(e.target.value)}></input>
                  <button onClick = {newComment}>Comment</button>
                  <div>
-                   {comments.map(element => {return(
-                       <h1>{element.text}</h1>
-                   )})}
+                  {/* {comments.map(elem => elem)} */}
+                  {/* {console.log("comments")} */}
+                 {comments.map(elem => {
+                     return (
+                         <div>
+                             <img src = {elem.userimg}/>
+                            <h1>{elem.name}</h1>
+                            <h1>{elem.text}</h1>
+                         </div>
+                     )
+                 })}
                  </div>
              </div>
             </div>

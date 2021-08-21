@@ -22,7 +22,9 @@ CREATE TABLE posts(
 CREATE TABLE comment(
     id SERIAL PRIMARY KEY,
     text varchar(500),
-    userid integer
+    userid integer,
+    userImg  varchar(255),
+    userName varchar(255)
 );
 
 CREATE TABLE users(

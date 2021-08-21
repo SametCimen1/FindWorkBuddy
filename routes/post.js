@@ -129,7 +129,9 @@ router.post('/newpost', checkAuth, async(req,res) =>{
   router.post('/newcomment', checkAuth, async(req,res) =>{
     const userId = req.user._id;
     const postId = req.body.id;
-    const newComment = await pool.query('INSERT INTO comment(text, userid) VALUES($1, $2) RETURNING *', [req.body.comment, userId]);
+    const userData = await pool.query("SELECT * FROM users WHERE id = $1", [userId]);
+    const user = await userData.rows[0];
+    const newComment = await pool.query('INSERT INTO comment(text, userid, userImg, userName) VALUES($1, $2, $3, $4) RETURNING *', [req.body.comment, userId, user.image,user.name]);
     // if(didLike.rowCount > 0){
     //   res.json(true)
     // }
