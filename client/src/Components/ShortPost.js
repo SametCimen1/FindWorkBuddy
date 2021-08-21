@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
 import '../styles/postStyle.css';
 export default function Post({post}){
+    const history = useHistory();
      
      
     useEffect(()=>{
@@ -23,14 +25,22 @@ export default function Post({post}){
 
 
     const [time, setTime] = useState(0);
+    const [timeUnit, setTimeUnit] = useState('');
     const getTime = () =>{
            console.log(myPost)
             const date = new Date(myPost.uploadtime);
             const currentTime = new Date();
             const difference =  (currentTime - date);
             const minutes = Math.floor((difference/1000)/60);
-            setTime(minutes);
-        
+            if(minutes > 60){
+                const hours = Math.floor(minutes/60);
+                setTime(hours)
+                setTimeUnit("hours")
+            }
+            else{
+                setTime(minutes);
+                setTimeUnit("minutes")
+            }
     }
 
     
@@ -48,7 +58,7 @@ export default function Post({post}){
         const response = await data.json();
         setDidLike(response);
     }
-
+  
     const likePost = async() =>{
         if(like){// liked now unlike it 
             console.log('unliking')
@@ -80,7 +90,14 @@ export default function Post({post}){
         }
         setLike(prev => !prev)
     }
-    
+    const longPost = () =>{
+        history.push(`/post/${post.id}`);
+    }
+
+    const [popup, setPopup] = useState(false);
+    useEffect(()=>{
+console.log(popup)
+    },popup)
     if(myPost !== null){
     return(
         <div className = "post">
@@ -89,29 +106,31 @@ export default function Post({post}){
                         <img src = {myPost.image} className = "userImage"/>
                         <div className = "nameContainer">
                             <p className = "userName">Samet</p>
+                            <p>{time} {timeUnit} ago</p>
                         </div>
+                        
                     </div>
                     <div className = "dots">
-                      <div className="dropdown">
+                      <div className="dropdown"  onClick = {()=> setPopup(prev => !prev)}>
                             <div className = "dot"></div>
                             <div className = "dot"></div>
                             <div className = "dot"></div>
                       </div>
-                    <div className = "popup">
+                    <div className = {popup ? "pupopvisible" :"popupinvisible"}>
                       <h1>Edit post</h1>
                       <h1>share post</h1>
                     </div>
                 </div>
          </div>
-         <p>{time} min ago</p>
-         <h1 className = "userHeader"  onClick={()=>console.log('clicked to the header')}>{myPost.header}</h1>
-         <h2 className = "userParagraph">{myPost.paragraph}</h2>
-
+         <div className = "texts"> 
+            <h1 className = "userHeader "  onClick={longPost}>{myPost.header}</h1>
+            <p className = "userParagraph " onClick={longPost}>{myPost.paragraph}</p>
+         </div>
          {/* <button onClick = {likePost}>Like</button> */}
          <div className = "postInfo">
             <div className = "viewComment">
                 <p>0 views</p>
-                <p>0 Comments</p>
+                <p className = "longPost" onClick={longPost}>0 Comments</p>
             </div>
             <div className = "heartContainer">
                 <p>{myPost.likes}</p>

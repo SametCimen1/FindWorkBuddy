@@ -11,10 +11,11 @@ CREATE TABLE posts(
     userId integer REFERENCES users(id),
     image varchar(255),
     header varchar(255) NOT NULL,
-    paragraph varchar(255) NOT NULL,
+    paragraph varchar(1000) NOT NULL,
     keyword varchar(100) NOT NULL,
     likes integer,
     reply text[],
+    likedby integer[],
     uploadtime timestamp
 );
 

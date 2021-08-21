@@ -5,6 +5,7 @@
     text-align: left;
     margin: 1rem 1rem;
 }
+
 .userInfo{
     display: flex;
     justify-content: space-between;
@@ -25,6 +26,32 @@
 .userName{
     font-family: 'Work Sans', sans-serif;
 }
+.texts{
+    cursor: pointer;
+}
+.texts:hover > .userHeader{ 
+    color: #46529e;
+}
+.texts:hover > .userParagraph {
+    color: #b0b0f8;
+}
+
+.userHeader{
+    font-family: 'Sanchez', serif;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #282828;
+}
+
+.userParagraph{
+    height: 100px;
+    word-wrap: break-word;
+    overflow: hidden;
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
 
 .dropdown{
     cursor: pointer;
@@ -37,11 +64,18 @@
    border-radius: 50%;
    
 }
+
 .dot:hover{
  
 
 }
-.popup{
+.pupopvisible{
+    display: block;
+    position:absolute;
+    background-color: white;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.452),-2px -2px 3px rgba(0, 0, 0, 0.452),-2px 2px 3px rgba(0, 0, 0, 0.452),2px -2px 3px rgba(0, 0, 0, 0.452);
+}
+.popupinvisible{
     display: none;
 
 }
@@ -55,6 +89,7 @@
     width: 55%;
     justify-content: space-between;
 }
+
 @media screen and (max-width:380px) {
     .viewComment{
         flex-direction: column;
