@@ -165,13 +165,14 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     const commentId = req.body.id;
     const postId = req.body.postId;
     const commentAll = await pool.query('UPDATE posts SET commentby =  array_remove(commentby, $1)  WHERE id = $2', [commentId, postId])
-    const comment = commentAll.rows[0];
-    if(commentAll.rowCount > 0){
-      res.json(comment)
-    }
-    else{
-      res.json("no comments");
-    }
+    // const comment = commentAll.rows[0];
+    // if(commentAll.rowCount > 0){
+    //   res.json(comment)
+    // }
+    // else{
+    //   res.json("no comments");
+    // }
+    res.json("deleted")
   })
 
 

@@ -9,7 +9,7 @@ export default function LongPost(){
      getPost();
     },[])
   
-
+    const [myId, setMyId] = useState();
     const [like, setLike] = useState(false);
     const [post, setPost] = useState(null);
     const [comment, setComment] = useState('');
@@ -164,7 +164,35 @@ export default function LongPost(){
       console.log(isInList)
    };
 
-   
+
+   useEffect(() => {
+    getId();
+   }, [])
+   const getId = async() =>{
+       const data = await fetch('http://localhost:5000/getuser',{
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          credentials: 'include', // Don't forget to specify this if you need cookies
+       });
+       const res = await data.json();
+       setMyId(res.id)
+   }
+   const deleteComment = async(id) =>{
+    const data = await fetch('http://localhost:5000/post/deletecomment',{
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          credentials: 'include', // Don't forget to specify this if you need cookies
+          body:JSON.stringify({id:id, postId:post.id})
+        });
+        getPost();
+   }
+  
     if(post !== null){
         return(
             <div className = "LongPost">
@@ -222,6 +250,7 @@ export default function LongPost(){
                                <p className = "userName m">{elem.username}</p>
                             </div>
                             <p className = "userParagraph">{elem.text}</p>
+                            {myId === elem.userid ? <button onClick = {()=> deleteComment(elem.id)}>Delete</button> :''}
                          </div>
                      )}
                      else{

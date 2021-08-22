@@ -72,7 +72,7 @@ app.get('/sample', checkAuth, async(req,res,next) =>{
 
 
 app.post('/getuser',checkAuth, async(req,res) =>{
-  const {id} = req.body;  
+  const id = req.user._id;
   console.log(id)
   console.log("getuser");
   try {
@@ -85,7 +85,7 @@ app.post('/getuser',checkAuth, async(req,res) =>{
     }
     else{
       const row = user.rows[0];
-      const informations = {name:row.name, emial:row.email, friendnum:row.friendnum, role:row.role, image:row.image};
+      const informations = {id:id,name:row.name, emial:row.email, friendnum:row.friendnum, role:row.role, image:row.image};
       res.json(informations);
     }
   }
