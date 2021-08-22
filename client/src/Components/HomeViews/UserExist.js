@@ -17,6 +17,10 @@ export default function UserExist(){
     const [createPost, setCreatePost] = useState(false);
 
     const submitPost = async() =>{
+      if(INheader === '' || INwhat === ''){
+        alert("please fill in all of the inputs")
+      }
+      else{
      const data  = await fetch('http://localhost:5000/post/newpost', {
         method:"POST",
         headers: {
@@ -33,6 +37,7 @@ export default function UserExist(){
      else{
          alert("error check console")
      }
+    }
     }
 
     const getPosts = async(sort) =>{
@@ -55,16 +60,17 @@ export default function UserExist(){
 
     const sortPosts = (subject) =>{
          getPosts(subject);
+         setSort(subject);
     }
     return(
         <div className =  "userExistContainer">
             <div className = "userExistImageContainer" style = {{backgroundImage:'url(/search.jpg)'}}>
                  <h1 className = "userExistStart">Subject Search</h1>
                  <p className = "userExistType">Type your subject in to find related posts for your subject or create a post for your subject for others to see</p>
-          
+                 <p className = "userExistSubjectInfo">You can type multiple subjects etc <q>math science</q> or just one single subject</p>
 
                 <div className = "search">
-                  <input type = "text" value = {subject} onChange = {(e) => setSubject(e.target.value)} className = "subject"  placeholder = "You can type multiple subjects etc &quot;math science&quot; or just one single subject"/>
+                  <input type = "text" value = {subject} onChange = {(e) => setSubject(e.target.value)} className = "subject"  placeholder = "type in the subject"/>
                   <button className = "searchBtn" onClick = {()=>getPosts('')}>Search</button>
                 </div>  
             </div>
@@ -88,13 +94,16 @@ export default function UserExist(){
                     {createPost && 
                           <div className = "newPost">                          
                           <div className = "searchPost">
-                              <input type = "text" className = "INwhat" value = {INwhat} onChange = {(e)=> setINwhat(e.target.value)}  placeholder = "What do you want to study"/>
-                               <div className = "INCONTAINER">
-                                 <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Header"/>
-                                 <input type = "text" value = {INkey} onChange = {(e)=> setINkey(e.target.value)} className = "INkey"  placeholder = "Keywords"/>
-                                 <button className = "createBtn" onClick = {submitPost}>Search</button>
-                               </div>
-                          </div> 
+                            <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Tpye in the title"/>
+                            <input type = "text" value = {INkey} onChange = {(e)=> setINkey(e.target.value)} className = "INkey"  placeholder = "Type in subject &quot;math science&quot;"/>
+                          </div>
+                            <div className = "textContainer">
+                              <textarea type = "text" className = "INwhat" value = {INwhat} onChange = {(e)=> setINwhat(e.target.value)}  placeholder = "Write your post here."/>
+                            </div>
+                            <div className = "existBtnContainer">
+                              <button className = "cancelBtn" onClick = {(e)=> setCreatePost(prev => !prev)}>Cancel</button>
+                              <button className = "createBtn" onClick = {submitPost}>Create</button>
+                            </div>
                           </div>}
 
                     </div>

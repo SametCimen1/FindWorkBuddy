@@ -40,18 +40,20 @@
 }
 
 .userHeader{
+    margin-top: 1rem;
     font-family: 'Sanchez', serif;
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #282828;
 }
 
 .userParagraph{
-    height: 50px;
+    height: 30px;
     word-wrap: break-word;
     overflow: hidden;
     color: #000000;
     font-size: 1.2rem;
+    margin-top: 0.5rem;
     font-weight: 300;
 }
 
@@ -89,13 +91,18 @@
 .postInfo{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 .viewComment{
     display: flex;
     width: 55%;
-    justify-content: space-between;
 }
+.longPost{
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+
 
 @media screen and (max-width:380px) {
     .viewComment{
@@ -115,7 +122,6 @@
 }
 .heart {
     margin-left: -10px;
-
     width: 100px;
     height: 100px;
     background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;

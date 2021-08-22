@@ -25,7 +25,7 @@
 
 @media screen and (min-width:600px){
     .userExistImageContainer{
-        padding:200px 0;
+        padding:100px 0;
     }
 }
 .userExistStart{
@@ -41,24 +41,52 @@
     padding:10px;
     font-family: 'Klee One', cursive;
     font-size: 2rem;
-
+}
+.userExistSubjectInfo{
+    color: white;
+    border-radius: 20px;
+    margin-top: 5rem;
+    padding:10px;
+    font-family: 'Klee One', cursive;
+    font-size: 1.5rem;
+}
+.textContainer{
+    margin: 1rem auto;
+    max-width: 1800px;
+    width: 95%;
+    display: flex;
+    justify-content:center;
+}
+.searchPost{
+    margin:1rem auto;
+    max-width: 1800px;
+    width: 95%;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 .INwhat{
-    width:80%;
-    border: 1px solid black;
+    width: 100%;
+    border: 2px solid #000000d5;
+    padding:10px;
+    max-height: 1000px;
+    max-width: 2000p x;
 }
 
+
 .INheader{
-    width: 30%;
-    border: 1px solid black;
-    border-radius: 10px;
-    border-top-right-radius:0;
-    border-bottom-right-radius:0;
+    margin-top: 2rem;
+    width: 60%;
+    border: 2px solid #000000d5;
+    padding:10px;
 }
+
 .INkey{
-    width: 30%;
-    border: 1px solid black;
+    margin-top: 2rem;
+    width: 35%;
+    border: 2px solid #000000d5;
+    padding:10px;
 }
 .INimg{
     width: 30%;
@@ -66,24 +94,21 @@
     border-left: 0;
 
 }
-
-.searchPost{
-    margin-top: 1rem;
-    padding:10px 10px;
-    max-width: 1000px;
+.newPost{
+    background-color: rgb(255, 255, 255);
     width: 100%;
-    text-align: center;
+    border-radius: 10px;
 }
-.search, .INCONTAINER{
+
+
+
+.search{
     margin-top: 1rem;
     padding:10px 10px;
     max-width: 1000px;
     width: 100%;
     display: flex;
-    justify-content: center;
-}
-.INCONTAINER{
- margin-top: 0;
+    justify-content: space-around;
 }
 
 .postSettings{
@@ -140,7 +165,14 @@
     text-indent: 10px;
     font-size: 1.2rem;
 }
-.searchBtn,.createBtn{
+.existBtnContainer{
+ width: 100%;
+ display: flex;
+ justify-content: flex-end;
+
+ 
+}
+.searchBtn{
     width: 10%;
     border-radius: 10px;
     /* background-color: #0022FF; */
@@ -151,12 +183,41 @@
     cursor: pointer;
 }
 
-.searchBtn:hover, .createBtn:hover{
+.searchBtn:hover{
     background-color: #00b7ff;
     border: 1px solid transparent;
 }
-.createBtn{
-    width: 50%;
+.createBtn,.cancelBtn{
+    width: 100px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 25px;
+    background-color: #A7AFC3;
+    border: 1px solid #A7AFC3;
+    color: white;
+    padding:10px;
+    cursor: pointer;
+    margin: 1rem 1rem;
+}
+.createBtn:hover{
+  background-color: transparent;
+  order:1px solid #A7AFC3;
+  color: #A7AFC3;
+}
+.cancelBtn{
+    background-color: transparent;
+    color:#A7AFC3;
+    border:1px solid #A7AFC3;
+}
+.cancelBtn:hover{
+    background-color: #A7AFC3;
+    color:white;
+    border:1px solid #A7AFC3;
+}
+@media screen and (max-width:550px) {
+    .existBtnContainer{
+        justify-content: center;
+    }
 }
 .userImage{
     width: 50px;

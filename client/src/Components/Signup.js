@@ -62,6 +62,7 @@ export default function Signup(){
        else{
          alert("someting went wrong")
        }
+    console.log(email)
     }
 
     const onSuccess = async(res) => {
@@ -113,11 +114,8 @@ export default function Signup(){
       };
     }
   
-    const onFailure = (res) => {
-
-      alert(
-        `Failed to login.Please try again`
-      );
+    const onFailure = (res) => {      
+      console.log(`Failed to login.`);
     };
 
     return (
@@ -129,7 +127,7 @@ export default function Signup(){
           <div className  = "formContainer">
             <form onSubmit = {(e) => submitForm(e)}>
               <div className = "form">
-                  <input type = "text" className = "input" placeholder = "Name"  required value = {name} onChange = {(e)=> setName(e.target.value)}/>
+                  <input type = "text" className = "input" placeholder = "Name"  required value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())}/>
               </div>
               <div className = "form">
                 
@@ -137,7 +135,7 @@ export default function Signup(){
               </div>
               <div className = "form">
               
-                  <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value)}/>
+                  <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value.toLowerCase())}/>
               </div>
               <div className = "imgForm">
                   <input type = "text" className = "imgInput"  placeholder = "img url"   value = {img} onChange = {(e)=> setImg(e.target.value)}/>

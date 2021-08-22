@@ -134,7 +134,7 @@ export default function Signup(){
           <form onSubmit = {(e) => login(e)}>
           <div className = "form">
             
-            <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value)}/>
+            <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value.toLowerCase())}/>
         </div> 
             <div className = "form">
               

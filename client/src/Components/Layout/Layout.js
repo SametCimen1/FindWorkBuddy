@@ -73,8 +73,6 @@ export default function Layout({children}) {
                       <li><Link className = "link" to ="/about">About</Link></li>
                       <li><Link className = "link" to ="/contact">Contact</Link></li>
                   </ul>    
-              
-            
                 </div>
                 {typeof user !== 'undefined' && 
                 <div className = "firstLinksContainer">
@@ -101,7 +99,8 @@ export default function Layout({children}) {
                             <h1>share post</h1>
                           </div>
                       </div>
-                   <Link to = "/profile/"><img src = {user.image} className = "userImage" /> </Link>
+                      {console.log(`USER IMAGEEEE ${user.image}`)}
+                   <Link  className = "imgLink" to = "/profile/"><img src = {user.image} className = "userImage" /></Link>
                 </div>
                 }
                 { user ?

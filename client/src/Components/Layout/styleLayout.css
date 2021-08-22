@@ -19,30 +19,34 @@
       display: none;
     }
   }
-
+  
   .links{
     display: flex;
     justify-content: space-around;
     align-items: center;
   }
-  .firstLinks{
-  background-color: #112255;
-  color:rgb(155, 155, 155);  
-  border-radius: 40px;
-  width:50%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  }
   ul{
     width: 90%;
-
     margin:0 auto;
     list-style: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     padding:10px;
+  }  
+  ul li{
+    margin:0 0.5rem;
+  }
+
+  .firstLinks{
+  background-color: #112255;
+  color:rgb(155, 155, 155);  
+  border-radius: 40px;
+  width:50%;
+  min-height: 50px;
+  display: flex;
+  justify-content: space-between;
   }
 .firstLinksContainer{
   background-color: #112255;
@@ -52,10 +56,15 @@
   justify-content: space-around;
   position: relative;
   width: 25%;
+  height: 50px;
 }
 .link{
   color: white;
   text-decoration: none;
+}
+.imgLink{
+  height: 50px;
+  width: 50px;
 }
 @keyframes changeLinkColor {
   0%{
@@ -119,6 +128,11 @@
   color:red
 }
 
+@media screen and (max-width:1348px) {
+  .ulList{
+    font-size: 0.8rem;
+  }
+}
 @media screen and (max-width:1000px) {
   .links{
     flex-direction: column;
@@ -135,12 +149,29 @@
     margin:1rem 0;
   }
   .firstLinksContainer{
-    width: 90%;
+    width: 50%;
     margin:1rem 0;
   }
   .btnContainer{
     width: 60%;
     margin:1rem 0;
+  }
+  .ulList{
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width:450px) {
+  .firstLinks{
+    width: 98%;
+    margin: 0 0;
+  }
+  .ulList{
+    font-size: 0.8rem;
+  }
+}
+@media screen and (max-width:450px) {
+  .ulList{
+    font-size: 0.7rem;
   }
 }
 .popupvisible{
