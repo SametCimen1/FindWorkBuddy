@@ -27,19 +27,32 @@
   }
   .firstLinks{
   background-color: #112255;
-  color:white;  
+  color:rgb(155, 155, 155);  
   border-radius: 40px;
-  width:60%
+  width:50%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
   }
   ul{
-    margin:0;
+    width: 90%;
+
+    margin:0 auto;
     list-style: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding:10px;
   }
-  
+.firstLinksContainer{
+  background-color: #112255;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  width: 25%;
+}
 .link{
   color: white;
   text-decoration: none;
@@ -55,14 +68,18 @@
 .link:hover{
   animation: changeLinkColor 0.5s ease forwards;
 }
-.btnContainer{
+.btnContainer,.signBtnContainer{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* background-color: #ff0800; */
-  width:40%;
   max-width:300px;
   min-width:100px;
+}
+.btnContainer{
+  width:10%;
+}
+.signBtnContainer{
+  width: 50%;
 }
 .signup, .signin{
   padding:10px 20px;
@@ -117,8 +134,41 @@
     width: 90%;
     margin:1rem 0;
   }
+  .firstLinksContainer{
+    width: 90%;
+    margin:1rem 0;
+  }
   .btnContainer{
     width: 60%;
     margin:1rem 0;
   }
+}
+.popupvisible{
+  width:50%;
+  display: block;
+  position: absolute;
+}
+
+.popsettings{
+  left: 20%;
+  top:10px;
+}
+.popnotif{
+  left: 45%;
+  top:10px;
+}
+.popup{
+  left: 60%;
+  top:10px;
+}
+.layoutPupop{
+  background-color: white;
+  box-shadow: 1px 1px 2px rgb(32, 32, 32),-1px 1px 2px rgb(32, 32, 32),1px -1px 2px rgb(32, 32, 32),-1px -1px 2px rgb(32, 32, 32);
+}
+
+.notif,.settings{
+  cursor: pointer;
+}
+.notif:hover ,.settings:hover{
+  fill:#3a6cfd;
 }

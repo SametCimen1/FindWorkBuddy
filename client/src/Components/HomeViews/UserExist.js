@@ -14,7 +14,7 @@ export default function UserExist(){
 
 
     const [posts, setPosts] = useState([]);
-
+    const [createPost, setCreatePost] = useState(false);
 
     const submitPost = async() =>{
      const data  = await fetch('http://localhost:5000/post/newpost', {
@@ -56,40 +56,56 @@ export default function UserExist(){
 
     return(
         <div className =  "userExistContainer">
-            <div className = "userExistImageContainer" style = {{backgroundImage:'url(/userExist.jpg)'}}>
-                 <h1 className = "userExistStart">Start finding friends to work with</h1>
-            </div>
-            
-            
-            <h2>Find people, post what you are looking for</h2>
-            <div className = "searchPost">
-            <input type = "text" className = "INwhat" value = {INwhat} onChange = {(e)=> setINwhat(e.target.value)}  placeholder = "What do you want to study"/>
-                <div className = "INCONTAINER">
-                    <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Header"/>
-                    <input type = "text" value = {INkey} onChange = {(e)=> setINkey(e.target.value)} className = "INkey"  placeholder = "Keywords"/>
-                    <input type = "file" value = {INimg} onChange = {(e)=> setINimg(e.target.value)}  className = "INimg"   placeholder = "images"/>
-                    <button className = "searchBtn" onClick = {submitPost}>Search</button>
-                </div>
+            <div className = "userExistImageContainer" style = {{backgroundImage:'url(/search.jpg)'}}>
+                 <h1 className = "userExistStart">Subject Search</h1>
+                 <p className = "userExistType">Type your subject in to find related posts for your subject or create a post for your subject for others to see</p>
           
 
+                <div className = "search">
+                  <input type = "text" value = {subject} onChange = {(e) => setSubject(e.target.value)} className = "subject"  placeholder = "You can type multiple subjects etc &quot;math science&quot; or just one single subject"/>
+                  <button className = "searchBtn" onClick = {getPosts}>Search</button>
+                </div>  
             </div>
-             <h2>Or check what others are looking for</h2>
-            <div className = "search">
-            <select className="sort" value = {sort} onChange = {(e) => setSort(e.target.value)}>
-                <option value="">Sort by</option>
-                <option value="date">Date</option>
-                <option value="populer">Populer</option>
-            </select>
-            <input type = "text" value = {subject} onChange = {(e) => setSubject(e.target.value)} className = "subject"  placeholder = "What subject are you looking for to study"/>
-            <button className = "searchBtn" onClick = {getPosts}>Search</button>
+            
 
-            </div>
-            
+    
                 <div className = "posts">
-                 {posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)}  
-                </div>
-            
-        </div>
+                    <div className = "postSettings">
+                        <div className = "sortContainer">
+                            <p>Sort by</p>
+                            <select className="sort" value = {sort} onChange = {(e) => setSort(e.target.value)}>
+                             <option value="">All posts</option>
+                             <option value="date">Date</option>
+                             <option value="populer">Populer</option>
+                           </select>
+                        </div> 
+                        <div className = "createPost">
+                            <button className = "createPostBtn" onClick = {(e)=> setCreatePost(prev => !prev)}>Create new post</button>
+                        </div>
+                    </div>
+                    {createPost && 
+                          <div className = "newPost">                          
+                          <div className = "searchPost">
+                              <input type = "text" className = "INwhat" value = {INwhat} onChange = {(e)=> setINwhat(e.target.value)}  placeholder = "What do you want to study"/>
+                               <div className = "INCONTAINER">
+                                 <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Header"/>
+                                 <input type = "text" value = {INkey} onChange = {(e)=> setINkey(e.target.value)} className = "INkey"  placeholder = "Keywords"/>
+                                 <button className = "createBtn" onClick = {submitPost}>Search</button>
+                               </div>
+                          </div> 
+                          </div>}
+
+                    </div>
+                    <div className = "postsFlex">
+                     {posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)}  
+                    </div>
+                    <div className = "henryContainer">
+                        <div className = "henry">
+                          <p className = "henryText"><q>Coming together is a begginning. Keeping together is a process. Working together is a success...</q></p>
+                          <p>Henry Ford</p>
+                        </div>
+                    </div> 
+            </div>
     
     )
 }

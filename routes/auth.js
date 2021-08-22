@@ -79,10 +79,10 @@ router.post('/signin', async(req,res) =>{
     //create jwt token
 
  
-    const token = jwt.sign({_id: user.id}, process.env.TOKENSECRET, {expiresIn: 60*60});
+    const token = jwt.sign({_id: user.id}, process.env.TOKENSECRET, {expiresIn: "3day"});
 
     res.cookie('token', token, { secure: process.env.NODE_ENV !== "development",
-    httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); //2hours
+    httpOnly: true, maxAge: 72 * 60 * 60 * 1000 }); //3days
     res.header('auth-token', token).send("token set")      
 })
 

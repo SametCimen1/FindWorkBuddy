@@ -12,6 +12,7 @@
 .userExistImageContainer{
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -28,8 +29,19 @@
     }
 }
 .userExistStart{
+    color: white;
     border-radius: 20px;
     padding:10px;
+    font-family: 'Klee One', cursive;
+    font-size: 3rem
+}
+.userExistType{
+    color: white;
+    border-radius: 20px;
+    padding:10px;
+    font-family: 'Klee One', cursive;
+    font-size: 2rem;
+
 }
 
 .INwhat{
@@ -73,42 +85,129 @@
 .INCONTAINER{
  margin-top: 0;
 }
-.sort{
-    width: 30%;
-    border: 1px solid black;
-    border-radius: 10px;
-    border-top-right-radius:0;
-    border-bottom-right-radius:0;
-    
-}
-.subject{
-    width:40%;
-    border: 0;
-    border: 1px solid black;
-    border-left: 0;
 
+.postSettings{
+    width: 95%;
+    margin: 2rem 1rem;
+    display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
-.searchBtn{
-    width: 30%;
+
+
+.sortContainer{
+    width: 40%;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+.sort{ 
+    width: 70%;
+    font-size: 1rem;
     border: 0;
+    background-color: transparent;
+}
+@media screen and (max-width:500px) {
+    .postSettings{
+        flex-direction: column;
+    }
+    .sortContainer{
+        width: 90%;
+    }
+}
+.sort:focus{
+  outline: none;
+}
+
+.createPostBtn{
+  background-color: #7c96d3;
+   border: 0;
+   padding:20px;
+   border-radius: 5px;
+   color:white;
+   cursor: pointer;
+}
+.createPostBtn:hover{
+    background-color: #97b6ff;
+     color:white;
+  }
+.subject{
+    width:80%;
+    border-radius: 10px;
+    border: 0;
+    text-indent: 10px;
+    font-size: 1.2rem;
+}
+.searchBtn,.createBtn{
+    width: 10%;
+    border-radius: 10px;
+    /* background-color: #0022FF; */
+    background-color: transparent;
     border: 1px solid black;
-    background-color: #0022FF;
     color: white;
     padding:10px;
+    cursor: pointer;
 }
 
-.searchBtn:hover{
+.searchBtn:hover, .createBtn:hover{
     background-color: #00b7ff;
-  cursor: pointer;
+    border: 1px solid transparent;
+}
+.createBtn{
+    width: 50%;
 }
 .userImage{
     width: 50px;
     height:50px;
 }
-.posts{
+.posts,.postsFlex{
+    background-color: rgb(200, 200, 200);
     width: 100%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 1200px;
+    align-items: center;
+}
+.postsFlex{
+    flex-direction: row;
+}
+.henryContainer{
+    width: 100%;
+    background-color: #465066;
+    padding:100px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.henry{
+    padding:100px 100px;
+    background-color: white;
+    width: 90%;
+    max-width: 1000px;
+    text-align: center;
+}
+.henryText{
+    font-size: 2rem;
+    font-family: 'Klee One', cursive;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:600px) {
+    .search {
+       flex-direction: column;
+       justify-content: space-around;
+       align-items: center;
+    }
+    .subject{
+        width: 90%;
+        margin-bottom: 1rem;
+        padding:10px;
+    }
+    .searchBtn{
+        width: 90%;
+    }
 }
