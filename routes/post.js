@@ -93,15 +93,16 @@ router.post('/newpost', checkAuth, async(req,res) =>{
           res.json(posts.rows);
          
         }
-        // else if(sort === 'date'){
-        //   console.log("subject not sort date")
-        //   const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject} ORDER BY id`); //SAVE the last id and fetch from there on click next
-        //   res.json(posts.rows);
-        // }
-        // else if(sort === 'populer'){
-          
-        //   //sort by likes
-        // }
+        else if(sort === 'date'){
+          console.log("subject not sort date")
+          const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}] ORDER BY id`); //SAVE the last id and fetch from there on click next
+          res.json(posts.rows);
+        }
+        else if(sort === 'populer'){
+          console.log("subject not sort date")
+          const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}] ORDER BY likes`); //SAVE the last id and fetch from there on click next
+          res.json(posts.rows);
+        }
       }
     })
   

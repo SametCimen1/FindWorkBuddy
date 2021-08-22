@@ -71,7 +71,7 @@ export default function UserExist(){
             
 
     
-                <div className = "posts">
+                <div className = {posts.length > 0 ? "posts visible" : "posts invisible" }>
                     <div className = "postSettings">
                         <div className = "sortContainer">
                             <p>Sort by</p>
