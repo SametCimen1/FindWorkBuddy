@@ -16,7 +16,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
       const username = imageUser.rows[0].name;
       const words = req.body.keywords;
       const addWord = words.trim();
-     
+      const wordsArr = addWord.split(' ');
       const dateObj = new Date();
   
       const year = dateObj.getFullYear();
@@ -27,7 +27,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
       const hour = dateObj.getHours();
       const currentTime = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
   
-       const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keyword, likes, commentby, uploadtime, username) VALUES($1,$2,$3,$4,$5,$6,$7, $8, $9)",[id, image, req.body.header, req.body.paragraph, addWord, 0,[], currentTime,username]);
+       const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keywords, likes, commentby, uploadtime, username) VALUES($1,$2,$3,$4,$5,$6,$7, $8, $9)",[id, image, req.body.header, req.body.paragraph, wordsArr, 0,[], currentTime,username]);
       if(user){
         res.json(true)
       }
@@ -54,9 +54,11 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     })
     
     router.post('/getposts', async(req,res) =>{
-      const subject = req.body.subject;
+      const subjectArr = req.body.subject.trim();
+      const subject = subjectArr.split(' ');
       const sort = req.body.sort;
-      if(subject === ''){
+      console.log(subject)
+      if(subject.length === 1 && subject[0] === ''){ //empty subject
           if(sort === ''){
             console.log("BOTH EMPTY")
             const posts =await pool.query("SELECT * FROM posts ORDER BY id ASC  LIMIT 50"); //SAVE the last id and fetch from there on click next
@@ -73,23 +75,33 @@ router.post('/newpost', checkAuth, async(req,res) =>{
             res.json(posts.rows);
           }
       }
-      else if(subject !== ''){
-     
-        const modSubject =  "'"+subject+"'";
-        if(sort === ''){
-          console.log("subject not sort empty")
-          const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject}`); //SAVE the last id and fetch from there on click next
-        res.json(posts.rows);
+      else if(subject.length > 0 && subject[0] !== ''){
+       let myWord = '';
+       for(let i = 0; i< subject.length; i++){
+        if(i === subject.length -1){
+          myWord += "'" +subject[i]+"'"
         }
-        else if(sort === 'date'){
-          console.log("subject not sort date")
-          const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject} ORDER BY id`); //SAVE the last id and fetch from there on click next
+        else{ 
+        myWord += "'" +subject[i]+"',"
+        } 
+      }
+       console.log(myWord)
+       if(sort === ''){
+          console.log("subject not empty sort empty")
+          const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}]`); //SAVE the last id and fetch from there on click next
+         console.log(posts)
           res.json(posts.rows);
+         
         }
-        else if(sort === 'populer'){
+        // else if(sort === 'date'){
+        //   console.log("subject not sort date")
+        //   const posts =await pool.query(`SELECT * FROM posts WHERE keyword = ${modSubject} ORDER BY id`); //SAVE the last id and fetch from there on click next
+        //   res.json(posts.rows);
+        // }
+        // else if(sort === 'populer'){
           
-          //sort by likes
-        }
+        //   //sort by likes
+        // }
       }
     })
   

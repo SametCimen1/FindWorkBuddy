@@ -12,7 +12,7 @@ CREATE TABLE posts(
     image varchar(255),
     header varchar(255) NOT NULL,
     paragraph varchar(1000) NOT NULL,
-    keyword varchar(100) NOT NULL,
+    keywords text[],
     likes integer,
     commentby integer[],
     likedby integer[],

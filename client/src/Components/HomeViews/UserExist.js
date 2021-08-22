@@ -35,7 +35,7 @@ export default function UserExist(){
      }
     }
 
-    const getPosts = async() =>{
+    const getPosts = async(sort) =>{
         const data = await fetch('http://localhost:5000/post/getposts', {
             method:"POST",
             headers: {
@@ -53,7 +53,9 @@ export default function UserExist(){
 
 
 
-
+    const sortPosts = (subject) =>{
+         getPosts(subject);
+    }
     return(
         <div className =  "userExistContainer">
             <div className = "userExistImageContainer" style = {{backgroundImage:'url(/search.jpg)'}}>
@@ -63,7 +65,7 @@ export default function UserExist(){
 
                 <div className = "search">
                   <input type = "text" value = {subject} onChange = {(e) => setSubject(e.target.value)} className = "subject"  placeholder = "You can type multiple subjects etc &quot;math science&quot; or just one single subject"/>
-                  <button className = "searchBtn" onClick = {getPosts}>Search</button>
+                  <button className = "searchBtn" onClick = {()=>getPosts('')}>Search</button>
                 </div>  
             </div>
             
@@ -73,7 +75,7 @@ export default function UserExist(){
                     <div className = "postSettings">
                         <div className = "sortContainer">
                             <p>Sort by</p>
-                            <select className="sort" value = {sort} onChange = {(e) => setSort(e.target.value)}>
+                            <select className="sort" value = {sort} onChange = {(e) => sortPosts(e.target.value)}>
                              <option value="">All posts</option>
                              <option value="date">Date</option>
                              <option value="populer">Populer</option>
@@ -102,7 +104,7 @@ export default function UserExist(){
                     <div className = "henryContainer">
                         <div className = "henry">
                           <p className = "henryText"><q>Coming together is a begginning. Keeping together is a process. Working together is a success...</q></p>
-                          <p>Henry Ford</p>
+                          <p >Henry Ford</p>
                         </div>
                     </div> 
             </div>
