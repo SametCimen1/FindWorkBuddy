@@ -7,6 +7,7 @@ const checkAuth = require('./routes/verifyToken');
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+var fs = require('fs');
 //routes
 
 const authRoute = require('./routes/auth');
@@ -37,8 +38,10 @@ app.use('/api/user', authRoute);
 
 app.post('/userexist', async(req,res) =>{
   const {token} = req.cookies;
-  if(token === ''){
-    res.json(false); 
+  console.log("token")
+  console.log(token)
+  if(token === '' || typeof token === 'undefined'){
+    return res.json(false); 
   }
   else{
     const verified = jwt.verify(token, process.env.TOKENSECRET);
@@ -107,6 +110,7 @@ app.post('/getbyid', checkAuth, async(req,res) =>{
   }
 })
 
+
 app.post('/getuser',checkAuth, async(req,res) =>{
   const id = req.user._id;
   console.log(id)
@@ -130,6 +134,54 @@ app.post('/getuser',checkAuth, async(req,res) =>{
   }
 
 })
+function readFiles(dirname, onFileContent, onError) {
+  fs.readdir(dirname, function(err, filenames) {
+    if (err) {
+      onError(err);
+      return;
+    }
+    for(let i = 0; i<filenames.length; i++){
+      const filename = filenames[i];
+        fs.readFile(dirname + filename, 'utf-8', function(err, content) {
+        if (err) {
+          onError(err);
+          return;
+        }
+        if(filename === "fvwflktcilramizdayi.jpg"){
+          console.log("FOUND")
+          console.log(filename)
+          return content;
+        }
+      });
+    }
+    // filenames.forEach(function(filename) {
+    //   fs.readFile(dirname + filename, 'utf-8', function(err, content) {
+    //     if (err) {
+    //       onError(err);
+    //       return;
+    //     }
+    //     onFileContent(filename, content);
+    //   });
+    // });
+  });
+}
+
+const onFileContentFunc = (filename, content) =>{
+ console.log("IN FILE CONTENT");
+ console.log(filename);
+ if(filename === "fvwflktcilramizdayi.jpg"){
+   console.log("FOUND")
+   console.log(filename)
+   return content;
+ }
+}
+app.get('/getimg', checkAuth, async(req,res) =>{
+  const dirName =__dirname + '/userImages/' 
+  const filename = readFiles(dirName, onFileContentFunc, ()=> {console.log("ERROR IN DIR")})
+  console.log("IN IMAGE")
+  console.log(filename);
+})
+
 app.post('/uploadimg', checkAuth, async(req,res) =>{
  
   if (!req.files || Object.keys(req.files).length === 0) {
@@ -141,12 +193,12 @@ app.post('/uploadimg', checkAuth, async(req,res) =>{
     random += alphabet[Math.floor(Math.random() * 26)]
   } 
   const newimg = req.files.newimg;
-  console.log(newimg)
-  const data = await pool.query('UPDATE users SET test = $1 WHERE id = $2', [ newimg.data,req.user._id])
-  console.log(data)
-  // newimg.mv('./userImages/' +random+ newimg.name);
-  // res.send("uploaded")
+  const imageName = random + newimg.name
+  newimg.mv('./userImages/' +imageName);
+  const updateImg = await pool.query('UPDATE users SET ownimg = true, image = $1 WHERE id = $2', [imageName, req.user._id]);
+  res.redirect(`http://localhost:3000/user/${req.user._id}`);
 })
+
 
 
 const PORT = process.env.PORT || 5000;

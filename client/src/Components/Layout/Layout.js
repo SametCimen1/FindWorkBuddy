@@ -10,17 +10,34 @@ export default function Layout({children}) {
   const [settings, setSettings] = useState(false);
   const history = useHistory();
   const checkIfUserExist = async() =>{
-
-      const data = await fetch("http://localhost:5000/getuser", 
-      {
+      const doesTokenExist =  await fetch("http://localhost:5000/userexist",{
         method:"POST",
         headers: {
           'Content-Type': 'application/json'
         },
         redirect: 'follow',
-        credentials: 'include', // Don't forget to specify this if you need cookies
-        })
-      .then(res => res.json()).then(res => setUser(res)).catch(err => {setUser(); history.push("/")});
+        credentials: 'include',
+      });
+      const res = await doesTokenExist.json();
+      if(res){
+        const data = await fetch("http://localhost:5000/getuser", 
+        {
+          method:"POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          credentials: 'include', // Don't forget to specify this if you need cookies
+          })
+        .then(res => res.json()).then(res => setUser(res)).catch(err => {
+          if(err.status === 401){
+            setUser(); 
+          }
+        }); 
+      }
+      else{
+        setUser()
+      }
     }
  
  

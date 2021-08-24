@@ -60,7 +60,7 @@ ALTER TABLE users
 ADD followers integer[];
 
 ALTER TABLE users
-ADD test bytea;
+ADD ownimg boolean;
 
 
 ALTER TABLE users

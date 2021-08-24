@@ -14,7 +14,8 @@ import NotAuth from './Components/401';
 import NotFound from './Components/404'
 import Profile from './Components/following';
 import userId from './Components/userId'
-import LongPost from './Components/LongPost'
+import LongPost from './Components/LongPost';
+import Getimg from './Components/Getimg';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
        <Route exact path = "/logout" component = {Logout} />
        <Route exact path = "/user/:id" component = {userId} />
        <Route exact path = "/post/:id" component = {LongPost} />
+       <Route exact path = "/getimg" component = {Getimg} />
        <Route exact path = "/401" component = {NotAuth} />
        
 
