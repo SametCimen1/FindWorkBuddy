@@ -1,18 +1,18 @@
-import { useHistory } from "react-router-dom";
 import {Helmet} from 'react-helmet'
+import { useHistory } from "react-router-dom";
 import '../styles/signupStyle.css'
-import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {useState, useEffect} from 'react';
 import '../styles/signupStyle.css';
 import { GoogleLogin } from 'react-google-login';
+
 
 export default function Signup(){
 
 
-
   const userExist = async() =>{
-    const data = await fetch("http://localhost:5000/userexist",{
-      method:"POST",
+  const data = await fetch("http://localhost:5000/userexist",{
+    method:"POST",
       headers: {
         'Content-Type': 'application/json'
       },
@@ -26,31 +26,25 @@ export default function Signup(){
     }
   } 
   useEffect(()=>{
-    userExist();
+  userExist();
   })
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [img, setImg] = useState('');
     const [email, setEmail] = useState('');
+
+
     const history = useHistory();
     const clientId =  process.env.REACT_APP_SECRET;
     const submitForm = async(e) =>{
-      let newImg = '';
-      if(img === ''){
-          newImg = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
-      }
-      else{
-        newImg = img;
-      }
-     e.preventDefault();
+      e.preventDefault();
       const data = await fetch("http://localhost:5000/api/user/signup", {
         method:"POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name:name, password:password, email:email, firstName:firstName, lastName:lastName, img:newImg})
+        body: JSON.stringify({name:name, password:password, email:email, firstName:firstName, lastName:lastName})
       })
       if(data.status === 404){
         const res = await data.json();
@@ -136,11 +130,7 @@ export default function Signup(){
               <div className = "form">
               
                   <input type = "text"required className = "input"   placeholder = "Email"  value = {email} onChange = {(e)=> setEmail(e.target.value.toLowerCase())}/>
-              </div>
-              <div className = "imgForm">
-                  <input type = "text" className = "imgInput"  placeholder = "img url"   value = {img} onChange = {(e)=> setImg(e.target.value)}/>
-                  <input type = "file" className = "imgInput"  />
-              </div>
+              </div>  
               <button className = "btn" type = "submit">Sign up!</button>
             </form>
                <GoogleLogin

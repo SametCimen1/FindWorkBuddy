@@ -12,7 +12,7 @@ import Logout from './Components/Logout';
 import Admin from './Components/Admin';
 import NotAuth from './Components/401';
 import NotFound from './Components/404'
-import Profile from './Components/Profile';
+import Profile from './Components/following';
 import userId from './Components/userId'
 import LongPost from './Components/LongPost'
 
@@ -30,7 +30,6 @@ function App() {
        <Route exact path ="/signup" component = {Signup}/>
        <Route exact path ="/signin" component = {Signin}/>
        <Route exact path = "/logout" component = {Logout} />
-       <Route exact path = "/profile" component = {Profile} />
        <Route exact path = "/user/:id" component = {userId} />
        <Route exact path = "/post/:id" component = {LongPost} />
        <Route exact path = "/401" component = {NotAuth} />

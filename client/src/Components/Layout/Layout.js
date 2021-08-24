@@ -1,13 +1,16 @@
 import { Link} from 'react-router-dom';
 import './styleLayout.css';
 import {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
 
 export default function Layout({children}) {
   const [user, setUser] = useState();
   const [popup, setPopup] = useState(false);
   const [notif, setNotif] = useState(false);
   const [settings, setSettings] = useState(false);
-    const checkIfUserExist = async() =>{
+  const history = useHistory();
+  const checkIfUserExist = async() =>{
+
       const data = await fetch("http://localhost:5000/getuser", 
       {
         method:"POST",
@@ -17,7 +20,7 @@ export default function Layout({children}) {
         redirect: 'follow',
         credentials: 'include', // Don't forget to specify this if you need cookies
         })
-      .then(res => res.json()).then(res => setUser(res)).catch(err => setUser());
+      .then(res => res.json()).then(res => setUser(res)).catch(err => {setUser(); history.push("/")});
     }
  
  

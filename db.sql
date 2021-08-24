@@ -33,9 +33,9 @@ CREATE TABLE users(
     name VARCHAR(20)  UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    friends integer ARRAY,
-    friendReq integer ARRAY,    
-    friendNum integer,
+    following integer[],
+    friendReq integer[],    
+    followers integer[],
     isPublic boolean,
     groupID integer ARRAY, 
     role varchar(6),
@@ -53,5 +53,21 @@ DROP TABLE posts;
 ALTER TABLE posts
 ADD likedby integer[];
 
+ALTER TABLE users   
+ADD following integer[];
+
+ALTER TABLE users
+ADD followers integer[];
+
+ALTER TABLE users
+ADD test bytea;
+
+
+ALTER TABLE users
+DROP test;
+
+ALTER TABLE users
+DROP friendnum;
 
 DELETE FROM posts WHERE id = 1;
+DELETE FROM users WHERE id = 1;

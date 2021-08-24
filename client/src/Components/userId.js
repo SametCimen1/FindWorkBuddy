@@ -1,13 +1,17 @@
 import {  useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
+import Following from './following';
+import NotFollowing from './notfollowing';
+
 
 export default function UserId(){
     let { id } = useParams();
     const [user, setUser] = useState();
-
+    const history = useHistory();
 
     const getUser = async() =>{
-       const data =  await fetch("http://localhost:5000/getuser", {
+       const data =  await fetch("http://localhost:5000/getbyid", {
         method:"POST",
         headers: {
           'Content-Type': 'application/json'
@@ -17,24 +21,19 @@ export default function UserId(){
         body:JSON.stringify({id:id})
        })
        const response = await data.json();
-       setUser(response)
+       setUser(response);
     }
     useEffect(()=>{
       getUser();
     },[])
     
     if(user){
-    return (
-      
-        <div>
-            <img  src  = {user.image}/>
-            <h2>{user.name}</h2>
-            <h2>{user.email}</h2>
-            <h2>{user.friendnum}</h2>
-            <h2>{user.role}</h2>
-            <button>follow</button>
-        </div>
-    )}
+    if(user.friend){
+        return <Following user = {user}/>}
+    else{
+        return <NotFollowing user = {user}/>
+    }
+    }
     else{
         return(
             <div>
