@@ -25,7 +25,7 @@
     justify-content: space-around;
     align-items: center;
   }
-  ul{
+  .ulList{
     width: 90%;
     margin:0 auto;
     list-style: none;
@@ -35,7 +35,7 @@
     flex-wrap: wrap;
     padding:10px;
   }  
-  ul li{
+  .ulList li{
     margin:0 0.5rem;
   }
 

@@ -75,3 +75,21 @@
 .profileTwo{
     margin: 0 1rem;
 } */
+
+.profileOptions{
+    width: 50%;
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+.profileOptions li{
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 0 3rem;
+}
+.profileOptions li:hover{
+   color: rgba(0, 119, 255, 0.561);
+}
+.selected{
+   color: rgba(0, 89, 255, 0.829);
+}

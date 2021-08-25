@@ -126,10 +126,10 @@ export default function Layout({children}) {
                       </div>
                       {console.log(`USER IMAGEEEE ${user.image}`)}
                    {user.ownimg ?
-                <Link  className = "imgLink" to = "/profile/"><img src = {`http://localhost:5000/img/${user.image}`} className = "userImage" /></Link>  
+                <Link  className = "imgLink" to = {`/user/${user.id}`}><img src = {`http://localhost:5000/img/${user.image}`} className = "userImage" /></Link>  
                 
                 : 
-                <Link  className = "imgLink" to = "/profile/"><img src = {user.image} className = "userImage" /></Link>  
+                <Link  className = "imgLink" to =  {`/user/${user.id}`}><img src = {user.image} className = "userImage" /></Link>  
                   }
                   
                 </div>
