@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 var fs = require('fs');
 //routes
 
+
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
 const fileUpload = require('express-fileupload');
@@ -20,7 +21,7 @@ const corsOptions ={
 }
 app.use(cors(corsOptions))
 app.use(fileUpload());
-
+app.use(express.static('userimg'))
 require('dotenv').config();
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
@@ -38,15 +39,12 @@ app.use('/api/user', authRoute);
 
 app.post('/userexist', async(req,res) =>{
   const {token} = req.cookies;
-  console.log("token")
-  console.log(token)
   if(token === '' || typeof token === 'undefined'){
     return res.json(false); 
   }
   else{
     const verified = jwt.verify(token, process.env.TOKENSECRET);
-    console.log("VERIFIED")
-    console.log(verified)
+
     try {
       const data = await pool.query('SELECT * FROM users WHERE id = $1', [verified._id]);
       const user = await data.rows[0];
@@ -62,9 +60,7 @@ app.post('/userexist', async(req,res) =>{
 })
 app.use('/post', postRoute);  
 app.post('/admin', checkAuth, async(req,res,next) =>{
- 
-  const {_id} = req.user;
-  console.log(_id)
+
   try {
     const isAdmin =await pool.query('SELECT * FROM users WHERE id = $1' ,[_id]);
     const user = await  isAdmin.rows[0];
@@ -93,7 +89,7 @@ app.post('/getbyid', checkAuth, async(req,res) =>{
   try {
     const data = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     const user = data.rows[0];
-    const informations = {name:user.name, friendnum:user.friendnum, image:user.image, role:user.role};
+    const informations = {ownimg:user.ownimg,name:user.name, following:user.following.length,followers:user.followers.length,image:user.image, role:user.role};
     console.log("GET BY ID")
     const intId = parseInt(id)
     if(user.followers.length === 0 && intId !== myId){
@@ -113,19 +109,15 @@ app.post('/getbyid', checkAuth, async(req,res) =>{
 
 app.post('/getuser',checkAuth, async(req,res) =>{
   const id = req.user._id;
-  console.log(id)
-  console.log("getuser");
   try {
     if(typeof id !== undefined){
     const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
-    console.log("USER")
-    console.log(user)
     if(user.rows.length === 0){
       res.status(404).send("cant find user")
     }
     else{
       const row = user.rows[0];
-      const informations = {id:id,name:row.name, emial:row.email, friendnum:row.friendnum, role:row.role, image:row.image};
+      const informations = {id:id, ownimg:row.ownimg, name:row.name, emial:row.email, friendnum:row.friendnum, role:row.role, image:row.image};
       res.json(informations);
     }
   }
@@ -134,26 +126,26 @@ app.post('/getuser',checkAuth, async(req,res) =>{
   }
 
 })
-function readFiles(dirname, onFileContent, onError) {
-  fs.readdir(dirname, function(err, filenames) {
-    if (err) {
-      onError(err);
-      return;
-    }
-    for(let i = 0; i<filenames.length; i++){
-      const filename = filenames[i];
-        fs.readFile(dirname + filename, 'utf-8', function(err, content) {
-        if (err) {
-          onError(err);
-          return;
-        }
-        if(filename === "fvwflktcilramizdayi.jpg"){
-          console.log("FOUND")
-          console.log(filename)
-          return content;
-        }
-      });
-    }
+// function readFiles(dirname, onFileContent, onError) {
+//   fs.readdir(dirname, function(err, filenames) {
+//     if (err) {
+//       onError(err);
+//       return;
+//     }
+//     for(let i = 0; i<filenames.length; i++){
+//       const filename = filenames[i];
+//         fs.readFile(dirname + filename, 'utf-8', function(err, content) {
+//         if (err) {
+//           onError(err);
+//           return;
+//         }
+//         if(filename === "fvwflktcilramizdayi.jpg"){
+//           console.log("FOUND")
+//           console.log(filename)
+//           return content;
+//         }
+//       });
+//     }
     // filenames.forEach(function(filename) {
     //   fs.readFile(dirname + filename, 'utf-8', function(err, content) {
     //     if (err) {
@@ -163,27 +155,36 @@ function readFiles(dirname, onFileContent, onError) {
     //     onFileContent(filename, content);
     //   });
     // });
-  });
-}
+//   });
+// }
 
-const onFileContentFunc = (filename, content) =>{
- console.log("IN FILE CONTENT");
- console.log(filename);
- if(filename === "fvwflktcilramizdayi.jpg"){
-   console.log("FOUND")
-   console.log(filename)
-   return content;
- }
-}
+// const onFileContentFunc = (filename, content) =>{
+//  console.log("IN FILE CONTENT");
+//  console.log(filename);
+//  if(filename === "fvwflktcilramizdayi.jpg"){
+//    console.log("FOUND")
+//    console.log(filename)
+//    return content;
+//  }
+// }
 app.get('/getimg', checkAuth, async(req,res) =>{
-  const dirName =__dirname + '/userImages/' 
-  const filename = readFiles(dirName, onFileContentFunc, ()=> {console.log("ERROR IN DIR")})
+  const dirName =__dirname + '/client/public/userImages' 
+  // const filename = readFiles(dirName, onFileContentFunc, ()=> {console.log("ERROR IN DIR")})
   console.log("IN IMAGE")
   console.log(filename);
 })
 
 app.post('/uploadimg', checkAuth, async(req,res) =>{
- 
+  const imgName = await pool.query('SELECT image, ownimg FROM users WHERE id = $1', [req.user._id]);
+  console.log(imgName)
+  if(imgName.rows[0].ownimg){
+    fs.unlink(`${__dirname}/userimg/img/${imgName.rows[0].image}`, function (err) {
+      if (err) console.log(err);
+      // if no error, file has been deleted successfully
+      console.log('File deleted!');
+    }); 
+  }
+
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
@@ -194,7 +195,7 @@ app.post('/uploadimg', checkAuth, async(req,res) =>{
   } 
   const newimg = req.files.newimg;
   const imageName = random + newimg.name
-  newimg.mv('./userImages/' +imageName);
+  newimg.mv('./userimg/img/' +imageName);
   const updateImg = await pool.query('UPDATE users SET ownimg = true, image = $1 WHERE id = $2', [imageName, req.user._id]);
   res.redirect(`http://localhost:3000/user/${req.user._id}`);
 })

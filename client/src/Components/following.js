@@ -3,19 +3,26 @@ import {useState} from 'react';
 
 export default function Profile({user}){
     const [edit, setEdit] = useState(false);
+    console.log("IN FOLLOWING")
+    console.log(user)
     return(
         <div>
             <div className = "imgContainer">
               <div className = "imgAndName">
-                <img src = "https://lh3.googleusercontent.com/a-/AOh14Ggv80087eqtAP7L7ul9j4KiwWKn2F42w6TEjCa1zg=s96-c" alt = "profile img  of the user" className = "userimg"/>
+                  {user.user.ownimg ? 
+                    <img src = {`http://localhost:5000/img/${user.user.image}`} alt = "profile img  of the user" className = "userimg"/>
+                    :
+                    <img src = {user.image} alt = "profile img  of the user" className = "userimg"/>
+                }
+               
                 <div className = "nameFollowers">
                    <div className = "nameContainer">
-                       <p>samet</p>
+                       <p>{user.user.name}</p>
                    </div>
                    <div className = "foll">
-                       <p className = "profileOne">0 followers</p>
+                       <p className = "profileOne">{user.user.followers} followers</p>
                        <span className = "profileDot"></span>
-                       <p className = "profileTwo">0 Following</p>
+                       <p className = "profileTwo">{user.user.following} following</p>
                    </div>
                 </div>
               </div>

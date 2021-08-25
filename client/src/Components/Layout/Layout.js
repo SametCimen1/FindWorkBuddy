@@ -46,6 +46,11 @@ export default function Layout({children}) {
     useEffect(()=>{
       checkIfUserExist();
     },[]);
+
+    useEffect(()=>{
+      console.log(user)
+    },[user]);
+  
   
 
    
@@ -120,7 +125,13 @@ export default function Layout({children}) {
                           </div>
                       </div>
                       {console.log(`USER IMAGEEEE ${user.image}`)}
-                   <Link  className = "imgLink" to = "/profile/"><img src = {user.image} className = "userImage" /></Link>
+                   {user.ownimg ?
+                <Link  className = "imgLink" to = "/profile/"><img src = {`http://localhost:5000/img/${user.image}`} className = "userImage" /></Link>  
+                
+                : 
+                <Link  className = "imgLink" to = "/profile/"><img src = {user.image} className = "userImage" /></Link>  
+                  }
+                  
                 </div>
                 }
                 { user ?
