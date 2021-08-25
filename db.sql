@@ -50,6 +50,11 @@ ADD ownimg boolean;
 ALTER TABLE users
 ADD about varchar(500);
 
+ALTER TABLE users
+ADD active boolean;
+ALTER TABLE users
+ADD confirm varchar(255);
+
 INSERT INTO users (name, email)
 VALUES('samet', 'cimensamet338@gmail.com');
 

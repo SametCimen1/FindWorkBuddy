@@ -58,7 +58,10 @@ export default function Profile({user}){
             )}
 
             {currentItem === 'profile' && (
-                <h1>Profile</h1>
+                <div>
+                    <h3>About</h3>
+                    {user.user.about}
+                </div>
             )
             }
 

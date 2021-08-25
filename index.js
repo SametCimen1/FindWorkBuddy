@@ -7,9 +7,9 @@ const checkAuth = require('./routes/verifyToken');
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-var fs = require('fs');
+const fs = require('fs');
+const nodemailer = require('nodemailer');
 //routes
-
 
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
@@ -89,7 +89,7 @@ app.post('/getbyid', checkAuth, async(req,res) =>{
   try {
     const data = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     const user = data.rows[0];
-    const informations = {ownimg:user.ownimg,name:user.name, following:user.following.length,followers:user.followers.length,image:user.image, role:user.role};
+    const informations = {ownimg:user.ownimg,about:user.about,name:user.name, following:user.following.length,followers:user.followers.length,image:user.image, role:user.role};
     console.log("GET BY ID")
     const intId = parseInt(id)
     if(user.followers.length === 0 && intId !== myId){
@@ -210,7 +210,35 @@ const uploadImg = async(files, id) => {
   const updateImg = await pool.query('UPDATE users SET ownimg = true, image = $1 WHERE id = $2', [imageName, id]);
 }
 
+app.post('/verify', async(req,res) =>{
+  const {email, password, url} = req.body;
+  const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+  if(user){
+  const validPassword = await bcrypt.compare(password, user.rows[0].password);
+    if(!validPassword){
+      console.log("Invalid password")
+        return res.status(400).send("Invalid Password");
+    }
+    if(!(user.rows[0].active)){
+      if(user.rows[0].confirm === url){
+        await pool.query('UPDATE users SET active = $1, confirm = $2 WHERE email = $3', [true,'',email]);
+        return res.status(200).json('ok');
+      }
+      else{
+        console.log("url doesnt match")
+        return res.status(400).json('bad');
+      }
+    }
+    else{
+      console.log("already confirmed")
+      return res.status(500).json('bad');
+    }
+  }
+  else{
+    return res.json("cant find the user")
+  }
 
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
