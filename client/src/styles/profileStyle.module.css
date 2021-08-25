@@ -93,3 +93,28 @@
 .selected{
    color: rgba(0, 89, 255, 0.829);
 }
+.profileContainer{
+    margin-top: 2rem;
+}
+.aboutContainer{
+    margin: 1rem 1rem;
+    padding:20px 10px;
+}
+.userName{
+    font-size: 1.6rem;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.about{
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'Raleway', sans-serif;
+}
+.followingPosts{
+    background-color: rgb(200, 200, 200);
+    padding:20px 10px;
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    
+}

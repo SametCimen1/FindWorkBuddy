@@ -28,10 +28,11 @@ export default function UserId(){
     },[])
     
     if(user){
+        const newUser = {user:user, id:id}
     if(user.friend){
-        return <Following user = {user}/>}
+        return <Following myUser = {newUser}/>}
     else{
-        return <NotFollowing user = {user}/>
+        return <NotFollowing myUser = {newUser}/>
     }
     }
     else{

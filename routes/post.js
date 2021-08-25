@@ -52,7 +52,13 @@ router.post('/newpost', checkAuth, async(req,res) =>{
          res.json("no post found")
      }
     })
-    
+    router.post('/getuserposts', checkAuth,async(req,res) =>{
+      const userid = req.body.userid;
+      const posts = await pool.query('SELECT * FROM posts WHERE userid = $1', [userid])
+      console.log("GET USER POSTS")
+      res.json(posts.rows)
+    });
+
     router.post('/getposts', async(req,res) =>{
       const subjectArr = req.body.subject.trim();
       const subject = subjectArr.split(' ');

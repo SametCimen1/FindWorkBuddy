@@ -6,20 +6,6 @@ CREATE TABLE groups(
 );
 
 
-CREATE TABLE posts(
-    id SERIAL PRIMARY KEY,
-    userId integer REFERENCES users(id),
-    image varchar(255),
-    header varchar(255) NOT NULL,
-    paragraph varchar(1000) NOT NULL,
-    keywords text[],
-    likes integer,
-    commentby integer[],
-    likedby integer[],
-    username varchar(200) NOT NULL,
-    uploadtime timestamp
-);
-
 CREATE TABLE comment(
     id SERIAL PRIMARY KEY,
     text varchar(500),
@@ -38,22 +24,31 @@ CREATE TABLE users(
     followers integer[],
     isPublic boolean,
     groupID integer ARRAY, 
+    ownimg boolean,
+    about varchar(500)
     role varchar(6),
+    active boolean,
+    confirm varchar(255)
     image varchar(255)
 );
 
 
 
-ALTER TABLE users
-ADD ownimg boolean;
 
-ALTER TABLE users
-ADD about varchar(500);
+CREATE TABLE posts(
+    id SERIAL PRIMARY KEY,
+    userId integer REFERENCES users(id),
+    image varchar(255),
+    header varchar(255) NOT NULL,
+    paragraph varchar(1000) NOT NULL,
+    keywords text[],
+    likes integer,
+    commentby integer[],
+    likedby integer[],
+    username varchar(200) NOT NULL,
+    uploadtime timestamp
+);
 
-ALTER TABLE users
-ADD active boolean;
-ALTER TABLE users
-ADD confirm varchar(255);
 
 INSERT INTO users (name, email)
 VALUES('samet', 'cimensamet338@gmail.com');
@@ -62,11 +57,8 @@ DROP TABLE users;
 DROP TABLE groups;
 DROP TABLE posts;
 
-ALTER TABLE posts
-ADD likedby integer[];
 
-ALTER TABLE users   
-ADD following integer[];
+
 
 ALTER TABLE users
 ADD followers integer[];

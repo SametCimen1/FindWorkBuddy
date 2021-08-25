@@ -1,11 +1,61 @@
 import styles from '../styles/profileStyle.module.css';
-import {useState} from 'react';
-
-export default function Profile({user}){
+import {useState, useEffect} from 'react';
+import ShortPost from './ShortPost';
+export default function Profile({myUser}){
+    const user = myUser.user;
     const [currentItem, setCurrentItem] = useState('profile');
-
     const [about, setAbout] = useState('');
     const [name, setName] = useState('');
+    const [posts, setPosts] = useState();
+    const [followReq, setFollowReq] = useState();
+
+
+
+
+    const getPosts = async() =>{
+      const data = await fetch('http://localhost:5000/post/getuserposts', {
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          credentials: 'include', // Don't forget to specify this if you need cookies
+          body:JSON.stringify({userid:myUser.id})
+      });
+      const response = await data.json();
+      setPosts(response);
+    }
+    
+    const getFollowReq = async() =>{
+        const data = await fetch('http://localhost:5000/user/getfollowreq', {
+          method:"POST",
+          headers: {
+              'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+        });
+        const response = await data.json();
+        setFollowReq(response);
+      }
+      const acceptFriend = async(id) =>{
+        const data = await fetch('http://localhost:5000/user/acceptFollower', {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+              credentials: 'include', // Don't forget to specify this if you need cookies
+              body:JSON.stringify({id:id})
+            });
+          const response = await data.json();
+          setFollowReq(response);
+      }
+
+    useEffect(()=>{
+     getPosts();
+     getFollowReq();
+    },[])
     console.log("IN FOLLOWING")
     console.log(user)
     return(
@@ -15,7 +65,7 @@ export default function Profile({user}){
                       {user.user.ownimg ? 
                     <img src = {`http://localhost:5000/img/${user.user.image}`} alt = "profile img  of the user" className = {styles.userimg}/>
                     :
-                    <img src = {user.image} alt = "profile img  of the user" className = {styles.userimg}/>
+                    <img src = {user.user.image} alt = "profile img  of the user" className = {styles.userimg}/>
                 }
                
                 <div className = {styles.nameFollowers}>
@@ -37,8 +87,8 @@ export default function Profile({user}){
             <div>
             <ul className =  {styles.profileOptions} >
                 <li onClick = {()=> setCurrentItem('profile')} className = {currentItem ==='profile' ? styles.selected  :''}>Profile</li>
-                <li onClick = {()=> setCurrentItem('posts')}  className = {currentItem ==='posts' ? styles.selected :''}>Posts</li>
                 <li onClick = {()=> setCurrentItem('edit')}  className = {currentItem ==='edit' ? styles.selected  :''}>Edit Profile</li>
+                <li onClick = {()=> setCurrentItem('notifications')}  className = {currentItem ==='edit' ? styles.selected  :''}>Notifications</li>
             </ul>
             </div>
 
@@ -58,17 +108,31 @@ export default function Profile({user}){
             )}
 
             {currentItem === 'profile' && (
-                <div>
-                    <h3>About</h3>
-                    {user.user.about}
+                <div className = {styles.profileContainer}>
+                    <div className = {styles.aboutContainer}>
+                        <p className = {styles.userName}>About {user.user.name}</p>                   
+                        <p className = {styles.about}>{user.user.about}</p>
+                    </div>
+                    <div className = {styles.followingPosts}>
+                        {typeof posts !== 'undefined' ?  posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)   : ''}
+                    
+                    </div>
                 </div>
             )
             }
 
-          { currentItem === 'posts' && (
-                <h1>Posts</h1>
-            )
-            }
+            {currentItem === 'notifications' && (
+                <div>
+                    <h1>notifications</h1>
+                    {followReq.friendreq.map(id => (
+                    <div>
+                       <h1>{id}</h1>
+                       <button onClick = {()=> acceptFriend(id)}>Accept</button>
+                    </div>
+                    ))}
+                    {console.log(followReq.friendreq)}
+                </div>
+            )}
         </div>
     )
 }

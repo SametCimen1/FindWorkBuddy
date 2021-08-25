@@ -13,6 +13,7 @@ const nodemailer = require('nodemailer');
 
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
+const userRoute = require('./routes/user');
 const fileUpload = require('express-fileupload');
 const corsOptions ={
   origin:'http://localhost:3000', 
@@ -59,6 +60,8 @@ app.post('/userexist', async(req,res) =>{
 
 })
 app.use('/post', postRoute);  
+app.use('/user', userRoute);  
+
 app.post('/admin', checkAuth, async(req,res,next) =>{
 
   try {
