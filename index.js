@@ -173,9 +173,23 @@ app.get('/getimg', checkAuth, async(req,res) =>{
   console.log("IN IMAGE")
   console.log(filename);
 })
-
-app.post('/uploadimg', checkAuth, async(req,res) =>{
-  const imgName = await pool.query('SELECT image, ownimg FROM users WHERE id = $1', [req.user._id]);
+app.post('/updateData', checkAuth, async(req,res) =>{
+  if(req.files && Object.keys(req.files).length !== 0){
+    await uploadImg(req.files, req.user._id);
+  }
+  if(req.body.about !== '' && req.body.name !== ''){
+    await pool.query('UPDATE users SET about = $1, name = $2 WHERE id = $3', [req.body.about, req.body.name, req.user._id])
+  }
+  else if(req.body.about !== '' && req.body.name === ''){
+    await pool.query('UPDATE users SET about = $1 WHERE id = $2', [req.body.about,req.user._id])
+  }
+  else if(req.body.about === '' && req.body.name !== ''){
+    await pool.query('UPDATE users SET  name = $1 WHERE id = $2', [req.body.name, req.user._id])
+  }
+  res.redirect(`http://localhost:3000/user/${req.user._id}`);
+})
+const uploadImg = async(files, id) => {
+  const imgName = await pool.query('SELECT image, ownimg FROM users WHERE id = $1', [id]);
   console.log(imgName)
   if(imgName.rows[0].ownimg){
     fs.unlink(`${__dirname}/userimg/img/${imgName.rows[0].image}`, function (err) {
@@ -185,20 +199,16 @@ app.post('/uploadimg', checkAuth, async(req,res) =>{
     }); 
   }
 
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.');
-  }
   const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   let random = "";
   for(let i = 0; i<10; i++){
     random += alphabet[Math.floor(Math.random() * 26)]
   } 
-  const newimg = req.files.newimg;
+  const newimg = files.newimg;
   const imageName = random + newimg.name
   newimg.mv('./userimg/img/' +imageName);
-  const updateImg = await pool.query('UPDATE users SET ownimg = true, image = $1 WHERE id = $2', [imageName, req.user._id]);
-  res.redirect(`http://localhost:3000/user/${req.user._id}`);
-})
+  const updateImg = await pool.query('UPDATE users SET ownimg = true, image = $1 WHERE id = $2', [imageName, id]);
+}
 
 
 

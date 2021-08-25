@@ -43,6 +43,13 @@ CREATE TABLE users(
 );
 
 
+
+ALTER TABLE users
+ADD ownimg boolean;
+
+ALTER TABLE users
+ADD about varchar(500);
+
 INSERT INTO users (name, email)
 VALUES('samet', 'cimensamet338@gmail.com');
 
@@ -58,9 +65,6 @@ ADD following integer[];
 
 ALTER TABLE users
 ADD followers integer[];
-
-ALTER TABLE users
-ADD ownimg boolean;
 
 
 ALTER TABLE users

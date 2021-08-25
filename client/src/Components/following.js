@@ -3,6 +3,8 @@ import {useState} from 'react';
 
 export default function Profile({user}){
     const [edit, setEdit] = useState(false);
+    const [about, setAbout] = useState('');
+    const [name, setName] = useState('');
     console.log("IN FOLLOWING")
     console.log(user)
     return(
@@ -34,10 +36,12 @@ export default function Profile({user}){
                 <div>
                     <form 
       id='uploadForm' 
-      action='http://localhost:5000/uploadimg' 
+      action='http://localhost:5000/updateData' 
       method='post' 
       encType="multipart/form-data">
                         <input type = "file" name = "newimg" />
+                        <input type = "text" name = "about" value = {about} onChange = {(e)=> setAbout(e.target.value)} placeholder = "about" />
+                        <input type = "text" name = "name" value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())} placeholder = "name" />
                         <input type='submit' value='Upload!' />
                     </form>
                 </div> 
