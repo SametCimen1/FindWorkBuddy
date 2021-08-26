@@ -1,6 +1,7 @@
 import styles from '../styles/profileStyle.module.css';
 import {useState, useEffect} from 'react';
 import ShortPost from './ShortPost';
+import User from './User';
 export default function Profile({myUser}){
     const user = myUser.user;
     const [currentItem, setCurrentItem] = useState('profile');
@@ -10,6 +11,7 @@ export default function Profile({myUser}){
     const [followReq, setFollowReq] = useState();
     const [followers, setFollowers] = useState();
     const [following, setFollowing] = useState();
+    const isItme = user.user.isItme;
 
 
 
@@ -101,14 +103,14 @@ export default function Profile({myUser}){
             <div>
             <ul className =  {styles.profileOptions} >
                 <li onClick = {()=> setCurrentItem('profile')} className = {currentItem ==='profile' ? styles.selected  :''}>Profile</li>
-                <li onClick = {()=> setCurrentItem('edit')}  className = {currentItem ==='edit' ? styles.selected  :''}>Edit Profile</li>
-                <li onClick = {()=> setCurrentItem('notifications')}  className = {currentItem ==='notifications' ? styles.selected  :''}>Notifications</li>
-                <li onClick = {()=> setCurrentItem('followers')}  className = {currentItem ==='followers' ? styles.selected  :''}>Followers</li>
-                <li onClick = {()=> setCurrentItem('following')}  className = {currentItem ==='following' ? styles.selected  :''}>Following</li>
+                {isItme && <li onClick = {()=> setCurrentItem('edit')}  className = {currentItem ==='edit' ? styles.selected  :''}>Edit Profile</li>}
+                {isItme && <li onClick = {()=> setCurrentItem('notifications')}  className = {currentItem ==='notifications' ? styles.selected  :''}>Notifications</li>}
+               {isItme && <li onClick = {()=> setCurrentItem('followers')}  className = {currentItem ==='followers' ? styles.selected  :''}>Followers</li>}
+               {isItme && <li onClick = {()=> setCurrentItem('following')}  className = {currentItem ==='following' ? styles.selected  :''}>Following</li>}
             </ul>
             </div>
-
-            {currentItem === 'edit' && (
+            <div  className = {styles.profileOptionsContainer}>
+            {isItme && currentItem === 'edit' && (
                 <div>
                     <form 
       id='uploadForm' 
@@ -123,21 +125,20 @@ export default function Profile({myUser}){
                 </div> 
             )}
 
-            {currentItem === 'profile' && (
+            { currentItem === 'profile' && (
                 <div className = {styles.profileContainer}>
                     <div className = {styles.aboutContainer}>
-                        <p className = {styles.userName}>About {user.user.name}</p>                   
-                        <p className = {styles.about}>{user.user.about}</p>
+                        <p className = {styles.userName}>About {user.user.name}:</p>                   
+                        <p className = {styles.about}>{user.user.about === '' ? <p>None</p> : user.user.about}</p>
                     </div>
-                    <div className = {styles.followingPosts}>
-                        {typeof posts !== 'undefined' ?  posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)   : ''}
-                    
+                    <div className = { typeof posts !== 'undefined' && posts.length !== 0 ? styles.followingPosts : styles.followingNotPosts}>
+                        {typeof posts !== 'undefined' && posts.length !== 0 ?  posts.map(post =>  <ShortPost post = {post} key = {post.id}/>):                      <p className = {styles.postsText}>{user.user.name}'s posts<p>none</p></p> }
                     </div>
                 </div>
             )
             }
 
-            {currentItem === 'notifications' && (
+            {isItme&&currentItem === 'notifications' && (
                 <div>
                     <h1>notifications</h1>
                     {followReq.map(id => (
@@ -150,26 +151,22 @@ export default function Profile({myUser}){
             )}
 
 
-           {currentItem === 'followers' && (
+           {isItme && currentItem === 'followers' && (
                 <div>
                     <h1>followers</h1>
-                    {followers.length === 0 ? <h2>Not following anyone</h2> : followers.map(id => {return (
-                        <div>
-                            <h1>{id}</h1>
-                        </div>
-                    )})}
+                    {followers.length === 0 ? <h2>Not following anyone</h2> : followers.map(id => <User id = {id} key = {id}/>)}
                 </div>
             )}
 
             
             
-           {currentItem === 'following' && (
+           {isItme && currentItem === 'following' && (
                 <div>
                     <h1>following</h1>
                     {following.length === 0 ? <h2>Not following anyone</h2> : 
                     following.map(id=>{return (
                     <div>
-                       <h1>{id}</h1>
+                       <User id = {id} key = {id}/>
                        <button onClick = {()=> unfollow(id)}>Unfollow</button>
                     </div>
                     )})
@@ -177,7 +174,7 @@ export default function Profile({myUser}){
                     }
                 </div>
             )}
-
+            </div>
              
         </div>
     )

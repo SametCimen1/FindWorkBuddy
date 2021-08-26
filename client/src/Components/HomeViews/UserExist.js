@@ -60,6 +60,9 @@ export default function UserExist(){
          getPosts(subject);
          setSort(subject);
     }
+    useEffect(()=>{
+      getPosts('');
+    },[])
     return(
         <div className =  "userExistContainer">
             <div className = "userExistImageContainer" style = {{backgroundImage:'url(/search.jpg)'}}>
@@ -89,11 +92,7 @@ export default function UserExist(){
                             <button className = "createPostBtn" onClick = {(e)=> setCreatePost(prev => !prev)}>Create new post</button>
                         </div>
                     </div>
-                    {/* {createPost &&  */}
-    
-                          {/* } */}
-
-                    </div>
+                    {createPost && 
                     <div className = "newPost">                          
                           <div className = "searchPost">
                             <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Tpye in the title"/>
@@ -107,6 +106,9 @@ export default function UserExist(){
                               <button className = "createBtn" onClick = {submitPost}>Create</button>
                             </div>
                           </div>
+                          }
+
+                    </div>
                     <div className = "postsFlex">
                      {posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)}  
                     </div>

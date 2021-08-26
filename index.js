@@ -89,11 +89,15 @@ app.get('/sample', checkAuth, async(req,res,next) =>{
 app.post('/getbyid', checkAuth, async(req,res) =>{
   const id = req.body.id;
   const myId = req.user._id;
+  const isUser = req.body.user;
   try {
+    const intId = parseInt(id)
     const data = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     const user = data.rows[0];
-    const informations = {ownimg:user.ownimg,about:user.about,name:user.name, following:user.following.length,followers:user.followers.length,image:user.image, role:user.role};
-    const intId = parseInt(id)
+    let informations = {ownimg:user.ownimg,about:user.about, isItme:intId === myId,name:user.name, following:user.following.length,followers:user.followers.length,image:user.image, role:user.role};
+    if(isUser === 'user'){
+       informations = {ownimg:user.ownimg,name:user.name,image:user.image, role:user.role};
+    }
     if(user.followers.length === 0 && intId !== myId){
       res.json({"friend":false, user:informations})  
     }

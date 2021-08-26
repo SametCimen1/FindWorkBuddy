@@ -62,7 +62,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
       if(subject.length === 1 && subject[0] === ''){ //empty subject
           if(sort === ''){
 
-            const posts =await pool.query("SELECT * FROM posts ORDER BY id ASC  LIMIT 50"); //SAVE the last id and fetch from there on click next
+            const posts =await pool.query("SELECT * FROM posts ORDER BY id ASC  LIMIT 20"); //SAVE the last id and fetch from there on click next
             res.json(posts.rows);
           }
           else if(sort === 'date'){

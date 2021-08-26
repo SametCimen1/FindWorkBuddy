@@ -1,0 +1,20 @@
+.userBox{
+display: flex;
+width: 50%;
+max-width: 200px;
+margin-left: 2rem;
+justify-content: space-around;
+align-items: center;
+cursor: pointer;
+}
+.userImage{
+    border-radius: 50%;
+    width: 75px;
+    object-fit: cover;
+    height: 75px;
+}
+.userName{
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+    font-size: 1.5rem;
+}

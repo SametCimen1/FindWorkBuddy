@@ -38,7 +38,7 @@
   .ulList li{
     margin:0 0.5rem;
   }
-
+  
   .firstLinks{
   background-color: #112255;
   color:rgb(155, 155, 155);  
@@ -202,4 +202,8 @@
 }
 .notif:hover ,.settings:hover{
   fill:#3a6cfd;
+}
+.userImage{
+  object-fit: cover;
+  cursor: pointer;
 }

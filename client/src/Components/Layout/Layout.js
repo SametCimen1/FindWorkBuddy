@@ -123,10 +123,9 @@ export default function Layout({children}) {
                           </div>
                       </div>
                    {user.ownimg ?
-                <Link  className = "imgLink" to = {`/user/${user.id}`}><img src = {`http://localhost:5000/img/${user.image}`} className = "userImage" /></Link>  
-                
+               <img   src = {`http://localhost:5000/img/${user.image}`}  onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                 : 
-                <Link  className = "imgLink" to =  {`/user/${user.id}`}><img src = {user.image} className = "userImage" /></Link>  
+                 < img src = {user.image} onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                   }
                   
                 </div>
