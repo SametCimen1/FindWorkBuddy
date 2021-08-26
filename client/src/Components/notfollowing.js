@@ -30,7 +30,7 @@ ownimg: true
         <h2>{user.user.email}</h2>
         <h2>{user.user.friendnum}</h2>
         <h2>{user.user.role}</h2>
-        <button onClick = {followRequest}>follow</button>
+        <button onClick = {followRequest}>Follow</button>
     </div>
   )
 }

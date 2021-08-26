@@ -8,6 +8,8 @@ export default function Profile({myUser}){
     const [name, setName] = useState('');
     const [posts, setPosts] = useState();
     const [followReq, setFollowReq] = useState();
+    const [followers, setFollowers] = useState();
+    const [following, setFollowing] = useState();
 
 
 
@@ -27,7 +29,7 @@ export default function Profile({myUser}){
     }
     
     const getFollowReq = async() =>{
-        const data = await fetch('http://localhost:5000/user/getfollowreq', {
+        const data = await fetch('http://localhost:5000/user/getFollows', {
           method:"POST",
           headers: {
               'Content-Type': 'application/json'
@@ -36,7 +38,9 @@ export default function Profile({myUser}){
             credentials: 'include', // Don't forget to specify this if you need cookies
         });
         const response = await data.json();
-        setFollowReq(response);
+        setFollowReq(response.friendreq);
+        setFollowers(response.followers);
+        setFollowing(response.following);
       }
       const acceptFriend = async(id) =>{
         const data = await fetch('http://localhost:5000/user/acceptFollower', {
@@ -88,7 +92,9 @@ export default function Profile({myUser}){
             <ul className =  {styles.profileOptions} >
                 <li onClick = {()=> setCurrentItem('profile')} className = {currentItem ==='profile' ? styles.selected  :''}>Profile</li>
                 <li onClick = {()=> setCurrentItem('edit')}  className = {currentItem ==='edit' ? styles.selected  :''}>Edit Profile</li>
-                <li onClick = {()=> setCurrentItem('notifications')}  className = {currentItem ==='edit' ? styles.selected  :''}>Notifications</li>
+                <li onClick = {()=> setCurrentItem('notifications')}  className = {currentItem ==='notifications' ? styles.selected  :''}>Notifications</li>
+                <li onClick = {()=> setCurrentItem('followers')}  className = {currentItem ==='followers' ? styles.selected  :''}>Followers</li>
+                <li onClick = {()=> setCurrentItem('following')}  className = {currentItem ==='following' ? styles.selected  :''}>Following</li>
             </ul>
             </div>
 
@@ -124,7 +130,7 @@ export default function Profile({myUser}){
             {currentItem === 'notifications' && (
                 <div>
                     <h1>notifications</h1>
-                    {followReq.friendreq.map(id => (
+                    {followReq.map(id => (
                     <div>
                        <h1>{id}</h1>
                        <button onClick = {()=> acceptFriend(id)}>Accept</button>
@@ -133,6 +139,37 @@ export default function Profile({myUser}){
                     {console.log(followReq.friendreq)}
                 </div>
             )}
+
+
+           {currentItem === 'followers' && (
+                <div>
+                    <h1>followers</h1>
+                    {followers.length === 0 ? <h2>Not following anyone</h2> : followers.map(id => {return (
+                        <div>
+                            <h1>{id}</h1>
+                        </div>
+                    )})}
+                </div>
+            )}
+
+            
+            
+           {currentItem === 'following' && (
+                <div>
+                    <h1>following</h1>
+                    {following.length === 0 ? <h2>Not following anyone</h2> : 
+                    following.map(id=>{(
+                    <div>
+                       <h1>{id}</h1>
+                       <button>Unfollow</button>
+                    </div>
+                    )})
+                    
+                    }
+                </div>
+            )}
+
+             
         </div>
     )
 }
