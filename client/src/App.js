@@ -16,6 +16,7 @@ import Profile from './Components/following';
 import userId from './Components/userId'
 import LongPost from './Components/LongPost';
 import Getimg from './Components/Getimg';
+import VerifyEmail from './Components/VerifyEmail';
 import Verify from './Components/Verify';
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
        <Route exact path = "/user/:id" component = {userId} />
        <Route exact path = "/post/:id" component = {LongPost} />
        <Route exact path = "/getimg" component = {Getimg} />
-       <Route exact path = "/verify/:url" component = {Verify} />
+       <Route exact path = "/verify/:url" component = {VerifyEmail} />
+       <Route exact path = "/verify/" component = {Verify} />
        <Route exact path = "/401" component = {NotAuth} />
        
 

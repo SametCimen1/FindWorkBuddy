@@ -51,7 +51,7 @@ export default function Signup(){
         alert(res)
       }
       else if(data.status === 200){
-         history.push("/signin");
+         history.push("/verify");
        }
        else{
          alert("someting went wrong")

@@ -102,7 +102,7 @@
   border: 1px solid #3a6cfd;
 }
 .signin:hover{
-  border: 0;
+  border-color: white;
   background-color: white;
   color:black
 }
