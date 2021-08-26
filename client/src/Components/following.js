@@ -56,6 +56,18 @@ export default function Profile({myUser}){
           setFollowReq(response);
       }
 
+      const unfollow = async(id) =>{
+        const data = await fetch('http://localhost:5000/user/unfollow', {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+              credentials: 'include', // Don't forget to specify this if you need cookies
+              body:JSON.stringify({id:id})
+        })
+      }
+
     useEffect(()=>{
      getPosts();
      getFollowReq();
@@ -158,10 +170,10 @@ export default function Profile({myUser}){
                 <div>
                     <h1>following</h1>
                     {following.length === 0 ? <h2>Not following anyone</h2> : 
-                    following.map(id=>{(
+                    following.map(id=>{return (
                     <div>
                        <h1>{id}</h1>
-                       <button>Unfollow</button>
+                       <button onClick = {()=> unfollow(id)}>Unfollow</button>
                     </div>
                     )})
                     
