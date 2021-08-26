@@ -77,6 +77,7 @@
 } */
 
 .profileOptions{
+    margin: 1rem;
     width: 50%;
     display: flex;
     list-style: none;
@@ -137,8 +138,45 @@
         margin-top: 2rem;
     }
 }
+
 @media screen and (max-width:600px) {
     .imgContainer{
         flex-direction: column;
     }
+}
+
+
+.followingContainer{
+  display: flex;
+  align-items: center;
+}
+
+.unfollow{
+    cursor: pointer;
+    margin-left: 2rem;
+    padding:10px;
+    background-color: rgb(255, 0, 85);
+    border: 0;
+    color:white;
+    border-radius: 10px;
+}
+
+.massege{
+    cursor: pointer;
+    margin-left: 2rem;
+    padding:10px;
+    background-color: rgb(0, 132, 255);
+    border: 0;
+    color:white;
+    border-radius: 10px;
+
+}
+.btnContainer{
+  display: flex;
+}
+@media screen and (max-width:440px) {
+    .btnContainer{
+        flex-direction: column;
+        justify-content: center;
+      }
 }

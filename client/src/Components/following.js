@@ -154,7 +154,15 @@ export default function Profile({myUser}){
            {isItme && currentItem === 'followers' && (
                 <div>
                     <h1>followers</h1>
-                    {followers.length === 0 ? <h2>Not following anyone</h2> : followers.map(id => <User id = {id} key = {id}/>)}
+                    <div>
+                      {followers.length === 0 ? <h2>Not following anyone</h2> : followers.map(id => 
+                      <div className = {styles.followingContainer}>
+                        <User id = {id} key = {id}/>
+                        <button  className = {styles.massege}>Massege</button>
+                      </div>
+                      )}
+                    
+                    </div>
                 </div>
             )}
 
@@ -165,9 +173,12 @@ export default function Profile({myUser}){
                     <h1>following</h1>
                     {following.length === 0 ? <h2>Not following anyone</h2> : 
                     following.map(id=>{return (
-                    <div>
+                    <div className = {styles.followingContainer}>
                        <User id = {id} key = {id}/>
-                       <button onClick = {()=> unfollow(id)}>Unfollow</button>
+                       <div className = {styles.btnContainer}>
+                         <button  className = {styles.massege}>Massege</button>
+                         <button className ={styles.unfollow}onClick = {()=> unfollow(id)}>Unfollow</button>
+                       </div>
                     </div>
                     )})
                     
