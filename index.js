@@ -93,7 +93,6 @@ app.post('/getbyid', checkAuth, async(req,res) =>{
     const data = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     const user = data.rows[0];
     const informations = {ownimg:user.ownimg,about:user.about,name:user.name, following:user.following.length,followers:user.followers.length,image:user.image, role:user.role};
-    console.log("GET BY ID")
     const intId = parseInt(id)
     if(user.followers.length === 0 && intId !== myId){
       res.json({"friend":false, user:informations})  
@@ -173,8 +172,6 @@ app.post('/getuser',checkAuth, async(req,res) =>{
 app.get('/getimg', checkAuth, async(req,res) =>{
   const dirName =__dirname + '/client/public/userImages' 
   // const filename = readFiles(dirName, onFileContentFunc, ()=> {console.log("ERROR IN DIR")})
-  console.log("IN IMAGE")
-  console.log(filename);
 })
 app.post('/updateData', checkAuth, async(req,res) =>{
   if(req.files && Object.keys(req.files).length !== 0){

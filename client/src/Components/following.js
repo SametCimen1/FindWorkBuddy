@@ -72,8 +72,6 @@ export default function Profile({myUser}){
      getPosts();
      getFollowReq();
     },[])
-    console.log("IN FOLLOWING")
-    console.log(user)
     return(
         <div>
             <div className = {styles.imgContainer}>
@@ -148,7 +146,6 @@ export default function Profile({myUser}){
                        <button onClick = {()=> acceptFriend(id)}>Accept</button>
                     </div>
                     ))}
-                    {console.log(followReq.friendreq)}
                 </div>
             )}
 

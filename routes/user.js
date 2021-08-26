@@ -27,7 +27,6 @@ router.post('/getFollows', checkAuth, async(req,res) =>{
      const id = req.body.id;
      const updateFollowers = await pool.query('UPDATE users SET friendReq = array_remove(friendReq, $1), followers = array_append(followers, $2) WHERE id = $3',[id, id, req.user._id]);
      const updateFollowing = await pool.query('UPDATE users SET following =  array_append(following, $1) WHERE id = $2',[req.user._id,id]);
-     console.log(data)
     })
 
     router.post('/unfollow', checkAuth, async(req,res) =>{

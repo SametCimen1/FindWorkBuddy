@@ -6,8 +6,6 @@ export default function Post({post}){
      
      
     useEffect(()=>{
-        console.log("SHORT POST")
-        console.log(post)
        setMyPost(post)
        isLiked()     
     },[])
@@ -23,13 +21,13 @@ export default function Post({post}){
     const [myPost, setMyPost] = useState(null);
     useEffect(()=>{
         if(myPost !== null) getTime();
-    },[])
+    },[myPost])
 
 
     const [time, setTime] = useState(0);
     const [timeUnit, setTimeUnit] = useState('');
     const getTime = () =>{
-           console.log(myPost)
+
             const date = new Date(myPost.uploadtime);
             const currentTime = new Date();
             const difference =  (currentTime - date);
@@ -62,7 +60,6 @@ export default function Post({post}){
   
     const likePost = async() =>{
         if(like){// liked now unlike it 
-            console.log('unliking')
             const data = await fetch('http://localhost:5000/post/unlikepost',{
                 method:"POST",
                 headers: {
@@ -105,7 +102,6 @@ export default function Post({post}){
                         <div className = "nameContainer">
                             <p className = "userName">{myPost.username}</p>
                             <p>{time} {timeUnit} ago</p>
-                        {console.log(myPost)}
                         </div>
                         
                     </div>
@@ -128,8 +124,6 @@ export default function Post({post}){
             <p className = "userParagraph " onClick={longPost}>{myPost.paragraph}</p>
          </div>
          {/* <button onClick = {likePost}>Like</button> */}
-         {console.log("MYPOST")}
-         {console.log(myPost)}
          <div className = "postInfo">
             <div className = "viewComment">
                 <p className = "longPost" onClick={longPost}>{myPost.commentby.length}</p>

@@ -56,7 +56,6 @@ export default function Signup(){
        else{
          alert("someting went wrong")
        }
-    console.log(email)
     }
 
     const onSuccess = async(res) => {
@@ -82,7 +81,6 @@ export default function Signup(){
           },
           body: JSON.stringify({email:email,name:name,img:img,password:password})
         });
-        console.log(data)
         const signin = await fetch('http://localhost:5000/api/user/signin', {
           method:"POST",
           headers: {

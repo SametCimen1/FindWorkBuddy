@@ -7,8 +7,6 @@ router.use(cookieParser());
 router.post('/newpost', checkAuth, async(req,res) =>{
     const {_id} = req.user; 
     const id = _id; 
-    console.log(id)
-    console.log("getuser");
   
       if(typeof id !== undefined){
       const imageUser = await pool.query("SELECT image, name FROM users  WHERE id = $1", [id])
@@ -45,7 +43,6 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     router.post('/getpost', async(req,res) =>{
      const post = await getSinglePost(req.body.id);
      if(post){
-         console.log(post)
          res.json(post);
      }
      else{
@@ -55,7 +52,6 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     router.post('/getuserposts', checkAuth,async(req,res) =>{
       const userid = req.body.userid;
       const posts = await pool.query('SELECT * FROM posts WHERE userid = $1', [userid])
-      console.log("GET USER POSTS")
       res.json(posts.rows)
     });
 
@@ -63,20 +59,19 @@ router.post('/newpost', checkAuth, async(req,res) =>{
       const subjectArr = req.body.subject.trim();
       const subject = subjectArr.split(' ');
       const sort = req.body.sort;
-      console.log(subject)
       if(subject.length === 1 && subject[0] === ''){ //empty subject
           if(sort === ''){
-            console.log("BOTH EMPTY")
+
             const posts =await pool.query("SELECT * FROM posts ORDER BY id ASC  LIMIT 50"); //SAVE the last id and fetch from there on click next
             res.json(posts.rows);
           }
           else if(sort === 'date'){
-            console.log("subject empty date")
+
             const posts =await pool.query(`SELECT * FROM posts  ORDER BY id DESC`); //SAVE the last id and fetch from there on click next
             res.json(posts.rows);
           }
           else if(sort === 'populer'){
-            console.log("subject empty populer")
+  
             const posts =await pool.query(`SELECT * FROM posts  ORDER BY likes DESC`); //SAVE the last id and fetch from there on click next
             res.json(posts.rows);
           }
@@ -91,21 +86,20 @@ router.post('/newpost', checkAuth, async(req,res) =>{
         myWord += "'" +subject[i]+"',"
         } 
       }
-       console.log(myWord)
        if(sort === ''){
-          console.log("subject not empty sort empty")
+
           const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}]`); //SAVE the last id and fetch from there on click next
-         console.log(posts)
+
           res.json(posts.rows);
          
         }
         else if(sort === 'date'){
-          console.log("subject not sort date")
+
           const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}] ORDER BY id`); //SAVE the last id and fetch from there on click next
           res.json(posts.rows);
         }
         else if(sort === 'populer'){
-          console.log("subject not sort date")
+
           const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}] ORDER BY likes`); //SAVE the last id and fetch from there on click next
           res.json(posts.rows);
         }

@@ -1,6 +1,7 @@
 import {  useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
+import stlyes from '../styles/VerifyEmail.module.css'
 export default function Verify(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -30,10 +31,19 @@ export default function Verify(){
         
     }
     return(
-        <div>
-            <input placeholder = "email" type = "text" value = {email} onChange = {(e)=> setEmail(e.target.value.toLowerCase())}></input>
-            <input placeholder = "email" type = "text" value = {password}  onChange = {(e)=> setPassword(e.target.value)}></input>
-            <button onClick = {submitForm}>Submit</button>
+        <div className = {stlyes.boxContainer}>
+            <div className = {stlyes.box}>
+                <p className = {stlyes.pls}>Please re-enter your email and password to verify your account</p>
+                <div className = {stlyes.inputContainer}>
+                  <label>Email:</label>
+                  <input className = {stlyes.email} placeholder = "email" type = "text" value = {email} onChange = {(e)=> setEmail(e.target.value.toLowerCase())}></input>
+                </div>
+                <div  className = {stlyes.inputContainer}>
+                    <labe>Password:</labe>
+                  <input className = {stlyes.password} placeholder = "password" type = "password" value = {password}  onChange = {(e)=> setPassword(e.target.value)}></input>
+                </div>
+                <button className = {stlyes.btn} onClick = {submitForm}>Submit</button>
+            </div>
         </div>
     )
 }

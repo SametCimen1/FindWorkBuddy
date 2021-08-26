@@ -47,9 +47,7 @@ export default function Layout({children}) {
       checkIfUserExist();
     },[]);
 
-    useEffect(()=>{
-      console.log(user)
-    },[user]);
+
   
   
 
@@ -124,7 +122,6 @@ export default function Layout({children}) {
                             <h1>share post</h1>
                           </div>
                       </div>
-                      {console.log(`USER IMAGEEEE ${user.image}`)}
                    {user.ownimg ?
                 <Link  className = "imgLink" to = {`/user/${user.id}`}><img src = {`http://localhost:5000/img/${user.image}`} className = "userImage" /></Link>  
                 

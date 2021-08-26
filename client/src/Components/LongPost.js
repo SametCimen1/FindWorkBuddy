@@ -28,8 +28,6 @@ export default function LongPost(){
             body: JSON.stringify({id:id})
           });
         const response = await data.json();
-        console.log("SDADASDSA")
-        console.log(response)
         setPost(response);
     }
     const [time, setTime] = useState(0);
@@ -88,7 +86,6 @@ export default function LongPost(){
             setPost(response)
         }
         else{
-            console.log('liking')
             const data = await fetch('http://localhost:5000/post/likepost',{
                 method:"POST",
                 headers: {
@@ -153,9 +150,6 @@ export default function LongPost(){
      const response = await data.json();
     
      const isInList = comments.some(function(elem) {
-        console.log("DSADS")
-        console.log(response)
-        console.log(elem)
         return (elem.id === response.id || (elem.text === response.text && elem.id === response.id))
       })
       if(isInList === false){

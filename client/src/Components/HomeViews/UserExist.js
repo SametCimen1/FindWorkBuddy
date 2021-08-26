@@ -51,8 +51,6 @@ export default function UserExist(){
               body:JSON.stringify({sort:sort, subject:subject})
         })
         const response = await data.json();
-        console.log("responmse")
-        console.log(response);
         setPosts(response)
     }
 
@@ -91,8 +89,12 @@ export default function UserExist(){
                             <button className = "createPostBtn" onClick = {(e)=> setCreatePost(prev => !prev)}>Create new post</button>
                         </div>
                     </div>
-                    {createPost && 
-                          <div className = "newPost">                          
+                    {/* {createPost &&  */}
+    
+                          {/* } */}
+
+                    </div>
+                    <div className = "newPost">                          
                           <div className = "searchPost">
                             <input type  = "text" value = {INheader} onChange = {(e)=> setINheader(e.target.value)} className = "INheader"  placeholder = "Tpye in the title"/>
                             <input type = "text" value = {INkey} onChange = {(e)=> setINkey(e.target.value)} className = "INkey"  placeholder = "Type in subject &quot;math science&quot;"/>
@@ -104,9 +106,7 @@ export default function UserExist(){
                               <button className = "cancelBtn" onClick = {(e)=> setCreatePost(prev => !prev)}>Cancel</button>
                               <button className = "createBtn" onClick = {submitPost}>Create</button>
                             </div>
-                          </div>}
-
-                    </div>
+                          </div>
                     <div className = "postsFlex">
                      {posts.map(post =>  <ShortPost post = {post} key = {post.id}/>)}  
                     </div>

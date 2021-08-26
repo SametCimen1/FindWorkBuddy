@@ -47,8 +47,7 @@ export default function Signup(){
     credentials: 'include', // Don't forget to specify this if you need cookies
     body: JSON.stringify({password:password, email:email})
     })
-    console.log("TOKEN IN SIGNIN REACT")
-    console.log(data)
+
     if(data.status === 200){
       history.push("/");
       history.go(0);
@@ -84,7 +83,6 @@ export default function Signup(){
         },
         body: JSON.stringify({email:email,name:name,img:img,password:password})
       });
-      console.log(data)
       const signin = await fetch('http://localhost:5000/api/user/signin', {
         method:"POST",
         headers: {
@@ -94,7 +92,6 @@ export default function Signup(){
         credentials: 'include',
         body: JSON.stringify({email:email,password:password})
       })
-      console.log(signin)
       history.push("/");
       history.go(0);
     }

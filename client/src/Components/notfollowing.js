@@ -22,10 +22,6 @@ ownimg: true
     })
   }
 
-  useEffect(()=>{
-    console.log("myuser")
-    console.log(user)
-  })
 
 
   return(
