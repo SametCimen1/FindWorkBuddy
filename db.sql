@@ -25,10 +25,10 @@ CREATE TABLE users(
     isPublic boolean,
     groupID integer ARRAY, 
     ownimg boolean,
-    about varchar(500)
+    about varchar(500),
     role varchar(6),
     active boolean,
-    confirm varchar(255)
+    confirm varchar(255),
     image varchar(255)
 );
 
