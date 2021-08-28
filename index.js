@@ -112,7 +112,7 @@ app.post('/getbyid', checkAuth, async(req,res) =>{
   }
 })
 
-
+//ch
 app.post('/getuser',checkAuth, async(req,res) =>{
   const id = req.user._id;
   try {
