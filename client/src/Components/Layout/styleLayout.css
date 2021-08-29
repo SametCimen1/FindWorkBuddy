@@ -24,31 +24,48 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-  }
-  .ulList{
-    width: 90%;
-    margin:0 auto;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding:10px;
   }  
-  .ulList li{
-    margin:0 0.5rem;
-  }
-  
   .firstLinks{
-  background-color: #112255;
-  color:rgb(155, 155, 155);  
-  border-radius: 40px;
-  width:50%;
-  min-height: 50px;
-  display: flex;
-  justify-content: space-between;
+    margin-right: 0.5rem;
+    background-color: #112255;
+    color:rgb(155, 155, 155);  
+    border-radius: 40px;
+    width:30%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    }  
+   .larger{
+    width:60%;
+   }
+   .smaller{
+    width:30%;
+    
+   }
+    .ulList{
+      width: 90%;
+      margin:0 auto;
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      padding:10px;
+    }  
+    .ulList li{
+      margin:0 0.5rem;
+    }
+  /* .smaller{
+    width:40%;
   }
+  .larger{
+    width:80%;
+  } */
+
+
 .firstLinksContainer{
+  margin-left: 0.5rem;
   background-color: #112255;
   border-radius: 40px;
   display: flex;
@@ -56,8 +73,8 @@
   justify-content: space-around;
   position: relative;
   width: 25%;
-  height: 50px;
 }
+
 .link{
   color: white;
   text-decoration: none;
@@ -65,6 +82,10 @@
 .imgLink{
   height: 50px;
   width: 50px;
+}
+.userImage{
+  width: 40px;
+  height: 40px;
 }
 @keyframes changeLinkColor {
   0%{
@@ -78,6 +99,7 @@
   animation: changeLinkColor 0.5s ease forwards;
 }
 .btnContainer,.signBtnContainer{
+  margin-left: 0.5rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -91,7 +113,7 @@
   width: 50%;
 }
 .signup, .signin{
-  padding:10px 20px;
+  padding:15px 20px;
   color: white;
   border-radius: 20px;
   border:0;
@@ -114,8 +136,9 @@
   background-color: white;
   color:black
 }
+
 .logout{
-  padding:10px 20px;
+  padding:15px 20px;
   color: white;
   background-color: red;
   border-radius: 20px;
@@ -206,4 +229,6 @@
 .userImage{
   object-fit: cover;
   cursor: pointer;
+  width: 20px;
+  height: 20px;
 }

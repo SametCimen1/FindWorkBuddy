@@ -62,8 +62,10 @@ ownimg: true
                     </div>
                 </div>
             )
-            }
-
+      }
+      <button onClick = {() => followRequest()}>Follow</button>
+      <button>Unfollow</button>
+      
     </div>
   )
 }

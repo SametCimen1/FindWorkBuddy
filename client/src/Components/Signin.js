@@ -36,6 +36,7 @@ export default function Signup(){
   const history = useHistory();
 
   const login = async(e) =>{
+    console.log("OKKKK")
     e.preventDefault();
     const data = await fetch("http://localhost:5000/api/user/signin", {  
     method:"POST",
@@ -53,8 +54,8 @@ export default function Signup(){
       history.go(0);
     }
     else{
-      alert("Something went wrong try again")
-      history.go(0)
+     const error = await data.json();
+     alert(error)
     }
 
   }

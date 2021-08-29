@@ -1,3 +1,7 @@
+
+.bgcolor{
+    background-color: #f5f5f5;
+}
 .imgContainer{
     display: flex;
     background-color: #677698;
@@ -112,12 +116,7 @@
     font-family: 'Noto Sans JP', sans-serif;
     font-family: 'Raleway', sans-serif;
 }
-.followingPosts{
-    background-color: rgb(200, 200, 200);
-    width: 100%;
-    margin-top: 2rem;
-    display: flex;   
-}
+
 .followingNotPosts{
     font-size: 1.3rem;
     margin:0 1.6rem;
@@ -179,4 +178,28 @@
         flex-direction: column;
         justify-content: center;
       }
+}
+.followingPosts{
+    border-radius: 10px;
+    display: flex; 
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.shortPost{
+    background-color: red;
+}
+.usersPosts{
+    font-size: 2rem;
+    margin: 1rem 1.6rem;
+}
+.postsContainer{
+    display: flex;
+
+}
+.aboutContainer{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px black,-1px -1px 1px black,-1px 1px 1px black,1px -1px 1px black;
+    cursor: pointer;
+
 }

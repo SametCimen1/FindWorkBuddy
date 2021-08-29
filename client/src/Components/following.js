@@ -75,7 +75,7 @@ export default function Profile({myUser}){
      getFollowReq();
     },[])
     return(
-        <div>
+        <div className = {styles.bgcolor} >
             <div className = {styles.imgContainer}>
               <div className =  {styles.imgAndName} > 
                       {user.user.ownimg ? 
@@ -103,13 +103,33 @@ export default function Profile({myUser}){
             <div>
             <ul className =  {styles.profileOptions} >
                 <li onClick = {()=> setCurrentItem('profile')} className = {currentItem ==='profile' ? styles.selected  :''}>Profile</li>
-                {isItme && <li onClick = {()=> setCurrentItem('edit')}  className = {currentItem ==='edit' ? styles.selected  :''}>Edit Profile</li>}
+                
                 {isItme && <li onClick = {()=> setCurrentItem('notifications')}  className = {currentItem ==='notifications' ? styles.selected  :''}>Notifications</li>}
                {isItme && <li onClick = {()=> setCurrentItem('followers')}  className = {currentItem ==='followers' ? styles.selected  :''}>Followers</li>}
                {isItme && <li onClick = {()=> setCurrentItem('following')}  className = {currentItem ==='following' ? styles.selected  :''}>Following</li>}
             </ul>
             </div>
+
             <div  className = {styles.profileOptionsContainer}>
+            
+            { currentItem === 'profile' && (
+                <div className = {styles.profileContainer}>
+                    <div className = {styles.aboutContainer} onClick =  {()=> setCurrentItem('edit')}>
+                        <p className = {styles.userName}>About {user.user.name}:</p>                   
+                        <p className = {styles.about}>{user.user.about === '' ? <p>None</p> : user.user.about}</p>
+                    </div>
+                    <div className = { typeof posts !== 'undefined' && posts.length !== 0 ? styles.followingPosts : styles.followingNotPosts}>
+                      <p className = {styles.userName, styles.usersPosts}>{user.user.name}'s posts</p>
+                      <div className = {styles.postsContainer}>
+                        {typeof posts !== 'undefined' && posts.length !== 0 ?  posts.map(post =>  <ShortPost post = {post} key = {post.id} />):                      <p className = {styles.postsText}>{user.user.name}'s posts<p>none</p></p> }
+                      </div>
+                    </div>
+                </div>
+            )
+            }
+
+
+
             {isItme && currentItem === 'edit' && (
                 <div>
                     <form 
@@ -125,18 +145,7 @@ export default function Profile({myUser}){
                 </div> 
             )}
 
-            { currentItem === 'profile' && (
-                <div className = {styles.profileContainer}>
-                    <div className = {styles.aboutContainer}>
-                        <p className = {styles.userName}>About {user.user.name}:</p>                   
-                        <p className = {styles.about}>{user.user.about === '' ? <p>None</p> : user.user.about}</p>
-                    </div>
-                    <div className = { typeof posts !== 'undefined' && posts.length !== 0 ? styles.followingPosts : styles.followingNotPosts}>
-                        {typeof posts !== 'undefined' && posts.length !== 0 ?  posts.map(post =>  <ShortPost post = {post} key = {post.id}/>):                      <p className = {styles.postsText}>{user.user.name}'s posts<p>none</p></p> }
-                    </div>
-                </div>
-            )
-            }
+
 
             {isItme&&currentItem === 'notifications' && (
                 <div>

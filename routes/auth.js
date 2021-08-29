@@ -49,7 +49,7 @@ router.post('/signup', async(req,res) => {
     } 
 
     const  confirmURL = random;
-    const addUser = await pool.query('INSERT INTO users(name, email, password, following, friendreq, followers, ispublic,groupid, role, image, ownimg, about, active, confirm) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [lowerName, req.body.email, hashPassword, [], [], [], true, [], 'user', "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png", false, '', false, confirmURL]);
+    const addUser = await pool.query('INSERT INTO users(name, email, password, following, friendreq, followers, ispublic,groupid, role, image, ownimg, about, active, confirm) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [lowerName, req.body.email, hashPassword, [], [], [], true, [], 'user', "https://i.stack.imgur.com/l60Hf.png", false, '', false, confirmURL]);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -87,20 +87,21 @@ router.post('/logout', (req,res) =>{
 
 router.post('/signin', async(req,res) =>{
     
+    console.log("called")
     
-    const {error} = signinSchema.validate(req.body)
-    if(error){
-        return res.status(404).send(error.details[0].message)
-    }
+    // const {error} = signinSchema.validate(req.body)
+    // if(error){
+    //     return res.status(404).send(error.details[0].message)
+    // }
 
     const doesExist = await pool.query('SELECT * FROM users WHERE email = $1', [req.body.email]);
     if(!(doesExist.rowCount > 0)){
-        return res.status(404).send("email doesnt existtttttttttt");
+        return res.status(404).json("email doesnt exist");
     }
     const user = doesExist.rows[0];
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if(!validPassword){
-        return res.status(400).send("Invalid Password");
+        return res.status(400).json("Invalid Password");
     }
     if(user.active === true){
         const token = jwt.sign({_id: user.id}, process.env.TOKENSECRET, {expiresIn: "3day"});

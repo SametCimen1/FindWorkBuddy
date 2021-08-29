@@ -89,7 +89,7 @@ export default function Layout({children}) {
           </div>
          
             <div className = "links"> {/* logo and text 50% */} 
-                <div className = "firstLinks">
+                <div className = {typeof user !== 'undefined' ? "firstLinks larger": "firstLinks smaller"}>
                   <ul className = "ulList">
                       { user &&  <li><Link className = "link" to ="/collobarete">ask question</Link></li> }
                       { user &&  <li><Link  className = "link"to ="/groups">Groups</Link></li> }
@@ -125,7 +125,7 @@ export default function Layout({children}) {
                    {user.ownimg ?
                <img   src = {`http://localhost:5000/img/${user.image}`}  onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                 : 
-                 < img src = {user.image} onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
+                 < img src = {`${user.image}`} onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                   }
                   
                 </div>

@@ -5,6 +5,7 @@ const checkAuth = require('./verifyToken');
 router.use(cookieParser());
 
 router.post('/followreq', checkAuth, async(req,res) =>{
+    console.log("doesItExist")
    const sendId = req.body.id;
    const senderId = req.user._id;
    const doesItExist = await pool.query("SELECT * FROM users WHERE id = $1 AND   $2 = ANY (friendReq)", [sendId, senderId]);

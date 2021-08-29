@@ -41,6 +41,7 @@ app.use('/api/user', authRoute);
 app.post('/userexist', async(req,res) =>{
   const {token} = req.cookies;
   if(token === '' || typeof token === 'undefined'){
+
     return res.json(false); 
   }
   else{

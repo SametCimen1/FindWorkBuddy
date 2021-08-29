@@ -68,7 +68,7 @@ export default function UserExist(){
             <div className = "userExistImageContainer" style = {{backgroundImage:'url(/search.jpg)'}}>
                  <h1 className = "userExistStart">Subject Search</h1>
                  <p className = "userExistType">Type your subject in to find related posts for your subject or create a post for your subject for others to see</p>
-                 <p className = "userExistSubjectInfo">You can type multiple subjects etc <q>math science</q> or just one single subject</p>
+                 <p className = "userExistSubjectInfo">You can type multiple subjects <q>math science</q> or just one single subject</p>
 
                 <div className = "search">
                   <input type = "text" value = {subject} onChange = {(e) => setSubject(e.target.value)} className = "subject"  placeholder = "type in the subject"/>

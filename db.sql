@@ -25,7 +25,7 @@ CREATE TABLE users(
     isPublic boolean,
     groupID integer ARRAY, 
     ownimg boolean,
-    about varchar(500),
+    about varchar(255),
     role varchar(6),
     active boolean,
     confirm varchar(255),
