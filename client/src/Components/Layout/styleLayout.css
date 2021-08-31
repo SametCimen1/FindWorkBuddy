@@ -206,25 +206,68 @@
 
 .hamburger{
   display: none;
+  width: 25%;
+
 }
 
+@keyframes movemenu {
+  0%{
+    left:100%;
+  }
+  100%{
+    left:50%;
+  }
+}
+
+.line{
+  margin: 0.2rem 0;
+  display: block;
+  width: 30%;
+  height: 5px;
+  background-color: white;
+}
+.invisible{
+  display: none;
+}
+.visible{
+  display: flex;
+  height: 50vh;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 1px black,-1px -1px 1px black,1px -1px 1px black,-1px 1px 1px black;
+  position: absolute;
+  animation: movemenu 1s forwards;
+  overflow: hidden;
+}
+
+.dropdownContainer{
+ 
+}
+.menuparag{
+
+  text-align: center;
+  margin: 1rem 0;
+}
 @media screen and (max-width:1000px) {
   .hamburger{
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
   .links{
-    flex-direction: column;
+    flex-direction: row-reverse;
   }
   .navbar{
     flex-direction: column;
   }
   .logo,.links{
     width: 90%;
-   
+       
   }
   .firstLinks{
-    width: 90%;
-    margin:1rem 0;
+   display: none;
+  
   }
   .firstLinksContainer{
     display: none;
