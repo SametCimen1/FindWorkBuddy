@@ -1,6 +1,7 @@
 import styles from '../styles/profileStyle.module.css';
 import {useState, useEffect} from 'react';
 import ShortPost from './ShortPost';
+import { useHistory } from "react-router-dom";
 import User from './User';
 export default function Profile({myUser}){
     const user = myUser.user;
@@ -12,7 +13,7 @@ export default function Profile({myUser}){
     const [followers, setFollowers] = useState();
     const [following, setFollowing] = useState();
     const isItme = user.user.isItme;
-
+    const history = useHistory();
 
 
 
@@ -40,7 +41,7 @@ export default function Profile({myUser}){
             credentials: 'include', // Don't forget to specify this if you need cookies
         });
         const response = await data.json();
-        setFollowReq(response.friendreq);
+        setFollowReq(response.followreq);
         setFollowers(response.followers);
         setFollowing(response.following);
       }
@@ -54,8 +55,9 @@ export default function Profile({myUser}){
               credentials: 'include', // Don't forget to specify this if you need cookies
               body:JSON.stringify({id:id})
             });
+            console.log("RETUNED")
           const response = await data.json();
-          setFollowReq(response);
+          history.go(0);
       }
 
       const unfollow = async(id) =>{
@@ -121,7 +123,7 @@ export default function Profile({myUser}){
                     <div className = { typeof posts !== 'undefined' && posts.length !== 0 ? styles.followingPosts : styles.followingNotPosts}>
                       <p className = {styles.userName, styles.usersPosts}>{user.user.name}'s posts</p>
                       <div className = {styles.postsContainer}>
-                        {typeof posts !== 'undefined' && posts.length !== 0 ?  posts.map(post =>  <ShortPost post = {post} key = {post.id} />):                      <p className = {styles.postsText}>{user.user.name}'s posts<p>none</p></p> }
+                        {typeof posts !== 'undefined' && posts.length !== 0 ?  posts.map(post =>  <ShortPost post = {post} key = {post.id} />): <p className = {styles.none}>none</p>}
                       </div>
                     </div>
                 </div>
@@ -149,20 +151,21 @@ export default function Profile({myUser}){
 
             {isItme&&currentItem === 'notifications' && (
                 <div>
-                    <h1>notifications</h1>
-                    {followReq.map(id => (
-                    <div>
-                       <h1>{id}</h1>
-                       <button onClick = {()=> acceptFriend(id)}>Accept</button>
+                    <p className = {styles.option}>notifications</p>
+                    {followReq.length <= 0 ? <p className = {styles.none}>None</p>:followReq.map(id => (
+                    <div className = {styles.notifications}>
+                       <User id = {id} key = {id}/>
+                       <button className = {styles.acceptBtn} onClick = {()=> acceptFriend(id)}>Accept</button>
                     </div>
                     ))}
+                    {}
                 </div>
             )}
 
 
            {isItme && currentItem === 'followers' && (
                 <div>
-                    <h1>followers</h1>
+                     <p className = {styles.option}>followers</p>
                     <div>
                       {followers.length === 0 ? <h2>Not following anyone</h2> : followers.map(id => 
                       <div className = {styles.followingContainer}>
@@ -179,7 +182,7 @@ export default function Profile({myUser}){
             
            {isItme && currentItem === 'following' && (
                 <div>
-                    <h1>following</h1>
+                    <p className = {styles.option}>following</p>
                     {following.length === 0 ? <h2>Not following anyone</h2> : 
                     following.map(id=>{return (
                     <div className = {styles.followingContainer}>

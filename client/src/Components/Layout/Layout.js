@@ -127,9 +127,18 @@ export default function Layout({children}) {
                 : 
                  < img src = {`${user.image}`} onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                   }
-                  
                 </div>
                 }
+
+                
+                  {/*phone view*/}
+                  {typeof user !== 'undefined' && 
+                  <div className = "hamburger">
+                    <h1>ds</h1>
+                  </div>
+                  }
+                  
+
                 { user ?
                 <div className = "btnContainer">
                      <Link className = "link" to = "/logout"><button className = "logout">Log out</button></Link> 

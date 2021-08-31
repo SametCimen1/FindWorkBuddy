@@ -48,6 +48,7 @@ export default function Signup(){
     credentials: 'include', // Don't forget to specify this if you need cookies
     body: JSON.stringify({password:password, email:email})
     })
+    console.log("fetch finished")
 
     if(data.status === 200){
       history.push("/");

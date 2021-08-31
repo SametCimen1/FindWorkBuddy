@@ -49,7 +49,7 @@ router.post('/signup', async(req,res) => {
     } 
 
     const  confirmURL = random;
-    const addUser = await pool.query('INSERT INTO users(name, email, password, following, friendreq, followers, ispublic,groupid, role, image, ownimg, about, active, confirm) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [lowerName, req.body.email, hashPassword, [], [], [], true, [], 'user', "https://i.stack.imgur.com/l60Hf.png", false, '', false, confirmURL]);
+    const addUser = await pool.query('INSERT INTO users(name, email, password, following, followreq, followers, ispublic,groupid, role, image, ownimg, about, active, confirm) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [lowerName, req.body.email, hashPassword, [], [], [], true, [], 'user', "https://i.stack.imgur.com/l60Hf.png", false, '', false, confirmURL]);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -108,7 +108,8 @@ router.post('/signin', async(req,res) =>{
 
         res.cookie('token', token, { secure: process.env.NODE_ENV !== "development",
         httpOnly: true, maxAge: 72 * 60 * 60 * 1000 }); //3days
-        res.header('auth-token', token).send("token set")  
+        res.header('auth-token', token).send("token set"); 
+        res.json('success');
     }
     else{
         res.redirect("http://localhost:3000/mustbeactivated")

@@ -102,10 +102,6 @@
 .profileContainer{
     margin-top: 2rem;
 }
-.aboutContainer{
-    margin: 0rem 1rem;
-    padding:20px 10px;
-}
 .userName{
     font-size: 1.6rem;
     font-family: 'Noto Sans JP', sans-serif;
@@ -119,7 +115,7 @@
 
 .followingNotPosts{
     font-size: 1.3rem;
-    margin:0 1.6rem;
+  
 }
 .postsText{
     font-size: 1.6rem;
@@ -183,7 +179,7 @@
     border-radius: 10px;
     display: flex; 
     flex-direction: column;
-    margin-top: 2rem;
+
 }
 .shortPost{
     background-color: red;
@@ -194,12 +190,51 @@
 }
 .postsContainer{
     display: flex;
-
 }
 .aboutContainer{
     background-color: white;
     border-radius: 10px;
     box-shadow: 1px 1px 1px black,-1px -1px 1px black,-1px 1px 1px black,1px -1px 1px black;
     cursor: pointer;
+    margin: 0rem 1rem;
+    padding:20px 10px;
 
+}
+.none{
+    margin: 0 1.6rem;
+}
+
+.btnContainer{
+    display: flex;
+    margin: 0 auto;
+    margin: 1rem;
+    padding:20px 0;
+}
+.followBtn{
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgb(0, 132, 255);
+    border: 0;
+    color: white;
+    border-radius: 10px;
+}
+.notifications{
+    display: flex;
+    align-items: center;
+}
+.acceptBtn{
+    margin-left: 1rem;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgb(0, 132, 255);
+    border: 0;
+    color: white;
+    border-radius: 10px;
+}
+
+.option{
+  margin-left: 1.6rem;
+  font-size: 1.5rem;
+  color:rgb(40, 40, 40);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }

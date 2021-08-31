@@ -156,33 +156,7 @@
     font-size: 0.8rem;
   }
 }
-@media screen and (max-width:1000px) {
-  .links{
-    flex-direction: column;
-  }
-  .navbar{
-    flex-direction: column;
-  }
-  .logo,.links{
-    width: 90%;
-   
-  }
-  .firstLinks{
-    width: 90%;
-    margin:1rem 0;
-  }
-  .firstLinksContainer{
-    width: 50%;
-    margin:1rem 0;
-  }
-  .btnContainer{
-    width: 60%;
-    margin:1rem 0;
-  }
-  .ulList{
-    font-size: 1rem;
-  }
-}
+
 @media screen and (max-width:450px) {
   .firstLinks{
     width: 98%;
@@ -192,11 +166,7 @@
     font-size: 0.8rem;
   }
 }
-@media screen and (max-width:450px) {
-  .ulList{
-    font-size: 0.7rem;
-  }
-}
+
 .popupvisible{
   width:50%;
   display: block;
@@ -231,4 +201,44 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
+}
+
+
+.hamburger{
+  display: none;
+}
+
+@media screen and (max-width:1000px) {
+  .hamburger{
+    display: inline-block;
+  }
+  .links{
+    flex-direction: column;
+  }
+  .navbar{
+    flex-direction: column;
+  }
+  .logo,.links{
+    width: 90%;
+   
+  }
+  .firstLinks{
+    width: 90%;
+    margin:1rem 0;
+  }
+  .firstLinksContainer{
+    display: none;
+  }
+  .btnContainer{
+    width: 60%;
+    margin:1rem 0;
+  }
+  .ulList{
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width:450px) {
+  .ulList{
+    font-size: 0.6rem;
+  }
 }
