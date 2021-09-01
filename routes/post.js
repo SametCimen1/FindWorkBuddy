@@ -133,6 +133,12 @@ router.post('/newpost', checkAuth, async(req,res) =>{
    const post = await getSinglePost(postId);
      res.json(post)
   })
+
+  router.post('/getcomments', checkAuth, async(req,res) =>{
+    const id = req.user._id;
+    const data = await pool.query('SELECT newcomment FROM users WHERE id = $1', [id])
+    res.json(data.rows[0])
+  })
   
   
   router.post('/didlike', checkAuth, async(req,res) =>{
@@ -150,17 +156,21 @@ router.post('/newpost', checkAuth, async(req,res) =>{
   router.post('/newcomment', checkAuth, async(req,res) =>{
     const userId = req.user._id;
     const postId = req.body.postId;
+    const reciever = req.body.reciever;
     const userData = await pool.query("SELECT * FROM users WHERE id = $1", [userId]);
     const user = await userData.rows[0];
+    
     const newComment = await pool.query('INSERT INTO comment(text, userid, userImg, userName) VALUES($1, $2, $3, $4) RETURNING *', [req.body.comment, userId, user.image,user.name]);
     const commentId = newComment.rows[0].id;
     const comment = await pool.query('UPDATE posts SET commentby = array_append(commentby, $1) WHERE id = $2', [commentId, postId]);
-        if(comment.rowCount > 0){
+    const newCommentUser = await pool.query('UPDATE users SET newcomment = array_append(newcomment, $1) WHERE id = $2', [commentId, reciever])
+    if(comment.rowCount > 0){
       res.json(true)
     }
     else{
       res.json(false);
     }
+
   })
   router.post('/getcomment', checkAuth, async(req,res) =>{
     const commentId = req.body.id;

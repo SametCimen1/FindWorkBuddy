@@ -21,7 +21,7 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     following integer[],
     followreq integer[],
-    newcommnet integer[],    
+    newcomment integer[],    
     followers integer[],
     isPublic boolean,
     groupID integer ARRAY, 
@@ -73,3 +73,7 @@ DROP friendnum;
 
 DELETE FROM posts WHERE id = 1;
 DELETE FROM users WHERE id = 1;
+
+
+ALTER TABLE users
+RENAME COLUMN newcommnet TO newcomment;

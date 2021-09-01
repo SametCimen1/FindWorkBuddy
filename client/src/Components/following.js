@@ -12,6 +12,7 @@ export default function Profile({myUser}){
     const [followReq, setFollowReq] = useState();
     const [followers, setFollowers] = useState();
     const [following, setFollowing] = useState();
+    const [newComments, setNewComments] = useState();
     const isItme = user.user.isItme;
     const history = useHistory();
 
@@ -72,9 +73,24 @@ export default function Profile({myUser}){
         })
       }
 
+
+      const getNewComments = async() =>{
+        const data = await fetch("http://localhost:5000/post/getcomments",{
+          method:"POST",
+          headers: {
+              'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+        })
+        const response = await data.json();
+        setNewComments(response.newcomment)
+      
+      }
     useEffect(()=>{
      getPosts();
      getFollowReq();
+     getNewComments();
     },[])
     return(
         <div className = {styles.bgcolor} >
@@ -152,12 +168,18 @@ export default function Profile({myUser}){
             {isItme&&currentItem === 'notifications' && (
                 <div>
                     <p className = {styles.option}>notifications</p>
+                    {newComments.length <=0 ? <p className = {styles.none}>None</p> : newComments.map(id => (
+                      <div>
+                        <h1>{newComments}</h1>
+                      </div>
+                    ))}
                     {followReq.length <= 0 ? <p className = {styles.none}>None</p>:followReq.map(id => (
                     <div className = {styles.notifications}>
                        <User id = {id} key = {id}/>
                        <button className = {styles.acceptBtn} onClick = {()=> acceptFriend(id)}>Accept</button>
                     </div>
                     ))}
+                    
                     {}
                 </div>
             )}

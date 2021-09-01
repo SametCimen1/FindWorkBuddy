@@ -109,7 +109,7 @@ export default function LongPost(){
               },
               redirect: 'follow',
               credentials: 'include', // Don't forget to specify this if you need cookies
-              body:JSON.stringify({postId:post.id, comment:comment})
+              body:JSON.stringify({postId:post.id, comment:comment, reciever:post.userid})
         })
         getPost();
         
@@ -124,7 +124,7 @@ export default function LongPost(){
         }
     },[post])
     
-    let promises;
+
     const getComments = async() =>{
         if(post !== null){
         post.commentby.forEach((id) => {
@@ -157,6 +157,7 @@ export default function LongPost(){
       }
       console.log(isInList)
    };
+
 
 
    useEffect(() => {
