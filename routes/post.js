@@ -140,6 +140,13 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     res.json(data.rows[0])
   })
   
+  router.post('/getcomment', checkAuth, async(req,res) =>{
+    const id = req.body.id;
+    const comment = await pool.query("SELECT * FROM comment WHERE id = $1", [id])
+    const cm = comment.rows[0];
+    const data = {userid:cm.userid, userimg:cm.userimg, username:cm.username}
+    res.json(data)
+  })
   
   router.post('/didlike', checkAuth, async(req,res) =>{
     const userId = req.user._id;

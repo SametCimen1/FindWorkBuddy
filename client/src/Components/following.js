@@ -1,3 +1,4 @@
+import NewComment from './NewComment'
 import styles from '../styles/profileStyle.module.css';
 import {useState, useEffect} from 'react';
 import ShortPost from './ShortPost';
@@ -170,7 +171,7 @@ export default function Profile({myUser}){
                     <p className = {styles.option}>notifications</p>
                     {newComments.length <=0 ? <p className = {styles.none}>None</p> : newComments.map(id => (
                       <div>
-                        <h1>{newComments}</h1>
+                        <NewComment id = {id}  key = {id}/>
                       </div>
                     ))}
                     {followReq.length <= 0 ? <p className = {styles.none}>None</p>:followReq.map(id => (
