@@ -13,6 +13,7 @@ export default function LongPost(){
     const [like, setLike] = useState(false);
     const [post, setPost] = useState(null);
     const [comment, setComment] = useState('');
+    const [myImage, setMyImage] = useState();
     useEffect(()=>{
         if(post !== null) getTime();
     },[post])
@@ -33,7 +34,6 @@ export default function LongPost(){
     const [time, setTime] = useState(0);
     const [timeUnit, setTimeUnit] = useState('');
     const getTime = () =>{
-           console.log(post)
             const date = new Date(post.uploadtime);
             const currentTime = new Date();
             const difference =  (currentTime - date);
@@ -188,12 +188,29 @@ export default function LongPost(){
         getPost();
    }
   
+
+   useEffect(()=>{
+       if(post !== null ){
+                let urlImage = '';             
+                for(let i = 0; i < 4; i++){
+                urlImage += post.image[i] 
+                }
+                if(urlImage === 'http'){
+                setMyImage(false);
+                } 
+                else{ 
+                setMyImage(true);
+                }
+        }
+   },[post])
+   
     if(post !== null){
         return(
             <div className = "LongPost">
              <div className = "userInfo">
                        <div className = "imgAndNameContainer">
-                            <img src = {post.image} className = "userImage"/>
+                           {myImage ? <img src = {`http://localhost:5000/img/${post.image}`} className = "userImage"/> : <img src = {post.image} className = "userImage"/>}
+                            
                             <div className = "nameContainer">
                                 <p className = "userName">Samet</p>
                                 <p>{time} {timeUnit} ago</p>
@@ -214,6 +231,7 @@ export default function LongPost(){
                         </div>
                         </div> */}
              </div>
+             {console.log(post)}
              <div className = "longTexts"> 
                 <h1 className = "longUserHeader "  >{post.header}</h1>
                 <p className = "longUserParagraph " >{post.paragraph}</p>
@@ -221,8 +239,7 @@ export default function LongPost(){
              {/* <button onClick = {likePost}>Like</button> */}
              <div className = "postInfo">
                 <div className = "viewComment">
-                    <p>0 views</p>
-                    <p className = "longPost">0 Comments</p>
+                    <p className = "longPost">{post.commentby.length} Comments</p>
                 </div>
                 <div className = "heartContainer">
                     <p>{post.likes}</p>

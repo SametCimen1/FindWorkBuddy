@@ -17,8 +17,6 @@ export default function Post({post}){
 
     const [like, setLike] = useState(false);
 
-   console.log("DSSSSS")
-   console.log(post)
     const [myPost, setMyPost] = useState(null);
     useEffect(()=>{
         if(myPost !== null) getTime();
