@@ -238,3 +238,29 @@
   color:rgb(40, 40, 40);
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
+.editContainer{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin: 2rem 0;
+     flex-direction: column;    
+}
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+}
+.newImgContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.aboutInput,.nameInput{
+    margin: 1rem 0;
+    padding:10px;
+}
+.uploadInput{
+    background-color:#677698;
+    color:white;
+    border: 0;
+    padding:10px;
+}

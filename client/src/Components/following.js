@@ -150,16 +150,22 @@ export default function Profile({myUser}){
 
 
             {isItme && currentItem === 'edit' && (
-                <div>
+                <div className = {styles.editContainer}>
                     <form 
       id='uploadForm' 
       action='http://localhost:5000/updateData' 
       method='post' 
       encType="multipart/form-data">
-                        <input type = "file" name = "newimg" />
-                        <input type = "text" name = "about" value = {about} onChange = {(e)=> setAbout(e.target.value)} placeholder = "about" />
-                        <input type = "text" name = "name" value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())} placeholder = "name" />
-                        <input type='submit' value='Upload!' />
+                        <div className = {styles.inputContainer}>
+                        <div className = {styles.newImgContainer}>
+                          <input type = "file" name = "newimg"  className = {styles.newImageFile}/>
+                          <p>or paste url</p>
+                          <input type = "text" name = "newimg"  className = {styles.newImage}/>
+                        </div>
+                        <input type = "text" className = {styles.aboutInput} name = "about" value = {about} onChange = {(e)=> setAbout(e.target.value)} placeholder = "about" />
+                        <input type = "text"className = {styles.nameInput}  name = "name" value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())} placeholder = "name" />
+                        <input className = {styles.uploadInput} type='submit' value='Upload!' />
+                        </div>
                     </form>
                 </div> 
             )}
@@ -169,12 +175,12 @@ export default function Profile({myUser}){
             {isItme&&currentItem === 'notifications' && (
                 <div>
                     <p className = {styles.option}>notifications</p>
-                    {newComments.length <=0 ? <p className = {styles.none}>None</p> : newComments.map(id => (
+                    {(newComments !== null && newComments.length >= 0) ?  newComments.map(id => (
                       <div>
                         <NewComment id = {id}  key = {id}/>
                       </div>
-                    ))}
-                    {followReq.length <= 0 ? <p className = {styles.none}>None</p>:followReq.map(id => (
+                    )): <p className = {styles.none}>No new Comment</p>}
+                    {followReq.length <= 0 ? <p className = {styles.none}>No new follow Request</p>:followReq.map(id => (
                     <div className = {styles.notifications}>
                        <User id = {id} key = {id}/>
                        <button className = {styles.acceptBtn} onClick = {()=> acceptFriend(id)}>Accept</button>
