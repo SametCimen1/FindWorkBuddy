@@ -1,8 +1,10 @@
+import { useHistory } from "react-router-dom";
 import {  useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react'
 import '../styles/longStyle.css';
 export default function LongPost(){
     let { id } = useParams();
+    const history = useHistory();   
     
 
     useEffect(()=>{
@@ -102,24 +104,31 @@ export default function LongPost(){
     }
 
     const newComment = async() =>{
-        const data = await fetch('http://localhost:5000/post/newcomment', {
-            method:"POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-              redirect: 'follow',
-              credentials: 'include', // Don't forget to specify this if you need cookies
-              body:JSON.stringify({postId:post.id, comment:comment, reciever:post.userid})
-        })
-        getPost();
-        
-    
+        console.log("new comment ->", comment)
+        if(comment.length <= 0){
+        alert('comment is empty')
+        }
+        else{
+            const data = await fetch('http://localhost:5000/post/newcomment', {
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                credentials: 'include', // Don't forget to specify this if you need cookies
+                body:JSON.stringify({postId:post.id, comment:comment, reciever:post.userid})
+            })
+            getPost();
+        }
+      
     }
 
 
 
     useEffect(()=>{
         if(post !== null){
+            console.log("post is not null");
+            console.log(post)
         getComments();
         }
     },[post])
@@ -137,7 +146,7 @@ export default function LongPost(){
    
 
    const[comments, setComments] = useState([{}]);
-   const getComment = async (commentId) =>{       
+   const getComment = async (commentId) =>{    
      const data = await fetch('http://localhost:5000/post/getcomment', {
         method:"POST",
         headers: {
@@ -148,6 +157,7 @@ export default function LongPost(){
           body:JSON.stringify({id:commentId})
      })
      const response = await data.json();
+     console.log("comment", response)
     
      const isInList = comments.some(function(elem) {
         return (elem.id === response.id || (elem.text === response.text && elem.id === response.id))
@@ -185,6 +195,8 @@ export default function LongPost(){
           credentials: 'include', // Don't forget to specify this if you need cookies
           body:JSON.stringify({id:id, postId:post.id})
         });
+        const response = await data.json();
+        history.go(0)
         getPost();
    }
   
@@ -252,23 +264,22 @@ export default function LongPost(){
                  <input type = "text" value = {comment} onChange = {(e)=> setComment(e.target.value)}></input>
                  <button onClick = {newComment}>Comment</button>
                  <div>
-                  {/* {comments.map(elem => elem)} */}
+                  {console.log("commentsssssssss")}
+                  {console.log(comments)}
                   {/* {console.log("comments")} */}
-                 {comments.map(elem => {
-                   if(typeof elem.userimg !== 'undefined') { return (
-                         <div className = "commentContainer">
-                            <div className = "commentNameContainer"> 
-                               <img src =  {elem.userimg} className = "commentImage"/>
-                               <p className = "userName m">{elem.username}</p>
-                            </div>
-                            <p className = "userParagraph">{elem.text}</p>
-                            {myId === elem.userid ? <button onClick = {()=> deleteComment(elem.id)}>Delete</button> :''}
-                         </div>
-                     )}
-                     else{
+                 {comments.map(elem => (
+                   (typeof elem.userimg !== 'undefined' && (
+                    <div className = "commentContainer">
+                       <div className = "commentNameContainer"> 
+                          <img src =  {`http://localhost:5000/img/${elem.userimg}`} className = "commentImage"/>
+                          <p className = "userName m">{elem.username}</p>
+                          <p className = "LonguserParagraph">{elem.text}</p>
+                          {myId === elem.userid ? <button onClick = {()=> deleteComment(elem.id)} className = "dltBtn">Delete</button> :''}
+                       </div>
 
-                     }
-                 })}
+                    </div>
+                )) 
+                 ))}
                  </div>
              </div>
             </div>

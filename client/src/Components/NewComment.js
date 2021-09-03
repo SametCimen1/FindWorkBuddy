@@ -16,8 +16,13 @@ export default function NewComment({id}){
               body:JSON.stringify({id:id})
         })
         const response = await data.json();
-        setComment(response)
-        console.log(response)
+        if(response === 'cmUn'){
+            
+        }
+        else{
+            setComment(response)
+            console.log(response)
+        }
     }
     
     useEffect(()=>{
@@ -30,7 +35,9 @@ export default function NewComment({id}){
            <img className = {styles.userImage} src = {`http://localhost:5000/img/${comment.userimg}`} />
             <p className = {styles.userName}>{comment.username}</p>
         </div>
-        <p>commented{`hedddddddddd`}</p>
+        <div className = {styles.textContainer}>
+            <p>commented {comment.text}</p>
+        </div>
     </div>
     )
     }

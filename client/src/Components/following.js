@@ -93,6 +93,23 @@ export default function Profile({myUser}){
      getFollowReq();
      getNewComments();
     },[])
+
+    const deleteNewComment = async(id) =>{
+     const data = await fetch('http://localhost:5000/post/deletenewcm', {
+      method:"POST",
+      headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        credentials: 'include', // Don't forget to specify this if you need cookies
+        body: JSON.stringify({cmid:id})
+    })
+    const response = await data.json();
+    if(response === 'updated'){
+     getNewComments();
+    }
+
+    }
     return(
         <div className = {styles.bgcolor} >
             <div className = {styles.imgContainer}>
@@ -176,8 +193,9 @@ export default function Profile({myUser}){
                 <div>
                     <p className = {styles.option}>notifications</p>
                     {(newComments !== null && newComments.length >= 0) ?  newComments.map(id => (
-                      <div>
+                      <div className = {styles.newCommentContainer}>
                         <NewComment id = {id}  key = {id}/>
+                        <button className = {styles.okBtn} onClick = {()=>deleteNewComment(id)}>OK</button>
                       </div>
                     )): <p className = {styles.none}>No new Comment</p>}
                     {followReq.length <= 0 ? <p className = {styles.none}>No new follow Request</p>:followReq.map(id => (

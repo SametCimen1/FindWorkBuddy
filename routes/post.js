@@ -144,7 +144,10 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     const id = req.body.id;
     const comment = await pool.query("SELECT * FROM comment WHERE id = $1", [id])
     const cm = comment.rows[0];
-    const data = {userid:cm.userid, userimg:cm.userimg, username:cm.username}
+    if(typeof cm === 'undefined'){
+      return res.json("cmUn");
+    }
+    const data = {id:id,userid:cm.userid, userimg:cm.userimg, username:cm.username, text:cm.text}
     res.json(data)
   })
   
@@ -179,30 +182,35 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     }
 
   })
-  router.post('/getcomment', checkAuth, async(req,res) =>{
-    const commentId = req.body.id;
-    const commentAll = await pool.query('SELECT * FROM comment WHERE id = $1', [commentId])
-    const comment = commentAll.rows[0];
-    if(commentAll.rowCount > 0){
-      res.json(comment)
-    }
-    else{
-      res.json("no comments");
-    }
+  // router.post('/getcomment', checkAuth, async(req,res) =>{
+  //  console.log("comment hit")
+  //   const commentId = req.body.id;
+  //   const commentAll = await pool.query('SELECT * FROM comment WHERE id = $1', [commentId])
+  //   const comment = commentAll.rows[0];
+  //   console.log(commentId)
+  //   console.log(comment)
+  //   if(commentAll.rowCount > 0){
+  //     res.json(comment)
+  //   }
+  //   else{
+  //     res.json("no comments");
+  //   }
+  // })
+
+  router.post('/deletenewcm', checkAuth, async(req,res) =>{
+    const myId = req.user._id;
+   const commentId = req.body.cmid; 
+   const data =  await pool.query('UPDATE users SET newcomment =  array_remove(newcomment, $1)  WHERE id = $2',[commentId, myId])
+  res.json("updated")
   })
 
   router.post('/deletecomment', checkAuth, async(req,res) =>{
     const commentId = req.body.id;
     const postId = req.body.postId;
     const commentAll = await pool.query('UPDATE posts SET commentby =  array_remove(commentby, $1)  WHERE id = $2', [commentId, postId])
-    // const comment = commentAll.rows[0];
-    // if(commentAll.rowCount > 0){
-    //   res.json(comment)
-    // }
-    // else{
-    //   res.json("no comments");
-    // }
-    res.json("deleted")
+    const deleteCm = await pool.query('DELETE FROM comment WHERE id = $1',[commentId])
+    res.json('deleted')
+        
   })
 
 

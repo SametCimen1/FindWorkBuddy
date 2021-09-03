@@ -49,7 +49,7 @@ router.post('/signup', async(req,res) => {
     } 
 
     const  confirmURL = random;
-    const addUser = await pool.query('INSERT INTO users(name, email, password, following, followreq, followers, ispublic,groupid, role, image, ownimg, about, active, confirm) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [lowerName, req.body.email, hashPassword, [], [], [], true, [], 'user', "https://i.stack.imgur.com/l60Hf.png", false, '', false, confirmURL]);
+    const addUser = await pool.query('INSERT INTO users(name, email, password, following, followreq, newcomment, followers, ispublic,groupid, role, image, ownimg, about, active, confirm) VALUES($1,$2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [lowerName, req.body.email, hashPassword, [], [], [], [], true, [], 'user', "https://i.stack.imgur.com/l60Hf.png", false, '', false, confirmURL]);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -88,6 +88,7 @@ router.post('/logout', (req,res) =>{
 router.post('/signin', async(req,res) =>{
     
     console.log("called")
+    console.log("called signin")
     
     // const {error} = signinSchema.validate(req.body)
     // if(error){
