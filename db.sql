@@ -68,8 +68,8 @@ ADD followers integer[];
 ALTER TABLE users
 DROP test;
 
-ALTER TABLE users
-DROP friendnum;
+ALTER TABLE posts
+DROP image;
 
 DELETE FROM posts WHERE id = 1;
 DELETE FROM users WHERE id = 1;

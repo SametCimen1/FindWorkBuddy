@@ -9,8 +9,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     const id = _id; 
   
       if(typeof id !== undefined){
-      const imageUser = await pool.query("SELECT image, name FROM users  WHERE id = $1", [id])
-      const image = imageUser.rows[0].image;
+      const imageUser = await pool.query("SELECT name FROM users  WHERE id = $1", [id])
       const username = imageUser.rows[0].name;
       const words = req.body.keywords;
       const addWord = words.trim();
@@ -25,7 +24,7 @@ router.post('/newpost', checkAuth, async(req,res) =>{
       const hour = dateObj.getHours();
       const currentTime = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
   
-       const user = await pool.query("INSERT INTO posts(userId, image, header, paragraph, keywords, likes, commentby, uploadtime, username) VALUES($1,$2,$3,$4,$5,$6,$7, $8, $9)",[id, image, req.body.header, req.body.paragraph, wordsArr, 0,[], currentTime,username]);
+       const user = await pool.query("INSERT INTO posts(userId, header, paragraph, keywords, likes, commentby, uploadtime, username) VALUES($1,$2,$3,$4,$5,$6,$7, $8)",[id, req.body.header, req.body.paragraph, wordsArr, 0,[], currentTime,username]);
       if(user){
         res.json(true)
       }
@@ -103,6 +102,17 @@ router.post('/newpost', checkAuth, async(req,res) =>{
           const posts =await pool.query(`SELECT * FROM posts  WHERE  keywords && ARRAY[${myWord}] ORDER BY likes`); //SAVE the last id and fetch from there on click next
           res.json(posts.rows);
         }
+      }
+    })
+
+    router.post('/getimg', checkAuth, async(req,res) =>{
+      const id = req.body.userid;
+      const user = await pool.query('SELECT image FROM users WHERE id = $1', [id])
+      if(user.rowCount>0){
+        res.json(user.rows[0])
+      }
+      else{
+        res.json('');
       }
     })
   
