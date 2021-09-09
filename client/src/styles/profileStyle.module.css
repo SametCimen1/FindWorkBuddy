@@ -280,3 +280,17 @@
      background-color: #677698;
      color:white
 }
+
+.sendReq{
+    position:absolute;
+    background-color:#0030a0;
+    color:white;
+    padding:10px;
+    width: 40%;
+    top:40%;
+    left:30%;
+}
+.sendP{
+    text-align: center;
+
+}

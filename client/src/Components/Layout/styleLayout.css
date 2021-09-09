@@ -7,6 +7,7 @@
     align-items: center;
     background-color: #48416b;
     flex-direction: row;
+
   }
   .logo,.links{
     width: 100%;
@@ -254,22 +255,35 @@
 .blackLink{
   text-decoration: none;
 }
-@media screen and (max-width:1000px) {
+.linksexist{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media screen and (max-width:700px) {
   .hamburger{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
   }
-  .links{
-    flex-direction: row-reverse;
-  }
+
   .navbar{
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
   }
-  .logo,.links{
+  .logo,.links,.linksexist{
     width: 90%;
        
+  }
+  .linksexist{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
   }
   .firstLinks{
    display: none;
@@ -285,9 +299,12 @@
   .ulList{
     font-size: 1rem;
   }
+  
 }
 @media screen and (max-width:450px) {
   .ulList{
     font-size: 0.6rem;
   }
 }
+
+

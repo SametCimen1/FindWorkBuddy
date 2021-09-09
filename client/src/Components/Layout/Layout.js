@@ -92,19 +92,18 @@ export default function Layout({children}) {
           </div>
           
          
-            <div className = "links"> {/* logo and text 50% */} 
+            <div className = {user ?  "links" : "linksexist"}> 
             
+            {/* <div className = "links" > */}
         
 
 
-                <div className = {typeof user !== 'undefined' ? "firstLinks larger": "firstLinks smaller"}>
+            { user && <div className = {typeof user !== 'undefined' ? "firstLinks larger": "firstLinks smaller"}>
                   <ul className = "ulList">
-                      { user &&  <li><Link className = "link" to ="/collobarete">ask question</Link></li> }
-                      { user &&  <li><Link  className = "link"to ="/groups">Groups</Link></li> }
-                      <li><Link className = "link" to ="/about">About</Link></li>
-                      <li><Link className = "link" to ="/contact">Contact</Link></li>
+                      <li><Link className = "link" to ="/collobarete">ask question</Link></li> 
+                     <li><Link  className = "link"to ="/groups">Groups</Link></li> 
                   </ul>    
-                </div>
+                </div>}
                    {/*phone view*/}
                    {typeof user !== 'undefined' && 
                   <div className = "hamburger" onClick = {()=> setMenu(prev => !prev)}>

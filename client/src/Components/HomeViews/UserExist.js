@@ -1,12 +1,14 @@
 import '../../styles/userExistStyle.css'
 import {useState, useEffect} from 'react'
+import { useHistory } from "react-router-dom";
 import ShortPost from '../ShortPost';
 export default function UserExist(){
     const [INwhat, setINwhat] = useState('');
     const [INheader, setINheader] = useState('');
     const [INkey, setINkey] = useState('');
     const [INimg, setINimg] = useState('');
-
+    const [isSuccess,setIsSuccess] = useState(false);
+    const history = useHistory();
 
 
     const [sort, setSort] = useState('');
@@ -18,7 +20,7 @@ export default function UserExist(){
 
     const submitPost = async() =>{
       if(INheader === '' || INwhat === ''){
-        alert("please fill in all of the inputs")
+        alert('fill in the fields')
       }
       else{
      const data  = await fetch('http://localhost:5000/post/newpost', {
@@ -32,7 +34,8 @@ export default function UserExist(){
      });
      const response = await data.json();
      if(response){
-       alert("successfully added post")
+       history.go(0);
+       setIsSuccess(true)
      }
      else{
          alert("error check console")
@@ -102,6 +105,7 @@ export default function UserExist(){
                             <div className = "textContainer">
                               <textarea type = "text" className = "INwhat" value = {INwhat} onChange = {(e)=> setINwhat(e.target.value)}  placeholder = "Write your post here."/>
                             </div>
+                            {isSuccess && <p className= 'scPost'>successfully added the post</p>}
                             <div className = "existBtnContainer">
                               <button className = "cancelBtn" onClick = {(e)=> setCreatePost(prev => !prev)}>Cancel</button>
                               <button className = "createBtn" onClick = {submitPost}>Create</button>
