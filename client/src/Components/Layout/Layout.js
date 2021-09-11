@@ -82,7 +82,7 @@ export default function Layout({children}) {
       }
     }
 
-    if(user){
+    
       return(
         <div>
          <header >
@@ -92,38 +92,37 @@ export default function Layout({children}) {
               </div>
               
              
-                <div className = "links"> 
+              <div className = {user ?  "links" : "linksexist"}> 
                 
   
             
     
     
-                <div className = "firstLinks larger">
-                      <ul className = "ulList">
-                          <li><Link className = "link" to ="/collobarete">ask question</Link></li> 
-                         <li><Link  className = "link"to ="/groups">Groups</Link></li> 
-                      </ul>    
+              { user && <div className = {typeof user !== 'undefined' ? "firstLinks larger": "firstLinks smaller"}>
+                  <ul className = "ulList">
+                      <li><Link className = "link" to ="/collobarete">ask question</Link></li> 
+                     <li><Link  className = "link"to ="/groups">Groups</Link></li> 
+                  </ul>    
+                </div>}
+                   {/*phone view*/}
+                   {typeof user !== 'undefined' && 
+                  <div className = "hamburger" onClick = {()=> setMenu(prev => !prev)}>
+                    <span className = "line"></span>
+                    <span className = "line"></span>
+                    <span className = "line"></span>
+                    <div className = "hamdropdown">
+                       <div className = {menu ? "dropdownContainer dropdownvisible": "dropdownContainer dropdowninvisible"}>
+                          <Link className = "blackLink" to = "/"><p className = "menuparag">Ask Question</p></Link>
+                          <Link  className = "blackLink" to = "/groups"><p className = "menuparag">Groups</p></Link>
+                          <Link  className = "blackLink"  to = "/about"> <p className = "menuparag">About</p></Link>
+                          <Link  className = "blackLink" to = "/contact"> <p className = "menuparag">Contact</p></Link>
+                          <Link   className = "blackLink" to = {`/user/${user.id}`}> <p className = "menuparag">My Profile</p></Link>
+                       </div>
                     </div>
-                       {/*phone view*/}
-              
-                      <div className = "hamburger" onClick = {()=> setMenu(prev => !prev)}>
-                        <span className = "line"></span>
-                        <span className = "line"></span>
-                        <span className = "line"></span>
-                        <div className = "hamdropdown">
-                           <div className = {menu ? "dropdownContainer dropdownvisible": "dropdownContainer dropdowninvisible"}>
-                             <p className = "closeMenu">X</p>
-                              <Link className = "blackLink" to = "/"><p className = "menuparag">Ask Question</p></Link>
-                              <Link  className = "blackLink" to = "/groups"><p className = "menuparag">Groups</p></Link>
-                              <Link  className = "blackLink"  to = "/about"> <p className = "menuparag">About</p></Link>
-                              <Link  className = "blackLink" to = "/contact"> <p className = "menuparag">Contact</p></Link>
-                              <Link   className = "blackLink" to = {`/user/${user.id}`}> <p className = "menuparag">My Profile</p></Link>
-                           </div>
-                        </div>
-                      </div>
-                      
-    
+                  </div>
+                  }
 
+                   {typeof user !== 'undefined' && 
                     <div className = "firstLinksContainer">
                           <div className="dropdown" onClick = {dotsClicked}>
                                 <div className = "dot dotwhite"></div>
@@ -144,66 +143,29 @@ export default function Layout({children}) {
                      < img src = {`${user.image}`} onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                       }
                     </div>
+                  }
                         
-    
-                    <div className = "btnContainer">
-                         <Link className = "link" to = "/logout"><button className = "logout">Log out</button></Link> 
-                    </div>
-                      
-    
-                    
-               
+                        { user ?
+                <div className = "btnContainer">
+                     <Link className = "link" to = "/logout"><button className = "logout">Log out</button></Link> 
+                </div>:
+                <div className = "signBtnContainer">
+                  <Link  className = "link"  to = "/signup">  <button className = "signup">Sign up</button></Link>
+                  <Link  className = "link"  to = "/signin"><button className = "signin">Sign in</button></Link>
                 </div>
-                               
-    
-            </nav>
-         </header>
-         <main>
-             {children}
-         </main>
-       </div>
-    )
-  }
-
-  else{
-    return(
-      <div>
-       <header >
-          <nav className = "navbar">{/* flex */} 
-            <div className = "logo">{/* logo and text 50% */} 
-                <Link to = "/"><img src= "/logo.png"></img></Link> {/* add alt and change styling   */}
-            </div>
-            
-           
-              <div className = "linksexist"> 
-              
-
-          
-  
-  
-  
-    
-          
-                      
-                    <div className = "signBtnContainer">
-                      <Link  className = "link"  to = "/signup">  <button className = "signup">Sign up</button></Link>
-                      <Link  className = "link"  to = "/signin"><button className = "signin">Sign in</button></Link>
-                    </div>
-
-                    
-  
-                  
+                }    
+               
              
-              </div>
-                             
-  
-          </nav>
-       </header>
-       <main>
-           {children}
-       </main>
-     </div>
-  )
+    
+               </div>
+                           
 
-  }
+                           </nav>
+                        </header>
+                        <main>
+                            {children}
+                        </main>
+                      </div>
+      )
+  
 }
