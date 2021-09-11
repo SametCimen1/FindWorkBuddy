@@ -18,6 +18,7 @@ import LongPost from './Components/LongPost';
 import Getimg from './Components/Getimg';
 import VerifyEmail from './Components/VerifyEmail';
 import Verify from './Components/Verify';
+import Dm from './Components/Dm'
 
 function App() {
   return (
@@ -38,7 +39,9 @@ function App() {
        <Route exact path = "/getimg" component = {Getimg} />
        <Route exact path = "/verify/:url" component = {VerifyEmail} />
        <Route exact path = "/verify/" component = {Verify} />
+       <Route exact path = "/dm/:id" component = {Dm} />
        <Route exact path = "/401" component = {NotAuth} />
+       
        
 
        <Route component = {NotFound} />

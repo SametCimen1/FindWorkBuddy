@@ -16,6 +16,7 @@ export default function LongPost(){
     const [post, setPost] = useState(null);
     const [comment, setComment] = useState('');
     const [myImage, setMyImage] = useState();
+    const [img, setImg] = useState('');
     useEffect(()=>{
         if(post !== null) getTime();
     },[post])
@@ -53,7 +54,25 @@ export default function LongPost(){
 
     useEffect(()=>{
        isLiked();
+       getImg();
     },[post])
+    const getImg = async() =>{
+        if(post  !== null){
+        const userId = post.userid;
+        const data = await fetch('/post/getimg', {
+          method:"POST",
+          headers: {
+              'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+            body:JSON.stringify({userid:userId})
+        })
+        const response = await data.json();
+        setImg(response.image);
+       }
+      
+      }
 
     const isLiked = async() =>{
     if(post !== null){
@@ -202,29 +221,29 @@ export default function LongPost(){
   
 
    useEffect(()=>{
-       if(post !== null ){
-                let urlImage = '';             
-                for(let i = 0; i < 4; i++){
-                urlImage += post.image[i] 
-                }
-                if(urlImage === 'http'){
-                setMyImage(false);
-                } 
-                else{ 
-                setMyImage(true);
-                }
-        }
-   },[post])
+    if(img !== null ){
+             let urlImage = '';             
+             for(let i = 0; i < 4; i++){
+             urlImage += img[i] 
+             }
+             if(urlImage === 'http'){
+             setMyImage(false);
+             } 
+             else{ 
+             setMyImage(true);
+             }
+     }
+},[img])
    
     if(post !== null){
         return(
             <div className = "LongPost">
              <div className = "userInfo">
-                       <div className = "imgAndNameContainer">
-                           {myImage ? <img src = {`http://localhost:5000/img/${post.image}`} className = "userImage"/> : <img src = {post.image} className = "userImage"/>}
+             <div className = "imgAndNameContainer">
+                           {myImage ? <img src = {`http://localhost:5000/img/${img}`} className = "userImage"/> : <img src = {img} className = "userImage"/>}
                             
                             <div className = "nameContainer">
-                                <p className = "userName">Samet</p>
+                                <p className = "userName">{post.username}</p>
                                 <p>{time} {timeUnit} ago</p>
                             </div>
                             
@@ -245,8 +264,8 @@ export default function LongPost(){
              </div>
              {console.log(post)}
              <div className = "longTexts"> 
-                <h1 className = "longUserHeader "  >{post.header}</h1>
-                <p className = "longUserParagraph " >{post.paragraph}</p>
+                <h1 className = "longUserHeader"  >{post.header}</h1>
+                <p className = "longUserParagraph" >{post.paragraph}</p>
              </div>
              {/* <button onClick = {likePost}>Like</button> */}
              <div className = "postInfo">
@@ -255,6 +274,8 @@ export default function LongPost(){
                 </div>
                 <div className = "heartContainer">
                     <p>{post.likes}</p>
+                    {console.log("DID I LIKE IT")}
+                    {console.log(like)}
                    <div className={like? 'heart heartactive': 'heart' } onClick = {likePost}></div>
                 </div>
              </div>
@@ -286,7 +307,7 @@ export default function LongPost(){
         )}
         else{
             return (
-                <h1>myPost is null</h1>
+                <p>Empty</p>
             )
         } 
     

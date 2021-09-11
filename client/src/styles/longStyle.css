@@ -8,6 +8,7 @@
 
 
 .longUserHeader{
+    margin-top: 1rem;
     font-family: 'Sanchez', serif;
     font-weight: 600;
     font-size: 2rem;
@@ -16,6 +17,7 @@
 
 .longUserParagraph{
     min-height: 50px;
+    margin-top: 1rem;
     word-wrap: break-word;
     overflow: hidden;
     color: #000000;
