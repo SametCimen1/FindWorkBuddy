@@ -137,10 +137,11 @@ export default function Layout({children}) {
                                 <h1>share post</h1>
                               </div>
                           </div>
+                          {console.log(user.ownimg)}
                        {user.ownimg ?
                    <img   src = {`http://localhost:5000/img/${user.image}`}  onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                     : 
-                     < img src = {`${user.image}`} onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
+                     < img src = "/default.svg" onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                       }
                     </div>
                   }

@@ -19,6 +19,7 @@ export default function LongPost(){
     const [img, setImg] = useState('');
     useEffect(()=>{
         if(post !== null) getTime();
+        
     },[post])
 
     const getPost = async() =>{
@@ -240,7 +241,7 @@ export default function LongPost(){
             <div className = "LongPost">
              <div className = "userInfo">
              <div className = "imgAndNameContainer">
-                           {myImage ? <img src = {`http://localhost:5000/img/${img}`} className = "userImage"/> : <img src = {img} className = "userImage"/>}
+                           {myImage ? <img src = {`http://localhost:5000/img/${img}`} onClick = {()=> {history.push(`/user/${post.userid}`)}}  className = "userImage bgImg"/> : <img src = "/default.svg" onClick = {()=> {history.push(`/user/${post.userid}`)}} className = "userImage bgImg"/>}
                             
                             <div className = "nameContainer">
                                 <p className = "userName">{post.username}</p>

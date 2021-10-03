@@ -118,7 +118,7 @@ export default function Profile({myUser}){
                       {user.user.ownimg ? 
                     <img src = {`http://localhost:5000/img/${user.user.image}`} alt = "profile img  of the user" className = {styles.userimg}/>
                     :
-                    <img src = {user.user.image} alt = "profile img  of the user" className = {styles.userimg}/>
+                    <img src = "/default.svg" alt = "profile img  user" className = {styles.userimg}/>
                 }
                
                 <div className = {styles.nameFollowers}>

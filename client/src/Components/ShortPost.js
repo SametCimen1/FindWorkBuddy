@@ -36,8 +36,16 @@ export default function Post({post}){
             const minutes = Math.floor((difference/1000)/60);
             if(minutes > 60){
                 const hours = Math.floor(minutes/60);
+                if(hours > 24){
+                    const days = Math.floor(hours/24);
+                    setTime(days)
+                    setTimeUnit("day")
+                }
+                else{
                 setTime(hours)
                 setTimeUnit("hours")
+                }
+               
             }
             else{
                 setTime(minutes);
@@ -116,10 +124,11 @@ export default function Post({post}){
         <div className = "post">
          <div className = "userInfo">
                    <div className = "imgAndNameContainer">
-                       {img.includes("http") ? 
-                       <img  src = {img} className = "userImage"/>
+                       {img.includes("http") ?    
+                       <img  src = "/default.svg" className = "userImage"/>
                        :
-                       <img src = {`http://localhost:5000/img/${img}`}  className = "userImage"/>}
+                       <img src = {`http://localhost:5000/img/${img}`}  className = "userImage"/>
+                       }
   
 
                        
