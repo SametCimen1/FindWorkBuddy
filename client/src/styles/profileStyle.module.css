@@ -243,6 +243,7 @@
      justify-content: center;
      align-items: center;
      margin: 2rem 0;
+
      flex-direction: column;    
 }
 .inputContainer{
@@ -259,6 +260,7 @@
     padding:10px;
 }
 .uploadInput{
+    cursor: pointer;
     background-color:#677698;
     color:white;
     border: 0;
@@ -293,4 +295,13 @@
 .sendP{
     text-align: center;
 
+}
+
+.deleteImage{
+    margin-top: 1rem;
+    background-color: red;
+    color:white;
+    border:0;
+    padding:10px;
+    cursor: pointer;
 }

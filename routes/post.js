@@ -154,10 +154,12 @@ router.post('/newpost', checkAuth, async(req,res) =>{
     const id = req.body.id;
     const comment = await pool.query("SELECT * FROM comment WHERE id = $1", [id])
     const cm = comment.rows[0];
+    const myId = comment.rows[0].userid;
+    const myImage = await pool.query('SELECT image, ownimg FROM users WHERE id = $1', [myId])
     if(typeof cm === 'undefined'){
       return res.json("cmUn");
     }
-    const data = {id:id,userid:cm.userid, userimg:cm.userimg, username:cm.username, text:cm.text}
+    const data = {id:id,userid:cm.userid, userimg:myImage.rows[0].image,ownImage:myImage.rows[0].ownimg, username:cm.username, text:cm.text}
     res.json(data)
   })
   

@@ -179,6 +179,8 @@ app.get('/getimg', checkAuth, async(req,res) =>{
   // const filename = readFiles(dirName, onFileContentFunc, ()=> {console.log("ERROR IN DIR")})
 })
 app.post('/updateData', checkAuth, async(req,res) =>{
+  console.log("HIT")
+  console.log(req.body);
   if(req.files && Object.keys(req.files).length !== 0){
     await uploadImg(req.files, req.user._id);
   }
@@ -247,7 +249,11 @@ app.post('/verify', async(req,res) =>{
   }
 
 })
-
+app.post("/deleteuserimage", checkAuth, async(req,res) =>{
+  const id = req.user._id;
+  console.log("DELETE USER IMAGE ROUTE")
+  console.log(id)
+})
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);

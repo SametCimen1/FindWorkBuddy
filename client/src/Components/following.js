@@ -182,9 +182,22 @@ export default function Profile({myUser}){
                         </div>
                         <input type = "text" className = {styles.aboutInput} name = "about" value = {about} onChange = {(e)=> setAbout(e.target.value)} placeholder = "about" />
                         <input type = "text"className = {styles.nameInput}  name = "name" value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())} placeholder = "name" />
+                        {/* <input className =  {styles.deleteImage} type = ''></input> */}
                         <input className = {styles.uploadInput} type='submit' value='Upload!' />
+                        <button className = {styles.deleteImage} onClick = {async() => {await fetch('https://localhost:5000/deleteuserimage',{
+                          method: "POST",
+                          headers: {
+                            'Content-Type': 'application/json'
+                          },
+                          redirect: 'follow',
+                          credentials: 'include', // Don't forget to specify this if you need cookies                          
+                        })}} name = "dltImage">Delete user Image</button>
                         </div>
+                    
                     </form>
+     
+                     
+
                 </div> 
             )}
 
