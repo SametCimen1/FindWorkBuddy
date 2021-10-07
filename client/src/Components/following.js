@@ -208,8 +208,8 @@ export default function Profile({myUser}){
                     <p className = {styles.option}>notifications</p>
                     {(newComments !== null && newComments.length >= 0) ?  newComments.map(id => (
                       <div className = {styles.newCommentContainer}>
-                        <NewComment id = {id}  key = {id}/>
-                        <button className = {styles.okBtn} onClick = {()=>deleteNewComment(id)}>OK</button>
+                        <NewComment id = {id}  key = {id} clickFund = {deleteNewComment}/>
+                        
                       </div>
                     )): <p className = {styles.none}>No new Comment</p>}
                     {followReq.length <= 0 ? <p className = {styles.none}>No new follow Request</p>:followReq.map(id => (

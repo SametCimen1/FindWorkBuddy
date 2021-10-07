@@ -40,7 +40,7 @@
     justify-content: space-around;
     }  
    .larger{
-    width:60%;
+    width:0%;
    }
    .smaller{
     width:30%;
@@ -216,10 +216,10 @@
 
 @keyframes movemenu {
   0%{
-    left:100%;
+    top:-100%;
   }
   100%{
-    left:49%;
+    top:0;
   }
 }
 
@@ -236,12 +236,12 @@
   display: none;
 }
 .dropdownvisible{
-  top:0;
+  left:0;
   display: flex;
   flex-direction: column;
   position: fixed;
-  height: 90vh;
-  width: 50vw;
+  height: 50vh;
+  width: 100vw;
   background-color: rgb(255, 255, 255);
   box-shadow: 1px 1px 1px black,-1px -1px 1px black,1px -1px 1px black,-1px 1px 1px black;
   
@@ -249,7 +249,22 @@
   overflow: hidden;
 }
 
+.dropdownClose{
+  background-color: transparent;
+  border: 1px solid black;
+  position: absolute;
+  bottom:0;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: 20%;
+  min-width: 100px;
+  text-align: center;
+  color:red;
+  font-size: 1.5rem;
 
+}
 
 .menuparag{
   text-align: center;
@@ -337,4 +352,8 @@
    .links{
      width: 60%;
    }
+}
+
+.closeanimation{
+  background-color: red;
 }
