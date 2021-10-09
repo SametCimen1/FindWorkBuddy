@@ -6,6 +6,8 @@ export default function Post({post}){
      const [img, setImg] = useState('');
      
     useEffect(()=>{
+        console.log("POST IS ")
+        console.log(post)
        setMyPost(post)
        isLiked()     
     },[])
@@ -125,9 +127,9 @@ export default function Post({post}){
          <div className = "userInfo">
                    <div className = "imgAndNameContainer">
                        {img.includes("http") ?    
-                       <img  src = "/default.svg" className = "userImage"/>
+                       <img onClick = {()=> history.push(`/user/${post.userid}`)}  src = "/default.svg" className = "userImage"/>
                        :
-                       <img src = {`http://localhost:5000/img/${img}`}  className = "userImage"/>
+                       <img  onClick = {()=> history.push(`/user/${post.userid}`)}   src = {`http://localhost:5000/img/${img}`}  className = "userImage"/>
                        }
   
 

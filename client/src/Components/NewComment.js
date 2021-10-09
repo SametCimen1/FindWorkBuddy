@@ -37,7 +37,7 @@ export default function NewComment({id, clickFund}){
     return (
         <div className = {styles.container}>
         <div className = {styles.userBox} onClick = {()=> {history.push(`/user/${comment.userid}`); history.go(0)}}>
-            <img className = {styles.userImage} src = {`http://localhost:5000/img/${comment.userimg}`} />
+            <img  className = {styles.userImage} src = {`http://localhost:5000/img/${comment.userimg}`} />
             <p className = {styles.userName}>{comment.username}</p>
         </div>
         <div className = {styles.textContainer}>

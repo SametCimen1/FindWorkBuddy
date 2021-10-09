@@ -291,9 +291,15 @@ export default function LongPost(){
                   {/* {console.log("comments")} */}
                  {comments.map(elem => (
                    (typeof elem.userimg !== 'undefined' && (
+            
                     <div className = "commentContainer">
+                        {
+                                     console.log("COMMENTSSSSSSSSSSSS")
+                                 
+                        }
+                        {    console.log(elem)}
                        <div className = "commentNameContainer"> 
-                        {elem.ownImage ?<img src =  {`http://localhost:5000/img/${elem.userimg}`} className = "commentImage"/> : <img src = "/default.svg" />}
+                        {elem.ownImage ?<img onClick = {() => history.push(`/user/${elem.userid}`)} src =  {`http://localhost:5000/img/${elem.userimg}`} className = "commentImage"/> : <img src = "/default.svg" />}
                           
                           <p className = "userName m">{elem.username}</p>
                           <p className = "LonguserParagraph">{elem.text}</p>
