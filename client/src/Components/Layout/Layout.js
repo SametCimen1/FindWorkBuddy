@@ -82,27 +82,7 @@ export default function Layout({children}) {
       }
     }
 
-    const getClassName = (action) =>{
-      if(action !== ''){
-        if(action === 'co'){
-          if(menu){
-            return('dropdowninvisible')
-          }
-          else{
-            return('dropdownvisible')
-          }
-        }
-        if(action === 'closeanimation'){
-          return('closeAnimation')
-        }
-        setMenu(prev => !prev)
-      }
-      else{
-        return('') 
-      }
 
-    }
-    console.log("classname",getClassName(''));
       return(
         <div>
          <header >
@@ -126,18 +106,16 @@ export default function Layout({children}) {
                 </div>}
                    {/*phone view*/}
                    {typeof user !== 'undefined' && 
-                  <div className = "hamburger" onClick = {()=> getClassName('co')}> {/* co stands for close and open */}
+                  <div className = "hamburger" onClick = {() => setMenu(prev => !prev)}> {/* co stands for close and open */}
                     <span className = "line"></span>
                     <span className = "line"></span>
                     <span className = "line"></span>
-                    <div className = "hamdropdown">
-                       <div className = {()=> getClassName('')}>
+                    <div className = "hamdropdown" >
+                       <div className = {menu ? "dropdownContainer dropdownvisible": "dropdownContainer dropdowninvisible"}>
                           <Link className = "blackLink" to = "/"><p className = "menuparag">Ask Question</p></Link>
-                          <Link  className = "blackLink" to = "/groups"><p className = "menuparag">Groups</p></Link>
                           <Link  className = "blackLink"  to = "/about"> <p className = "menuparag">About</p></Link>
                           <Link  className = "blackLink" to = "/contact"> <p className = "menuparag">Contact</p></Link>
                           <Link   className = "blackLink" to = {`/user/${user.id}`}> <p className = "menuparag">My Profile</p></Link>
-                          <button onClick = {()=> getClassName('closeanimation')} className = "dropdownClose">X</button>
                        </div>
                     </div>
                   </div>

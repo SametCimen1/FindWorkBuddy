@@ -13,6 +13,7 @@
     width: 100%;
   }
   .logo{
+    background-color: red;
     min-width: 100px;
   }
   @media screen and (max-width:300px) {
@@ -356,4 +357,7 @@
 
 .closeanimation{
   background-color: red;
+}
+.hamdropdown{
+  
 }

@@ -11,6 +11,12 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 //routes
 
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
 const userRoute = require('./routes/user');
@@ -259,7 +265,12 @@ app.post("/deleteuserimage", checkAuth, async(req,res) =>{
   console.log("DELETE USER IMAGE ROUTE")
   console.log(id)
 })
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
 })

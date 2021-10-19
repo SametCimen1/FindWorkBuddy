@@ -70,7 +70,15 @@ export default function LongPost(){
             body:JSON.stringify({userid:userId})
         })
         const response = await data.json();
-        setImg(response.image);
+        console.log("REPSONSE FROM IMAGE")
+        console.log(response)
+        if(response.image === null){
+         setImg('null')
+        }
+        else{
+            setImg(response.image);
+        }
+
        }
       
       }
@@ -241,7 +249,8 @@ export default function LongPost(){
             <div className = "LongPost">
              <div className = "userInfo">
              <div className = "imgAndNameContainer">
-                           {myImage ? <img src = {`http://localhost:5000/img/${img}`} onClick = {()=> {history.push(`/user/${post.userid}`)}}  className = "userImage bgImg"/> : <img src = "/default.svg" onClick = {()=> {history.push(`/user/${post.userid}`)}} className = "userImage bgImg"/>}
+                 
+                           {(myImage && img !== 'null') ? <img src = {`http://localhost:5000/img/${img}`} onClick = {()=> {history.push(`/user/${post.userid}`)}}  className = "userImage bgImg"/> : <img src = "/default.svg" onClick = {()=> {history.push(`/user/${post.userid}`)}} className = "userImage bgImg"/>}
                             
                             <div className = "nameContainer">
                                 <p className = "userName">{post.username}</p>

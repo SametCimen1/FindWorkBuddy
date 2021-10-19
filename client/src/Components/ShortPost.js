@@ -67,7 +67,14 @@ export default function Post({post}){
           body:JSON.stringify({userid:userId})
       })
       const response = await data.json();
-      setImg(response.image);
+      if(response.image === null){
+          setImg("null")
+      }
+      else{
+        setImg("response.image");
+      }
+
+    
     
     
     }
@@ -126,7 +133,7 @@ export default function Post({post}){
         <div className = "post">
          <div className = "userInfo">
                    <div className = "imgAndNameContainer">
-                       {img.includes("http") ?    
+                       {( img === "null" && !img.includes("http")) ?    
                        <img onClick = {()=> history.push(`/user/${post.userid}`)}  src = "/default.svg" className = "userImage"/>
                        :
                        <img  onClick = {()=> history.push(`/user/${post.userid}`)}   src = {`http://localhost:5000/img/${img}`}  className = "userImage"/>

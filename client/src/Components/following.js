@@ -177,11 +177,11 @@ export default function Profile({myUser}){
                         <div className = {styles.inputContainer}>
                         <div className = {styles.newImgContainer}>
                           <input type = "file" name = "newimg"  className = {styles.newImageFile}/>
-                          <p>or paste url</p>
-                          <input type = "text" name = "newimgurl"  className = {styles.newImage}/>
+                          {/* <p>or paste url</p>
+                          <input type = "text" name = "newimgurl"  className = {styles.newImage}/> */}
                         </div>
-                        <input type = "text" className = {styles.aboutInput} name = "about" value = {about} onChange = {(e)=> setAbout(e.target.value)} placeholder = "about" />
-                        <input type = "text"className = {styles.nameInput}  name = "name" value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())} placeholder = "name" />
+                        <input type = "text" className = {styles.aboutInput} name = "about" value = {about} onChange = {(e)=> setAbout(e.target.value)} placeholder = "update about" />
+                        <input type = "text"className = {styles.nameInput}  name = "name" value = {name} onChange = {(e)=> setName(e.target.value.toLowerCase())} placeholder = "update name" />
                         {/* <input className =  {styles.deleteImage} type = ''></input> */}
                         <input className = {styles.uploadInput} type='submit' value='Upload!' />
                         <button className = {styles.deleteImage} onClick = {async() => {await fetch('https://localhost:5000/deleteuserimage',{
