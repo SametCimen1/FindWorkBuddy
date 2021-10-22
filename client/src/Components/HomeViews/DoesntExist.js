@@ -19,7 +19,7 @@ export default function UserExist(){
     return(
         <div>
           <Helmet>
-            <title>Home</title>
+            <title>Find Work Buddy</title>
           </Helmet>
          <main>
            <section className = "homeMain" style = {{backgroundImage:"url(/home.jpg)"}}>

@@ -70,7 +70,8 @@
 .firstLinksContainer{
   margin-left: 0.5rem;
   background-color: #112255;
-  border-radius: 40px;
+  border-radius: 20px;
+  padding:5px;
   display: flex;
   align-items: center;
   position: relative;
@@ -366,4 +367,7 @@
 }
 .hamdropdown{
   
+}
+.noMargin{
+  margin-right: 0 !important; 
 }

@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet'
 import '../../styles/userExistStyle.css'
 import {useState, useEffect} from 'react'
 import { useHistory } from "react-router-dom";
@@ -68,6 +69,9 @@ export default function UserExist(){
     },[])
     return(
         <div className =  "userExistContainer">
+               <Helmet>
+            <title>Find Work Buddy</title>
+          </Helmet>
             <div className = "userExistImageContainer" style = {{backgroundImage:'url(/search.jpg)'}}>
                  <h1 className = "userExistStart">Subject Search</h1>
                  <p className = "userExistType">Type your subject in to find related posts for your subject or create a post for your subject for others to see</p>

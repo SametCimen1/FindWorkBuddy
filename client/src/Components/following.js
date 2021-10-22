@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet'
 import NewComment from './NewComment'
 import styles from '../styles/profileStyle.module.css';
 import {useState, useEffect} from 'react';
@@ -113,6 +114,9 @@ export default function Profile({myUser}){
     }
     return(
         <div className = {styles.bgcolor} >
+               <Helmet>
+            <title>Find Work Buddy </title>
+          </Helmet>
             <div className = {styles.imgContainer}>
               <div className =  {styles.imgAndName} > 
                       {user.user.ownimg ? 

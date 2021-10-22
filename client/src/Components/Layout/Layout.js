@@ -123,23 +123,23 @@ export default function Layout({children}) {
 
                    {typeof user !== 'undefined' && 
                     <div className = "firstLinksContainer">
-                          <div className="dropdown" onClick = {dotsClicked}>
+                          {/* <div className="dropdown" onClick = {dotsClicked}>
                                 <div className = "dot dotwhite"></div>
                                 <div className = "dot dotwhite"></div>
                                 <div className = "dot dotwhite"></div>
-                          </div>
-                            <div className = {popup? 'popupvisible popup':"popupinvisible"}>
+                          </div> */}
+                            {/* <div className = {popup? 'popupvisible popup':"popupinvisible"}>
                               <div className = "layoutPupop">
                                 <h1>Edit post</h1>
                                 <h1>share post</h1>
                                 <h1>share post</h1>
                                 <h1>share post</h1>
                               </div>
-                          </div>
+                          </div> */}
                        {user.ownimg ?
-                   <img   src = {`http://localhost:5000/img/${user.image}`}  onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
+                   <img   src = {`http://localhost:5000/img/${user.image}`}  onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage noMargin" />
                     : 
-                     < img src = "/default.svg" onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
+                     < img src = "/default.svg" onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage noMargin" />
                       }
                     </div>
                   }

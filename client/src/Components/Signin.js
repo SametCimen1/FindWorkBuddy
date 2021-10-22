@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet'
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import {useEffect, useState} from 'react'
@@ -125,6 +126,9 @@ export default function Signup(){
   
     return (
       <div className = "container">
+                       <Helmet>
+            <title> Sign in Find Work Buddy </title>
+          </Helmet>
       <div className ="formAndTextContainer">
         <div className = "signUpText">
         <h2>Sign up <span>findworkbuddy is totally free!</span></h2>

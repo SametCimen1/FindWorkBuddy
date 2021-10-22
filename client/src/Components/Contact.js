@@ -1,9 +1,12 @@
 import stlyes from '../styles/getInTouch.module.css'
-
+import {Helmet} from 'react-helmet'
 
 export default function layout() {
     return(
     <div>
+           <Helmet>
+            <title> Contact Find Work Buddy</title>
+          </Helmet>
      <main className = {stlyes.mainContainer}> 
        <div className = {stlyes.touchContainer}>
          <h1>Get in Touch</h1>

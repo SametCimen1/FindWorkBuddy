@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet'
 import { useHistory } from "react-router-dom";
 import {  useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react'
@@ -254,6 +255,9 @@ export default function LongPost(){
     if(post !== null){
         return(
             <div className = "LongPost">
+            <Helmet>
+            <title>Find Work Buddy Post</title>
+           </Helmet>
              <div className = "userInfo">
              <div className = "imgAndNameContainer">
                  
