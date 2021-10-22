@@ -93,7 +93,7 @@ app.post('/admin', checkAuth, async(req,res,next) =>{
 })
 app.get('/sample', checkAuth, async(req,res,next) =>{
   const data = await pool.query("SELECT * FROM users");
-  console.log(data)
+
 })
 
 
@@ -190,8 +190,7 @@ app.get('/getimg', checkAuth, async(req,res) =>{
   // const filename = readFiles(dirName, onFileContentFunc, ()=> {console.log("ERROR IN DIR")})
 })
 app.post('/updateData', checkAuth, async(req,res) =>{
-  console.log("HIT")
-  console.log(req.body);
+
   if(req.files && Object.keys(req.files).length !== 0){
     await uploadImg(req.files, req.user._id);
   }
@@ -211,12 +210,12 @@ app.post('/updateData', checkAuth, async(req,res) =>{
 })
 const uploadImg = async(files, id) => {
   const imgName = await pool.query('SELECT image, ownimg FROM users WHERE id = $1', [id]);
-  console.log(imgName)
+
   if(imgName.rows[0].ownimg){
     fs.unlink(`${__dirname}/userimg/img/${imgName.rows[0].image}`, function (err) {
       if (err) console.log(err);
       // if no error, file has been deleted successfully
-      console.log('File deleted!');
+
     }); 
   }
 
@@ -237,7 +236,6 @@ app.post('/verify', async(req,res) =>{
   if(user){
   const validPassword = await bcrypt.compare(password, user.rows[0].password);
     if(!validPassword){
-      console.log("Invalid password")
         return res.status(400).send("Invalid Password");
     }
     if(!(user.rows[0].active)){
@@ -263,7 +261,7 @@ app.post('/verify', async(req,res) =>{
 app.post("/deleteuserimage", checkAuth, async(req,res) =>{
   const id = req.user._id;
   console.log("DELETE USER IMAGE ROUTE")
-  console.log(id)
+
 })
 
 io.on('connection', (socket) => {

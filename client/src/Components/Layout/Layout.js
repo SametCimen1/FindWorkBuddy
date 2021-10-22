@@ -113,7 +113,7 @@ export default function Layout({children}) {
                     <div className = "hamdropdown" >
                        <div className = {menu ? "dropdownContainer dropdownvisible": "dropdownContainer dropdowninvisible"}>
                           <Link className = "blackLink" to = "/"><p className = "menuparag">Ask Question</p></Link>
-                          <Link  className = "blackLink"  to = "/about"> <p className = "menuparag">About</p></Link>
+                          
                           <Link  className = "blackLink" to = "/contact"> <p className = "menuparag">Contact</p></Link>
                           <Link   className = "blackLink" to = {`/user/${user.id}`}> <p className = "menuparag">My Profile</p></Link>
                        </div>
@@ -136,7 +136,6 @@ export default function Layout({children}) {
                                 <h1>share post</h1>
                               </div>
                           </div>
-                          {console.log(user.ownimg)}
                        {user.ownimg ?
                    <img   src = {`http://localhost:5000/img/${user.image}`}  onClick={() => {history.push(`/user/${user.id}`); history.go(0)}} className = "userImage" />
                     : 

@@ -6,8 +6,7 @@ export default function Post({post}){
      const [img, setImg] = useState('');
      
     useEffect(()=>{
-        console.log("POST IS ")
-        console.log(post)
+
        setMyPost(post)
        isLiked()     
     },[])
@@ -109,7 +108,7 @@ export default function Post({post}){
             setMyPost(response)
         }
         else{
-            console.log('liking')
+
             const data = await fetch('http://localhost:5000/post/likepost',{
                 method:"POST",
                 headers: {

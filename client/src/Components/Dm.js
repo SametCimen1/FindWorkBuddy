@@ -21,7 +21,7 @@ export default function Dm(){
      })
      const response = await data.json()
      setReciever(reciever);
-     console.log(response)
+
     }
 
    return(

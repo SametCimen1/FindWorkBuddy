@@ -57,7 +57,7 @@ export default function Profile({myUser}){
               credentials: 'include', // Don't forget to specify this if you need cookies
               body:JSON.stringify({id:id})
             });
-            console.log("RETUNED")
+
           const response = await data.json();
           history.go(0);
       }
@@ -207,9 +207,8 @@ export default function Profile({myUser}){
                 <div>
                     <p className = {styles.option}>notifications</p>
                     {(newComments !== null && newComments.length >= 0) ?  newComments.map(id => (
-                      <div className = {styles.newCommentContainer}>
+                      <div className = {styles.newCommentContainer} key = {id}>
                         <NewComment id = {id}  key = {id} clickFund = {deleteNewComment}/>
-                        
                       </div>
                     )): <p className = {styles.none}>No new Comment</p>}
                     {followReq.length <= 0 ? <p className = {styles.none}>No new follow Request</p>:followReq.map(id => (

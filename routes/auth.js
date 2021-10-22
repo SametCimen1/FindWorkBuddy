@@ -87,8 +87,7 @@ router.post('/logout', (req,res) =>{
 
 router.post('/signin', async(req,res) =>{
     
-    console.log("called")
-    console.log("called signin")
+
     
     // const {error} = signinSchema.validate(req.body)
     // if(error){

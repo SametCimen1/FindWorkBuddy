@@ -36,7 +36,7 @@ export default function Signup(){
   const history = useHistory();
 
   const login = async(e) =>{
-    console.log("OKKKK")
+
     e.preventDefault();
     const data = await fetch("http://localhost:5000/api/user/signin", {  
     method:"POST",
@@ -48,7 +48,7 @@ export default function Signup(){
     credentials: 'include', // Don't forget to specify this if you need cookies
     body: JSON.stringify({password:password, email:email})
     })
-    console.log("fetch finished")
+
 
     if(data.status === 200){
       history.push("/");
